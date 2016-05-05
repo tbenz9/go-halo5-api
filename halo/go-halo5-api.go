@@ -16,7 +16,7 @@ func checkErr(err error) {
 	}
 }
 
-func EventsForMatch(baseurl, title, matchid string) string {
+func EventsForMatch(baseurl, title, matchid string) []byte {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/matches/%s/events", baseurl, title, matchid))
 	checkErr(err)
 	q := url.Query()
@@ -25,7 +25,7 @@ func EventsForMatch(baseurl, title, matchid string) string {
 	return response
 }
 
-func MatchesForPlayer(baseurl, title, player, modes string, start, count int) string {
+func MatchesForPlayer(baseurl, title, player, modes string, start, count int) []byte {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/players/%s/matches", baseurl, title, player))
 	checkErr(err)
 	q := url.Query()
@@ -44,7 +44,7 @@ func MatchesForPlayer(baseurl, title, player, modes string, start, count int) st
 	return response
 }
 
-func PlayerLeaderboard(baseurl, title, seasonid, playlistid string, count int) string {
+func PlayerLeaderboard(baseurl, title, seasonid, playlistid string, count int) []byte {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/player-leaderboards/csr/%s/%s", baseurl, title, seasonid, playlistid))
 	checkErr(err)
 	q := url.Query()
@@ -57,7 +57,7 @@ func PlayerLeaderboard(baseurl, title, seasonid, playlistid string, count int) s
 	return response
 }
 
-func CarnageReportArena(baseurl, title, matchid string) string {
+func CarnageReportArena(baseurl, title, matchid string) []byte {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/arena/matches/%s", baseurl, title, matchid))
 	checkErr(err)
 	q := url.Query()
@@ -66,7 +66,7 @@ func CarnageReportArena(baseurl, title, matchid string) string {
 	return response
 }
 
-func CarnageReportCampaign(baseurl, title, matchid string) string {
+func CarnageReportCampaign(baseurl, title, matchid string) []byte {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/campaign/matches/%s", baseurl, title, matchid))
 	checkErr(err)
 	q := url.Query()
@@ -75,7 +75,7 @@ func CarnageReportCampaign(baseurl, title, matchid string) string {
 	return response
 }
 
-func CarnageReportCustom(baseurl, title, matchid string) string {
+func CarnageReportCustom(baseurl, title, matchid string) []byte {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/custom/matches/%s", baseurl, title, matchid))
 	checkErr(err)
 	q := url.Query()
@@ -84,7 +84,7 @@ func CarnageReportCustom(baseurl, title, matchid string) string {
 	return response
 }
 
-func CarnageReportWarzone(baseurl, title, matchid string) string {
+func CarnageReportWarzone(baseurl, title, matchid string) []byte {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/warzone/matches/%s", baseurl, title, matchid))
 	checkErr(err)
 	q := url.Query()
@@ -93,8 +93,8 @@ func CarnageReportWarzone(baseurl, title, matchid string) string {
 	return response
 }
 
-func ServiceRecordArena(baseurl, title, players, seasonid string) string {
-	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/servicerecords/arena/", baseurl, title))
+func ServiceRecordArena(baseurl, title, players, seasonid string) []byte {
+	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/servicerecords/arena", baseurl, title))
 	checkErr(err)
 	q := url.Query()
 	q.Set("players", players)
@@ -106,8 +106,8 @@ func ServiceRecordArena(baseurl, title, players, seasonid string) string {
 	return response
 }
 
-func ServiceRecordCampaign(baseurl, title, players string) string {
-	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/servicerecords/campaign/", baseurl, title))
+func ServiceRecordCampaign(baseurl, title, players string) []byte {
+	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/servicerecords/campaign", baseurl, title))
 	checkErr(err)
 	q := url.Query()
 	q.Set("players", players)
@@ -116,8 +116,8 @@ func ServiceRecordCampaign(baseurl, title, players string) string {
 	return response
 }
 
-func ServiceRecordCustom(baseurl, title, players string) string {
-	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/servicerecords/custom/", baseurl, title))
+func ServiceRecordCustom(baseurl, title, players string) []byte {
+	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/servicerecords/custom", baseurl, title))
 	checkErr(err)
 	q := url.Query()
 	q.Set("players", players)
@@ -126,8 +126,8 @@ func ServiceRecordCustom(baseurl, title, players string) string {
 	return response
 }
 
-func ServiceRecordWarzone(baseurl, title, players string) string {
-	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/servicerecords/warzone/", baseurl, title))
+func ServiceRecordWarzone(baseurl, title, players string) []byte {
+	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/servicerecords/warzone", baseurl, title))
 	checkErr(err)
 	q := url.Query()
 	q.Set("players", players)
@@ -137,8 +137,8 @@ func ServiceRecordWarzone(baseurl, title, players string) string {
 }
 
 // Begin profile section
-func EmblemImage(baseurl, title, player string, size int) string {
-	url, err := url.Parse(fmt.Sprintf("%s/profile/%s/profiles/%s/", baseurl, title, player))
+func EmblemImage(baseurl, title, player string, size int) []byte {
+	url, err := url.Parse(fmt.Sprintf("%s/profile/%s/profiles/%s", baseurl, title, player))
 	checkErr(err)
 	q := url.Query()
 	if (size == 95) || (size == 128) || (size == 190) || (size == 256) || (size == 512) {
@@ -149,8 +149,8 @@ func EmblemImage(baseurl, title, player string, size int) string {
 	return response
 }
 
-func SpartanImage(baseurl, title, player string, size int, crop string) string {
-	url, err := url.Parse(fmt.Sprintf("%s/profile/%s/profiles/%s/spartan/", baseurl, title, player))
+func SpartanImage(baseurl, title, player string, size int, crop string) []byte {
+	url, err := url.Parse(fmt.Sprintf("%s/profile/%s/profiles/%s/spartan", baseurl, title, player))
 	checkErr(err)
 	q := url.Query()
 	if (size == 95) || (size == 128) || (size == 190) || (size == 256) || (size == 512) {
@@ -165,87 +165,87 @@ func SpartanImage(baseurl, title, player string, size int, crop string) string {
 }
 
 // Begin metadata section
-func CampaignMissions(baseurl, title string) string {
+func CampaignMissions(baseurl, title string) []byte {
 	return metadataRequest(baseurl, title, "campaign-missions", "")
 }
 
-func Commendations(baseurl, title string) string {
+func Commendations(baseurl, title string) []byte {
 	return metadataRequest(baseurl, title, "commendations", "")
 }
 
-func CsrDesignations(baseurl, title string) string {
+func CsrDesignations(baseurl, title string) []byte {
 	return metadataRequest(baseurl, title, "csr-designations", "")
 }
 
-func Enemies(baseurl, title string) string {
+func Enemies(baseurl, title string) []byte {
 	return metadataRequest(baseurl, title, "enemies", "")
 }
 
-func FlexibleStats(baseurl, title string) string {
+func FlexibleStats(baseurl, title string) []byte {
 	return metadataRequest(baseurl, title, "flexible-stats", "")
 }
 
-func GameBaseVariants(baseurl, title string) string {
+func GameBaseVariants(baseurl, title string) []byte {
 	return metadataRequest(baseurl, title, "game-base-variants", "")
 }
 
-func GameVariants(baseurl, title, id string) string {
+func GameVariants(baseurl, title, id string) []byte {
 	return metadataRequest(baseurl, title, "game-variants", id)
 }
 
-func Impulses(baseurl, title string) string {
+func Impulses(baseurl, title string) []byte {
 	return metadataRequest(baseurl, title, "impulses", "")
 }
 
-func MapVariants(baseurl, title, id string) string {
+func MapVariants(baseurl, title, id string) []byte {
 	return metadataRequest(baseurl, title, "map-variants", id)
 }
 
-func Maps(baseurl, title string) string {
+func Maps(baseurl, title string) []byte {
 	return metadataRequest(baseurl, title, "maps", "")
 }
 
-func Medals(baseurl, title string) string {
+func Medals(baseurl, title string) []byte {
 	return metadataRequest(baseurl, title, "medals", "")
 }
 
-func Playlists(baseurl, title string) string {
+func Playlists(baseurl, title string) []byte {
 	return metadataRequest(baseurl, title, "playlists", "")
 }
 
-func RequisitionPacks(baseurl, title, id string) string {
+func RequisitionPacks(baseurl, title, id string) []byte {
 	return metadataRequest(baseurl, title, "requisition-packs", id)
 }
 
-func Requisitions(baseurl, title, id string) string {
+func Requisitions(baseurl, title, id string) []byte {
 	return metadataRequest(baseurl, title, "requisitions", id)
 }
 
-func Seasons(baseurl, title string) string {
+func Seasons(baseurl, title string) []byte {
 	return metadataRequest(baseurl, title, "seasons", "")
 }
 
-func Skulls(baseurl, title string) string {
+func Skulls(baseurl, title string) []byte {
 	return metadataRequest(baseurl, title, "skulls", "")
 }
 
-func SpartanRanks(baseurl, title string) string {
+func SpartanRanks(baseurl, title string) []byte {
 	return metadataRequest(baseurl, title, "spartan-ranks", "")
 }
 
-func TeamColors(baseurl, title string) string {
+func TeamColors(baseurl, title string) []byte {
 	return metadataRequest(baseurl, title, "team-colors", "")
 }
 
-func Vehicles(baseurl, title string) string {
+func Vehicles(baseurl, title string) []byte {
 	return metadataRequest(baseurl, title, "vehicles", "")
 }
 
-func Weapons(baseurl, title string) string {
+func Weapons(baseurl, title string) []byte {
 	return metadataRequest(baseurl, title, "weapons", "")
 }
 
-func metadataRequest(baseurl, title, datatype, id string) string {
+func metadataRequest(baseurl, title, datatype, id string) []byte {
 	url, err := url.Parse(fmt.Sprintf("%s/metadata/%s/metadata/%s/%s", baseurl, title, datatype, id))
 	checkErr(err)
 	q := url.Query()
@@ -254,7 +254,7 @@ func metadataRequest(baseurl, title, datatype, id string) string {
 	return response
 }
 
-func sendRequest(url string) string {
+func sendRequest(url string) []byte {
 	request, err := http.NewRequest("GET", url, nil)
 	checkErr(err)
 	request.Header.Set("Ocp-Apim-Subscription-Key", getAPIKey())
@@ -263,9 +263,16 @@ func sendRequest(url string) string {
 	checkErr(err)
 	defer response.Body.Close()
 
+	// Return the URL of the image for SpartanImage and EmblemImage
+	if url != response.Request.URL.String() {
+		return []byte(response.Request.URL.String())
+	}
+
+	// If its not SpartanImage or EmblemImage return the body
 	contents, err := ioutil.ReadAll(response.Body)
 	checkErr(err)
-	return string(contents)
+
+	return contents
 }
 
 func getAPIKey() string {

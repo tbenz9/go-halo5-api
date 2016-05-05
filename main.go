@@ -1,11 +1,5 @@
 package main
 
-import (
-	"fmt"
-
-	"github.com/tbenz9/go-halo5-api/halo"
-)
-
 var baseurl string = "https://www.haloapi.com"
 var title string = "h5"
 
@@ -19,10 +13,22 @@ var samplePlayers string = "motta13,smoke721"
 
 func main() {
 	// Uncomment any of the below for sample output.
-	fmt.Println(halo.MatchesForPlayer(baseurl, title, sampleGamertag, "warzone", 0, 0))
-	//fmt.Println(events_for_match(baseurl, title, sampleMatchID))
-	//fmt.Println(player_leaderboard(baseurl, title, sampleSeasonID, samplePlaylistID, 0))
-	//fmt.Println(service_record_arena(baseurl, title, samplePlayers, sampleSeasonID))
-	//fmt.Println(vehicles(baseurl, title))
-	//fmt.Println(spartan_image(baseurl, title, gamertag, 0, ""))
+
+	// Matches For Player
+	//fmt.Println(string(halo.MatchesForPlayer(baseurl, title, sampleGamertag, "warzone", 0, 0)))
+
+	// Events For Match
+	//fmt.Println(string(halo.EventsForMatch(baseurl, title, sampleMatchID)))
+
+	// Player Leaderboards
+	//fmt.Println(string(halo.PlayerLeaderboard(baseurl, title, sampleSeasonID, samplePlaylistID, 0)))
+
+	// Service Record: Arena
+	//fmt.Println(string(halo.ServiceRecordArena(baseurl, title, samplePlayers, sampleSeasonID)))
+
+	// Vehicles
+	//fmt.Println(string(halo.Vehicles(baseurl, title)))
+
+	// Spartan Image
+	//fmt.Println(string(halo.SpartanImage(baseurl, title, sampleGamertag, 0, "")))
 }
