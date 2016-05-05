@@ -257,8 +257,7 @@ func metadataRequest(baseurl, title, datatype, id string) string {
 func sendRequest(url string) string {
 	request, err := http.NewRequest("GET", url, nil)
 	checkErr(err)
-	apikey := os.Getenv("HALO_API_KEY")
-	request.Header.Set("Ocp-Apim-Subscription-Key", apikey)
+	request.Header.Set("Ocp-Apim-Subscription-Key", getAPIKey())
 
 	response, err := http.DefaultClient.Do(request)
 	checkErr(err)
@@ -269,20 +268,10 @@ func sendRequest(url string) string {
 	return string(contents)
 }
 
-// Sample values for testing
-var sampleGamertag string = "motta13"
-var sampleMode string = "warzone"
-var sampleMatchID string = "c35a35f8-f450-4836-a4c2-65100a7acb79"
-var sampleSeasonID string = "b46c2095-4ca6-4f4b-a565-4702d7cfe586"   //February 2016 Season
-var samplePlaylistID string = "2323b76a-db98-4e03-aa37-e171cfbdd1a4" //SWAT gametype 2016 Season
-var samplePlayers string = "motta13,smoke721"
-
-func main() {
-	// Uncomment any of the below for sample output.
-	//fmt.Println(matches_for_player(baseurl, title, SampleGamertag, "warzone", 0, 0))
-	//fmt.Println(events_for_match(baseurl, title, sampleMatchID))
-	//fmt.Println(player_leaderboard(baseurl, title, sampleSeasonID, samplePlaylistID, 0))
-	//fmt.Println(service_record_arena(baseurl, title, samplePlayers, sampleSeasonID))
-	//fmt.Println(vehicles(baseurl, title))
-	//fmt.Println(spartan_image(baseurl, title, gamertag, 0, ""))
+func getAPIKey() string {
+	apikey := os.Getenv("HALO_API_KEY")
+	if len(apikey) != 32 {
+		fmt.Println("Invalid API Key")
+	}
+	return apikey
 }

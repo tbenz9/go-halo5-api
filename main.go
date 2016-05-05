@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/dmmcquay/go-halo5-api/halo"
+	"github.com/tbenz9/go-halo5-api/halo"
 )
 
 var baseurl string = "https://www.haloapi.com"
