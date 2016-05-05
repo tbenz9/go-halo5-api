@@ -1,4 +1,4 @@
-package main
+package halo
 
 import (
 	"fmt"
@@ -10,25 +10,22 @@ import (
 	"strings"
 )
 
-var baseurl string = "https://www.haloapi.com"
-var title string = "h5"
-
 func checkErr(err error) {
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
-func events_for_match(baseurl, title, matchid string) string {
+func EventsForMatch(baseurl, title, matchid string) string {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/matches/%s/events", baseurl, title, matchid))
 	checkErr(err)
 	q := url.Query()
 	url.RawQuery = q.Encode()
-	response := send_request(url.String())
+	response := sendRequest(url.String())
 	return response
 }
 
-func matches_for_player(baseurl, title, player, modes string, start, count int) string {
+func MatchesForPlayer(baseurl, title, player, modes string, start, count int) string {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/players/%s/matches", baseurl, title, player))
 	checkErr(err)
 	q := url.Query()
@@ -43,11 +40,11 @@ func matches_for_player(baseurl, title, player, modes string, start, count int) 
 		q.Set("count", string(count))
 	}
 	url.RawQuery = q.Encode()
-	response := send_request(url.String())
+	response := sendRequest(url.String())
 	return response
 }
 
-func player_leaderboard(baseurl, title, seasonid, playlistid string, count int) string {
+func PlayerLeaderboard(baseurl, title, seasonid, playlistid string, count int) string {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/player-leaderboards/csr/%s/%s", baseurl, title, seasonid, playlistid))
 	checkErr(err)
 	q := url.Query()
@@ -56,47 +53,47 @@ func player_leaderboard(baseurl, title, seasonid, playlistid string, count int) 
 		q.Set("count", string(count))
 	}
 	url.RawQuery = q.Encode()
-	response := send_request(url.String())
+	response := sendRequest(url.String())
 	return response
 }
 
-func carnage_report_arena(baseurl, title, matchid string) string {
+func CarnageReportArena(baseurl, title, matchid string) string {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/arena/matches/%s", baseurl, title, matchid))
 	checkErr(err)
 	q := url.Query()
 	url.RawQuery = q.Encode()
-	response := send_request(url.String())
+	response := sendRequest(url.String())
 	return response
 }
 
-func carnage_report_campaign(baseurl, title, matchid string) string {
+func CarnageReportCampaign(baseurl, title, matchid string) string {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/campaign/matches/%s", baseurl, title, matchid))
 	checkErr(err)
 	q := url.Query()
 	url.RawQuery = q.Encode()
-	response := send_request(url.String())
+	response := sendRequest(url.String())
 	return response
 }
 
-func carnage_report_custom(baseurl, title, matchid string) string {
+func CarnageReportCustom(baseurl, title, matchid string) string {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/custom/matches/%s", baseurl, title, matchid))
 	checkErr(err)
 	q := url.Query()
 	url.RawQuery = q.Encode()
-	response := send_request(url.String())
+	response := sendRequest(url.String())
 	return response
 }
 
-func carnage_report_warzone(baseurl, title, matchid string) string {
+func CarnageReportWarzone(baseurl, title, matchid string) string {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/warzone/matches/%s", baseurl, title, matchid))
 	checkErr(err)
 	q := url.Query()
 	url.RawQuery = q.Encode()
-	response := send_request(url.String())
+	response := sendRequest(url.String())
 	return response
 }
 
-func service_record_arena(baseurl, title, players, seasonid string) string {
+func ServiceRecordArena(baseurl, title, players, seasonid string) string {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/servicerecords/arena/", baseurl, title))
 	checkErr(err)
 	q := url.Query()
@@ -105,42 +102,42 @@ func service_record_arena(baseurl, title, players, seasonid string) string {
 		q.Set("seasonId", seasonid)
 	}
 	url.RawQuery = q.Encode()
-	response := send_request(url.String())
+	response := sendRequest(url.String())
 	return response
 }
 
-func service_record_campaign(baseurl, title, players string) string {
+func ServiceRecordCampaign(baseurl, title, players string) string {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/servicerecords/campaign/", baseurl, title))
 	checkErr(err)
 	q := url.Query()
 	q.Set("players", players)
 	url.RawQuery = q.Encode()
-	response := send_request(url.String())
+	response := sendRequest(url.String())
 	return response
 }
 
-func service_record_custom(baseurl, title, players string) string {
+func ServiceRecordCustom(baseurl, title, players string) string {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/servicerecords/custom/", baseurl, title))
 	checkErr(err)
 	q := url.Query()
 	q.Set("players", players)
 	url.RawQuery = q.Encode()
-	response := send_request(url.String())
+	response := sendRequest(url.String())
 	return response
 }
 
-func service_record_warzone(baseurl, title, players string) string {
+func ServiceRecordWarzone(baseurl, title, players string) string {
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/servicerecords/warzone/", baseurl, title))
 	checkErr(err)
 	q := url.Query()
 	q.Set("players", players)
 	url.RawQuery = q.Encode()
-	response := send_request(url.String())
+	response := sendRequest(url.String())
 	return response
 }
 
 // Begin profile section
-func emblem_image(baseurl, title, player string, size int) string {
+func EmblemImage(baseurl, title, player string, size int) string {
 	url, err := url.Parse(fmt.Sprintf("%s/profile/%s/profiles/%s/", baseurl, title, player))
 	checkErr(err)
 	q := url.Query()
@@ -148,11 +145,11 @@ func emblem_image(baseurl, title, player string, size int) string {
 		q.Set("size", string(size))
 	}
 	url.RawQuery = q.Encode()
-	response := send_request(url.String())
+	response := sendRequest(url.String())
 	return response
 }
 
-func spartan_image(baseurl, title, player string, size int, crop string) string {
+func SpartanImage(baseurl, title, player string, size int, crop string) string {
 	url, err := url.Parse(fmt.Sprintf("%s/profile/%s/profiles/%s/spartan/", baseurl, title, player))
 	checkErr(err)
 	q := url.Query()
@@ -163,101 +160,101 @@ func spartan_image(baseurl, title, player string, size int, crop string) string 
 		q.Set("crop", crop)
 	}
 	url.RawQuery = q.Encode()
-	response := send_request(url.String())
+	response := sendRequest(url.String())
 	return response
 }
 
 // Begin metadata section
-func campaign_missions(baseurl, title string) string {
-	return metadata_request(baseurl, title, "campaign-missions", "")
+func CampaignMissions(baseurl, title string) string {
+	return metadataRequest(baseurl, title, "campaign-missions", "")
 }
 
-func commendations(baseurl, title string) string {
-	return metadata_request(baseurl, title, "commendations", "")
+func Commendations(baseurl, title string) string {
+	return metadataRequest(baseurl, title, "commendations", "")
 }
 
-func csr_designations(baseurl, title string) string {
-	return metadata_request(baseurl, title, "csr-designations", "")
+func CsrDesignations(baseurl, title string) string {
+	return metadataRequest(baseurl, title, "csr-designations", "")
 }
 
-func enemies(baseurl, title string) string {
-	return metadata_request(baseurl, title, "enemies", "")
+func Enemies(baseurl, title string) string {
+	return metadataRequest(baseurl, title, "enemies", "")
 }
 
-func flexible_stats(baseurl, title string) string {
-	return metadata_request(baseurl, title, "flexible-stats", "")
+func FlexibleStats(baseurl, title string) string {
+	return metadataRequest(baseurl, title, "flexible-stats", "")
 }
 
-func game_base_variants(baseurl, title string) string {
-	return metadata_request(baseurl, title, "game-base-variants", "")
+func GameBaseVariants(baseurl, title string) string {
+	return metadataRequest(baseurl, title, "game-base-variants", "")
 }
 
-func game_variants(baseurl, title, id string) string {
-	return metadata_request(baseurl, title, "game-variants", id)
+func GameVariants(baseurl, title, id string) string {
+	return metadataRequest(baseurl, title, "game-variants", id)
 }
 
-func impulses(baseurl, title string) string {
-	return metadata_request(baseurl, title, "impulses", "")
+func Impulses(baseurl, title string) string {
+	return metadataRequest(baseurl, title, "impulses", "")
 }
 
-func map_variants(baseurl, title, id string) string {
-	return metadata_request(baseurl, title, "map-variants", id)
+func MapVariants(baseurl, title, id string) string {
+	return metadataRequest(baseurl, title, "map-variants", id)
 }
 
-func maps(baseurl, title string) string {
-	return metadata_request(baseurl, title, "maps", "")
+func Maps(baseurl, title string) string {
+	return metadataRequest(baseurl, title, "maps", "")
 }
 
-func medals(baseurl, title string) string {
-	return metadata_request(baseurl, title, "medals", "")
+func Medals(baseurl, title string) string {
+	return metadataRequest(baseurl, title, "medals", "")
 }
 
-func playlists(baseurl, title string) string {
-	return metadata_request(baseurl, title, "playlists", "")
+func Playlists(baseurl, title string) string {
+	return metadataRequest(baseurl, title, "playlists", "")
 }
 
-func requisition_packs(baseurl, title, id string) string {
-	return metadata_request(baseurl, title, "requisition-packs", id)
+func RequisitionPacks(baseurl, title, id string) string {
+	return metadataRequest(baseurl, title, "requisition-packs", id)
 }
 
-func requisitions(baseurl, title, id string) string {
-	return metadata_request(baseurl, title, "requisitions", id)
+func Requisitions(baseurl, title, id string) string {
+	return metadataRequest(baseurl, title, "requisitions", id)
 }
 
-func seasons(baseurl, title string) string {
-	return metadata_request(baseurl, title, "seasons", "")
+func Seasons(baseurl, title string) string {
+	return metadataRequest(baseurl, title, "seasons", "")
 }
 
-func skulls(baseurl, title string) string {
-	return metadata_request(baseurl, title, "skulls", "")
+func Skulls(baseurl, title string) string {
+	return metadataRequest(baseurl, title, "skulls", "")
 }
 
-func spartan_ranks(baseurl, title string) string {
-	return metadata_request(baseurl, title, "spartan-ranks", "")
+func SpartanRanks(baseurl, title string) string {
+	return metadataRequest(baseurl, title, "spartan-ranks", "")
 }
 
-func team_colors(baseurl, title string) string {
-	return metadata_request(baseurl, title, "team-colors", "")
+func TeamColors(baseurl, title string) string {
+	return metadataRequest(baseurl, title, "team-colors", "")
 }
 
-func vehicles(baseurl, title string) string {
-	return metadata_request(baseurl, title, "vehicles", "")
+func Vehicles(baseurl, title string) string {
+	return metadataRequest(baseurl, title, "vehicles", "")
 }
 
-func weapons(baseurl, title string) string {
-	return metadata_request(baseurl, title, "weapons", "")
+func Weapons(baseurl, title string) string {
+	return metadataRequest(baseurl, title, "weapons", "")
 }
 
-func metadata_request(baseurl, title, datatype, id string) string {
+func metadataRequest(baseurl, title, datatype, id string) string {
 	url, err := url.Parse(fmt.Sprintf("%s/metadata/%s/metadata/%s/%s", baseurl, title, datatype, id))
 	checkErr(err)
 	q := url.Query()
 	url.RawQuery = q.Encode()
-	response := send_request(url.String())
+	response := sendRequest(url.String())
 	return response
 }
 
-func send_request(url string) string {
+func sendRequest(url string) string {
 	request, err := http.NewRequest("GET", url, nil)
 	checkErr(err)
 	apikey := os.Getenv("HALO_API_KEY")
