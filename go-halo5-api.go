@@ -6,13 +6,12 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 )
 
 var baseurl string = "https://www.haloapi.com"
-var gamertag string = "motta13"
 var title string = "h5"
-var apikey string = ""
 
 func checkErr(err error) {
 	if err != nil {
@@ -164,7 +163,6 @@ func spartan_image(baseurl, title, player string, size int, crop string) string 
 		q.Set("crop", crop)
 	}
 	url.RawQuery = q.Encode()
-	fmt.Println(url.String())
 	response := send_request(url.String())
 	return response
 }
@@ -262,6 +260,7 @@ func metadata_request(baseurl, title, datatype, id string) string {
 func send_request(url string) string {
 	request, err := http.NewRequest("GET", url, nil)
 	checkErr(err)
+	apikey := os.Getenv("HALO_API_KEY")
 	request.Header.Set("Ocp-Apim-Subscription-Key", apikey)
 
 	response, err := http.DefaultClient.Do(request)
@@ -274,6 +273,7 @@ func send_request(url string) string {
 }
 
 // Sample values for testing
+var sampleGamertag string = "motta13"
 var sampleMode string = "warzone"
 var sampleMatchID string = "c35a35f8-f450-4836-a4c2-65100a7acb79"
 var sampleSeasonID string = "b46c2095-4ca6-4f4b-a565-4702d7cfe586"   //February 2016 Season
@@ -282,7 +282,7 @@ var samplePlayers string = "motta13,smoke721"
 
 func main() {
 	// Uncomment any of the below for sample output.
-	//fmt.Println(matches_for_player(baseurl, title, gamertag, "warzone", 0, 0))
+	//fmt.Println(matches_for_player(baseurl, title, SampleGamertag, "warzone", 0, 0))
 	//fmt.Println(events_for_match(baseurl, title, sampleMatchID))
 	//fmt.Println(player_leaderboard(baseurl, title, sampleSeasonID, samplePlaylistID, 0))
 	//fmt.Println(service_record_arena(baseurl, title, samplePlayers, sampleSeasonID))
