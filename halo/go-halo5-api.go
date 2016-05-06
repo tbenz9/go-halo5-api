@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"regexp"
 	"strings"
 )
 
@@ -17,6 +18,7 @@ func checkErr(err error) {
 }
 
 func EventsForMatch(baseurl, title, matchid string) []byte {
+	verifyValidID(matchid, "Match ID")
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/matches/%s/events", baseurl, title, matchid))
 	checkErr(err)
 	q := url.Query()
@@ -45,6 +47,8 @@ func MatchesForPlayer(baseurl, title, player, modes string, start, count int) []
 }
 
 func PlayerLeaderboard(baseurl, title, seasonid, playlistid string, count int) []byte {
+	verifyValidID(playlistid, "Playlist ID")
+	verifyValidID(seasonid, "Season ID")
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/player-leaderboards/csr/%s/%s", baseurl, title, seasonid, playlistid))
 	checkErr(err)
 	q := url.Query()
@@ -58,6 +62,7 @@ func PlayerLeaderboard(baseurl, title, seasonid, playlistid string, count int) [
 }
 
 func CarnageReportArena(baseurl, title, matchid string) []byte {
+	verifyValidID(matchid, "Match ID")
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/arena/matches/%s", baseurl, title, matchid))
 	checkErr(err)
 	q := url.Query()
@@ -67,6 +72,7 @@ func CarnageReportArena(baseurl, title, matchid string) []byte {
 }
 
 func CarnageReportCampaign(baseurl, title, matchid string) []byte {
+	verifyValidID(matchid, "Match ID")
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/campaign/matches/%s", baseurl, title, matchid))
 	checkErr(err)
 	q := url.Query()
@@ -76,6 +82,7 @@ func CarnageReportCampaign(baseurl, title, matchid string) []byte {
 }
 
 func CarnageReportCustom(baseurl, title, matchid string) []byte {
+	verifyValidID(matchid, "Match ID")
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/custom/matches/%s", baseurl, title, matchid))
 	checkErr(err)
 	q := url.Query()
@@ -85,6 +92,7 @@ func CarnageReportCustom(baseurl, title, matchid string) []byte {
 }
 
 func CarnageReportWarzone(baseurl, title, matchid string) []byte {
+	verifyValidID(matchid, "Match ID")
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/warzone/matches/%s", baseurl, title, matchid))
 	checkErr(err)
 	q := url.Query()
@@ -94,6 +102,7 @@ func CarnageReportWarzone(baseurl, title, matchid string) []byte {
 }
 
 func ServiceRecordArena(baseurl, title, players, seasonid string) []byte {
+	verifyValidID(seasonid, "Season ID")
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/servicerecords/arena", baseurl, title))
 	checkErr(err)
 	q := url.Query()
@@ -281,4 +290,12 @@ func getAPIKey() string {
 		fmt.Println("Invalid API Key")
 	}
 	return apikey
+}
+
+func verifyValidID(ID, name string) {
+	re, _ := regexp.Compile("^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$")
+	valid := re.MatchString(ID)
+	if valid == false {
+		fmt.Printf("%s is not a valid %s\n", ID, name)
+	}
 }
