@@ -165,7 +165,7 @@ func (h *Halo) Playlists() PlaylistsStruct {
 
 func (h *Halo) RequisitionPacks(id string) RequisitionPacksStruct {
 	var j RequisitionPacksStruct
-	jsonObject, err := h.metadataRequest("requisitions-packs", id)
+	jsonObject, err := h.metadataRequest("requisition-packs", id)
 	if err != nil {
 		log.Fatal("MetadataRequest Failed: ", err)
 	}
