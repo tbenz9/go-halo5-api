@@ -2,7 +2,7 @@
 go-halo5-api is a wrapper around the Halo5 API as documented at https://developer.haloapi.com.
 
 # Usage
-Set your API key as an environment variable
+Set your API key as an environment variable.  Request and API key at https://developer.haloapi.com/products
 ```go
 export HALO_API_KEY="123456789abcdefghi"
 ```
@@ -23,7 +23,7 @@ import (
 )
 
 func main() {
-    fmt.Println(vehicles("https://www.haloapi.com", "h5"))
+    fmt.Println(string(Vehicles("https://www.haloapi.com", "h5")))
 }
 ```
 Results:
