@@ -1,3 +1,5 @@
+
+
 type CarnageReportArenaStruct struct {
 	GameBaseVariantID     string `json:"GameBaseVariantId"`
 	GameVariantID         string `json:"GameVariantId"`
@@ -574,7 +576,15 @@ type CarnageReportWarzoneStruct struct {
 	TotalDuration string `json:"TotalDuration"`
 }
 
-type EnemiesStruct []interface{}
+type EnemiesStruct []struct {
+	ContentID         string      `json:"contentId"`
+	Description       interface{} `json:"description"`
+	Faction           string      `json:"faction"`
+	ID                string      `json:"id"`
+	LargeIconImageURL string      `json:"largeIconImageUrl"`
+	Name              string      `json:"name"`
+	SmallIconImageURL string      `json:"smallIconImageUrl"`
+}
 
 type EventsForMatchStruct struct {
 	GameEvents []struct {
@@ -605,9 +615,21 @@ type EventsForMatchStruct struct {
 	} `json:"Links"`
 }
 
-type FlexibleStatsStruct []interface{}
+type FlexibleStatsStruct struct {
+	ContentID string `json:"contentId"`
+	ID        string `json:"id"`
+	Name      string `json:"name"`
+	Type      string `json:"type"`
+}
 
-type GameBaseVariantsStruct []interface{}
+type GameBaseVariantsStruct []struct {
+	ContentID          string   `json:"contentId"`
+	IconURL            string   `json:"iconUrl"`
+	ID                 string   `json:"id"`
+	InternalName       string   `json:"internalName"`
+	Name               string   `json:"name"`
+	SupportedGameModes []string `json:"supportedGameModes"`
+}
 
 type GameVariantsStruct struct {
 	ContentID         string `json:"contentId"`
@@ -618,9 +640,20 @@ type GameVariantsStruct struct {
 	Name              string `json:"name"`
 }
 
-type ImpulsesStruct []interface{}
+type ImpulsesStruct []struct {
+	ContentID    string `json:"contentId"`
+	ID           string `json:"id"`
+	InternalName string `json:"internalName"`
+}
 
-type MapsStruct []interface{}
+type MapsStruct []struct {
+	ContentID          string   `json:"contentId"`
+	Description        string   `json:"description"`
+	ID                 string   `json:"id"`
+	ImageURL           string   `json:"imageUrl"`
+	Name               string   `json:"name"`
+	SupportedGameModes []string `json:"supportedGameModes"`
+}
 
 type MapVariantsStruct struct {
 	ContentID   string `json:"contentId"`
@@ -715,7 +748,23 @@ type MatchesForPlayerStruct struct {
 	Start int `json:"Start"`
 }
 
-type MedalsStruct []interface{}
+type MedalsStruct []struct {
+	Classification string `json:"classification"`
+	ContentID      string `json:"contentId"`
+	Description    string `json:"description"`
+	Difficulty     int    `json:"difficulty"`
+	ID             string `json:"id"`
+	Name           string `json:"name"`
+	SpriteLocation struct {
+		Height         int    `json:"height"`
+		Left           int    `json:"left"`
+		SpriteHeight   int    `json:"spriteHeight"`
+		SpriteSheetURI string `json:"spriteSheetUri"`
+		SpriteWidth    int    `json:"spriteWidth"`
+		Top            int    `json:"top"`
+		Width          int    `json:"width"`
+	} `json:"spriteLocation"`
+}
 
 type PlayerLeaderboardStruct struct {
 	Count int `json:"Count"`
@@ -748,7 +797,16 @@ type PlayerLeaderboardStruct struct {
 	Start int `json:"Start"`
 }
 
-type PlaylistsStruct []interface{}
+type PlaylistsStruct []struct {
+	ContentID   string      `json:"contentId"`
+	Description string      `json:"description"`
+	GameMode    string      `json:"gameMode"`
+	ID          string      `json:"id"`
+	ImageURL    interface{} `json:"imageUrl"`
+	IsActive    bool        `json:"isActive"`
+	IsRanked    bool        `json:"isRanked"`
+	Name        string      `json:"name"`
+}
 
 type RequisitionPacksStruct struct {
 	ContentID                    string        `json:"contentId"`
@@ -793,7 +851,25 @@ type RequisitionsStruct struct {
 	UseType                    string      `json:"useType"`
 }
 
-type SeasonsStruct []interface{}
+type SeasonsStruct []struct {
+	ContentID string      `json:"contentId"`
+	EndDate   string      `json:"endDate"`
+	IconURL   interface{} `json:"iconUrl"`
+	ID        string      `json:"id"`
+	IsActive  bool        `json:"isActive"`
+	Name      string      `json:"name"`
+	Playlists []struct {
+		ContentID   string      `json:"contentId"`
+		Description string      `json:"description"`
+		GameMode    string      `json:"gameMode"`
+		ID          string      `json:"id"`
+		ImageURL    interface{} `json:"imageUrl"`
+		IsActive    bool        `json:"isActive"`
+		IsRanked    bool        `json:"isRanked"`
+		Name        string      `json:"name"`
+	} `json:"playlists"`
+	StartDate string `json:"startDate"`
+}
 
 type ServiceRecordArenaStruct struct {
 	Links struct {
@@ -1596,14 +1672,55 @@ type ServiceRecordWarzoneStruct struct {
 	} `json:"Results"`
 }
 
-type SkullsStruct []interface{}
+type SkullsStruct []struct {
+	ContentID   string `json:"contentId"`
+	Description string `json:"description"`
+	ID          string `json:"id"`
+	ImageURL    string `json:"imageUrl"`
+	MissionID   string `json:"missionId"`
+	Name        string `json:"name"`
+}
 
-type SpartanRanksStruct []interface{}
+type SpartanRanksStruct []struct {
+	ContentID string `json:"contentId"`
+	ID        string `json:"id"`
+	Reward    struct {
+		ContentID        string        `json:"contentId"`
+		ID               string        `json:"id"`
+		RequisitionPacks []interface{} `json:"requisitionPacks"`
+		Xp               int           `json:"xp"`
+	} `json:"reward"`
+	StartXp int `json:"startXp"`
+}
 
-type TeamColorsStruct []interface{}
+type TeamColorsStruct []struct {
+	Color       string      `json:"color"`
+	ContentID   string      `json:"contentId"`
+	Description interface{} `json:"description"`
+	IconURL     string      `json:"iconUrl"`
+	ID          string      `json:"id"`
+	Name        string      `json:"name"`
+}
 
-type VehiclesStruct []interface{}
+type VehiclesStruct []struct {
+	ContentID         string `json:"contentId"`
+	Description       string `json:"description"`
+	ID                string `json:"id"`
+	IsUsableByPlayer  bool   `json:"isUsableByPlayer"`
+	LargeIconImageURL string `json:"largeIconImageUrl"`
+	Name              string `json:"name"`
+	SmallIconImageURL string `json:"smallIconImageUrl"`
+}
 
-type WeaponsStruct []interface{}
+type WeaponsStruct []struct {
+	ContentID         string      `json:"contentId"`
+	Description       interface{} `json:"description"`
+	ID                string      `json:"id"`
+	IsUsableByPlayer  bool        `json:"isUsableByPlayer"`
+	LargeIconImageURL string      `json:"largeIconImageUrl"`
+	Name              string      `json:"name"`
+	SmallIconImageURL string      `json:"smallIconImageUrl"`
+	Type              string      `json:"type"`
+}
 
 
