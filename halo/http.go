@@ -15,7 +15,10 @@ func (h *Halo) metadataRequest(datatype, id string) ([]byte, error) {
 	}
 	q := url.Query()
 	url.RawQuery = q.Encode()
-	response, _ := h.sendRequest(url.String())
+	response, err := h.sendRequest(url.String())
+	if err != nil {
+		return nil, err
+	}
 	return response, nil
 }
 
@@ -30,6 +33,11 @@ func (h *Halo) sendRequest(url string) ([]byte, error) {
 		return nil, err
 	}
 	defer response.Body.Close()
+
+	//check for response code
+	if response.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf(response.Status)
+	}
 
 	// Return the URL of the image for SpartanImage and EmblemImage
 	if url != response.Request.URL.String() {
