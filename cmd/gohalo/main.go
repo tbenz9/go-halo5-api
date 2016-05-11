@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/tbenz9/go-halo5-api/halo"
+	"github.com/dmmcquay/go-halo5-api/halo"
 )
 
 var baseurl string = "https://www.haloapi.com"
@@ -36,7 +36,7 @@ func getAPIKey() string {
 func main() {
 
 	h := halo.NewHalo(baseurl, title, getAPIKey())
-	//fmt.Println(h.Enemies())
+	fmt.Println(h.Enemies())
 	//fmt.Println(h.FlexibleStats())
 	//fmt.Println(h.GameBaseVariants())
 	//fmt.Println(h.Impulses())
@@ -56,7 +56,7 @@ func main() {
 	//fmt.Println(h.Requisitions(sampleRequisitionID))
 	//fmt.Println(h.MatchesForPlayer(sampleGamertag, "", 0, 0))
 	//fmt.Println(h.PlayerLeaderboard(sampleSeasonID, samplePlaylistID, 0))
-	fmt.Println(h.CarnageReportArena(sampleArenaMatchID))
+	//fmt.Println(h.CarnageReportArena(sampleArenaMatchID))
 	// Uncomment any of the below for sample output.
 
 	// Metadata
