@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 
-	"github.com/tbenz9/go-halo5-api/halo"
+	"github.com/dmmcquay/go-halo5-api/halo"
 )
 
 var baseurl string = "https://www.haloapi.com"
@@ -20,6 +21,7 @@ var sampleWarzoneMatchID string = "c35a35f8-f450-4836-a4c2-65100a7acb79"
 var sampleSeasonID string = "b46c2095-4ca6-4f4b-a565-4702d7cfe586"      //February 2016 Season
 var samplePlaylistID string = "2323b76a-db98-4e03-aa37-e171cfbdd1a4"    //SWAT gametype 2016 Season
 var sampleGameVariantID string = "963ca478-369a-4a37-97e3-432fa13035e1" //Slayer
+var badGameVariantID string = "9aaaaaaa-369a-4a37-97e3-432fa13035e1"    //Slayer
 var sampleMapVariantsID string = "a44373ee-9f63-4733-befd-5cd8fbb1b44a" //Truth
 var sampleRequisitionPacksID string = "d10141cb-68a5-4c6b-af38-4e4935f973f7"
 var sampleRequisitionID string = "e4f549b2-90af-4dab-b2bc-11a46ea44103"
@@ -36,6 +38,21 @@ func getAPIKey() string {
 func main() {
 
 	h := halo.NewHalo(baseurl, title, getAPIKey())
+	a, err := h.EmblemImage("smoke721", 512)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(a)
+	b, err := h.SpartanImage("smoke721", 512, "full")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(b)
+	c, err := h.SpartanImage("thisplayerdoesnotexist", 512, "full")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(c)
 	//fmt.Println(h.Enemies())
 	//fmt.Println(h.FlexibleStats())
 	//fmt.Println(h.GameBaseVariants())
@@ -56,7 +73,7 @@ func main() {
 	//fmt.Println(h.Requisitions(sampleRequisitionID))
 	//fmt.Println(h.MatchesForPlayer(sampleGamertag, "", 0, 0))
 	//fmt.Println(h.PlayerLeaderboard(sampleSeasonID, samplePlaylistID, 0))
-	fmt.Println(h.CarnageReportArena(sampleArenaMatchID))
+	//fmt.Println(h.CarnageReportArena(sampleArenaMatchID))
 	// Uncomment any of the below for sample output.
 
 	// Metadata

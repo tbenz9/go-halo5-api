@@ -3,35 +3,37 @@ package halo
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/url"
 )
 
-func (h *Halo) EventsForMatch(matchid string) EventsForMatchStruct {
-	verifyValidID(matchid, "Match ID")
+func (h *Halo) EventsForMatch(matchid string) (EventsForMatchStruct, error) {
+	err := verifyValidID(matchid)
 	var j EventsForMatchStruct
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/matches/%s/events", h.baseurl, h.title, matchid))
 	if err != nil {
-		log.Fatal("EventsForMatch URL Parse Failed: ", err)
+		return EventsForMatchStruct{}, err
 	}
 	q := url.Query()
 	url.RawQuery = q.Encode()
 	jsonObject, err := h.sendRequest(url.String())
 	if err != nil {
-		log.Fatal("EventsForMatch Failed: ", err)
+		return EventsForMatchStruct{}, fmt.Errorf(
+			"EventsForMatch request Failed: %v",
+			err,
+		)
 	}
 	err = json.Unmarshal(jsonObject, &j)
 	if err != nil {
-		log.Fatal("Failure to unmarshal json: ", err)
+		return EventsForMatchStruct{}, fmt.Errorf("Failure to unmarshal json: %v", err)
 	}
-	return j
+	return j, nil
 }
 
-func (h *Halo) MatchesForPlayer(player, modes string, start, count int) MatchesForPlayerStruct {
+func (h *Halo) MatchesForPlayer(player, modes string, start, count int) (MatchesForPlayerStruct, error) {
 	var j MatchesForPlayerStruct
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/players/%s/matches", h.baseurl, h.title, player))
 	if err != nil {
-		log.Fatal("MatchesForPlayer URL Parse Failed: ", err)
+		return MatchesForPlayerStruct{}, err
 	}
 	q := url.Query()
 
@@ -47,22 +49,25 @@ func (h *Halo) MatchesForPlayer(player, modes string, start, count int) MatchesF
 	url.RawQuery = q.Encode()
 	jsonObject, err := h.sendRequest(url.String())
 	if err != nil {
-		log.Fatal("MatchesForPlayer Failed: ", err)
+		return MatchesForPlayerStruct{}, fmt.Errorf(
+			"MatchesForPlayer request Failed: %v",
+			err,
+		)
 	}
 	err = json.Unmarshal(jsonObject, &j)
 	if err != nil {
-		log.Fatal("Failure to unmarshal json: ", err)
+		return MatchesForPlayerStruct{}, fmt.Errorf("Failure to unmarshal json: %v", err)
 	}
-	return j
+	return j, nil
 }
 
-func (h *Halo) PlayerLeaderboard(seasonid, playlistid string, count int) PlayerLeaderboardStruct {
+func (h *Halo) PlayerLeaderboard(seasonid, playlistid string, count int) (PlayerLeaderboardStruct, error) {
 	var j PlayerLeaderboardStruct
-	verifyValidID(playlistid, "Playlist ID")
-	verifyValidID(seasonid, "Season ID")
+	err := verifyValidID(playlistid)
+	err = verifyValidID(seasonid)
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/player-leaderboards/csr/%s/%s", h.baseurl, h.title, seasonid, playlistid))
 	if err != nil {
-		log.Fatal("PlayerLeaderboard URL Parse Failed: ", err)
+		return PlayerLeaderboardStruct{}, err
 	}
 	q := url.Query()
 
@@ -72,101 +77,116 @@ func (h *Halo) PlayerLeaderboard(seasonid, playlistid string, count int) PlayerL
 	url.RawQuery = q.Encode()
 	jsonObject, err := h.sendRequest(url.String())
 	if err != nil {
-		log.Fatal("PlayerLeaderboard Failed: ", err)
+		return PlayerLeaderboardStruct{}, fmt.Errorf(
+			"PlayerLeaderboard request Failed: %v",
+			err,
+		)
 	}
 	err = json.Unmarshal(jsonObject, &j)
 	if err != nil {
-		log.Fatal("Failure to unmarshal json: ", err)
+		return PlayerLeaderboardStruct{}, fmt.Errorf("Failure to unmarshal json: %v", err)
 	}
-	return j
+	return j, nil
 }
 
-func (h *Halo) CarnageReportArena(matchid string) CarnageReportArenaStruct {
+func (h *Halo) CarnageReportArena(matchid string) (CarnageReportArenaStruct, error) {
 	var j CarnageReportArenaStruct
-	verifyValidID(matchid, "Match ID")
+	err := verifyValidID(matchid)
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/arena/matches/%s", h.baseurl, h.title, matchid))
 	if err != nil {
-		log.Fatal("CarnageReportArena URL Parse Failed: ", err)
+		return CarnageReportArenaStruct{}, err
 	}
 	q := url.Query()
 	url.RawQuery = q.Encode()
 	jsonObject, err := h.sendRequest(url.String())
 	if err != nil {
-		log.Fatal("CarnageReportArena Failed: ", err)
+		return CarnageReportArenaStruct{}, fmt.Errorf(
+			"CarnageReportArena request Failed: %v",
+			err,
+		)
 	}
 	err = json.Unmarshal(jsonObject, &j)
 	if err != nil {
-		log.Fatal("Failure to unmarshal json: ", err)
+		return CarnageReportArenaStruct{}, fmt.Errorf("Failure to unmarshal json: %v", err)
 	}
-	return j
+	return j, nil
 }
 
-func (h *Halo) CarnageReportCampaign(matchid string) CarnageReportCampaignStruct {
+func (h *Halo) CarnageReportCampaign(matchid string) (CarnageReportCampaignStruct, error) {
 	var j CarnageReportCampaignStruct
-	verifyValidID(matchid, "Match ID")
+	err := verifyValidID(matchid)
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/campaign/matches/%s", h.baseurl, h.title, matchid))
 	if err != nil {
-		log.Fatal("CarnageReportCampaign URL Parse Failed: ", err)
+		return CarnageReportCampaignStruct{}, err
 	}
 	q := url.Query()
 	url.RawQuery = q.Encode()
 	jsonObject, err := h.sendRequest(url.String())
 	if err != nil {
-		log.Fatal("CarnageReportCampaign Failed: ", err)
+		return CarnageReportCampaignStruct{}, fmt.Errorf(
+			"CarnageReportCampaign request Failed: %v",
+			err,
+		)
 	}
 	err = json.Unmarshal(jsonObject, &j)
 	if err != nil {
-		log.Fatal("Failure to unmarshal json: ", err)
+		return CarnageReportCampaignStruct{}, fmt.Errorf("Failure to unmarshal json: %v", err)
 	}
-	return j
+	return j, nil
 }
 
-func (h *Halo) CarnageReportCustom(matchid string) CarnageReportCustomStruct {
+func (h *Halo) CarnageReportCustom(matchid string) (CarnageReportCustomStruct, error) {
 	var j CarnageReportCustomStruct
-	verifyValidID(matchid, "Match ID")
+	err := verifyValidID(matchid)
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/custom/matches/%s", h.baseurl, h.title, matchid))
 	if err != nil {
-		log.Fatal("CarnageReportCustom URL Parse Failed: ", err)
+		return CarnageReportCustomStruct{}, err
 	}
 	q := url.Query()
 	url.RawQuery = q.Encode()
 	jsonObject, err := h.sendRequest(url.String())
 	if err != nil {
-		log.Fatal("CarnageReportCustom Failed: ", err)
+		return CarnageReportCustomStruct{}, fmt.Errorf(
+			"CarnageReportCustom request Failed: %v",
+			err,
+		)
 	}
 	err = json.Unmarshal(jsonObject, &j)
 	if err != nil {
-		log.Fatal("Failure to unmarshal json: ", err)
+		return CarnageReportCustomStruct{}, fmt.Errorf("Failure to unmarshal json: %v", err)
 	}
-	return j
+	return j, nil
 }
 
-func (h *Halo) CarnageReportWarzone(matchid string) CarnageReportWarzoneStruct {
+func (h *Halo) CarnageReportWarzone(matchid string) (CarnageReportWarzoneStruct, error) {
 	var j CarnageReportWarzoneStruct
-	verifyValidID(matchid, "Match ID")
+	err := verifyValidID(matchid)
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/warzone/matches/%s", h.baseurl, h.title, matchid))
 	if err != nil {
-		log.Fatal("CarnageReportWarzone URL Parse Failed: ", err)
+		return CarnageReportWarzoneStruct{}, err
 	}
 	q := url.Query()
 	url.RawQuery = q.Encode()
 	jsonObject, err := h.sendRequest(url.String())
 	if err != nil {
-		log.Fatal("CarnageReportWarzone Failed: ", err)
+		return CarnageReportWarzoneStruct{}, fmt.Errorf(
+			"CarnageReportWarzone request Failed: %v",
+			err,
+		)
 	}
 	err = json.Unmarshal(jsonObject, &j)
 	if err != nil {
-		log.Fatal("Failure to unmarshal json: ", err)
+		return CarnageReportWarzoneStruct{}, fmt.Errorf("Failure to unmarshal json: %v", err)
 	}
-	return j
+	return j, nil
 }
 
-func (h *Halo) ServiceRecordArena(players, seasonid string) ServiceRecordArenaStruct {
+func (h *Halo) ServiceRecordArena(players, seasonid string) (ServiceRecordArenaStruct, error) {
 	var j ServiceRecordArenaStruct
-	verifyValidID(seasonid, "Season ID")
+	err := verifyValidID(seasonid)
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/servicerecords/arena", h.baseurl, h.title))
 	if err != nil {
-		log.Fatal("CarnageReportWarzone URL Parse Failed: ", err)
+		return ServiceRecordArenaStruct{}, err
 	}
 	q := url.Query()
 	q.Set("players", players)
@@ -176,71 +196,83 @@ func (h *Halo) ServiceRecordArena(players, seasonid string) ServiceRecordArenaSt
 	url.RawQuery = q.Encode()
 	jsonObject, err := h.sendRequest(url.String())
 	if err != nil {
-		log.Fatal("ServiceRecordArena Failed: ", err)
+		return ServiceRecordArenaStruct{}, fmt.Errorf(
+			"ServiceRecordArena request Failed: %v",
+			err,
+		)
 	}
 	err = json.Unmarshal(jsonObject, &j)
 	if err != nil {
-		log.Fatal("Failure to unmarshal json: ", err)
+		return ServiceRecordArenaStruct{}, fmt.Errorf("Failure to unmarshal json: %v", err)
 	}
-	return j
+	return j, nil
 }
 
-func (h *Halo) ServiceRecordCampaign(players string) ServiceRecordCampaignStruct {
+func (h *Halo) ServiceRecordCampaign(players string) (ServiceRecordCampaignStruct, error) {
 	var j ServiceRecordCampaignStruct
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/servicerecords/campaign", h.baseurl, h.title))
 	if err != nil {
-		log.Fatal("ServiceRecordCampaign URL Parse Failed: ", err)
+		return ServiceRecordCampaignStruct{}, err
 	}
 	q := url.Query()
 	q.Set("players", players)
 	url.RawQuery = q.Encode()
 	jsonObject, err := h.sendRequest(url.String())
 	if err != nil {
-		log.Fatal("ServiceRecordCampaign Failed: ", err)
+		return ServiceRecordCampaignStruct{}, fmt.Errorf(
+			"ServiceRecordCampaign request Failed: %v",
+			err,
+		)
 	}
 	err = json.Unmarshal(jsonObject, &j)
 	if err != nil {
-		log.Fatal("Failure to unmarshal json: ", err)
+		return ServiceRecordCampaignStruct{}, fmt.Errorf("Failure to unmarshal json: %v", err)
 	}
-	return j
+	return j, nil
 }
 
-func (h *Halo) ServiceRecordCustom(players string) ServiceRecordCustomStruct {
+func (h *Halo) ServiceRecordCustom(players string) (ServiceRecordCustomStruct, error) {
 	var j ServiceRecordCustomStruct
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/servicerecords/custom", h.baseurl, h.title))
 	if err != nil {
-		log.Fatal("ServiceRecordCampaign URL Parse Failed: ", err)
+		return ServiceRecordCustomStruct{}, err
 	}
 	q := url.Query()
 	q.Set("players", players)
 	url.RawQuery = q.Encode()
 	jsonObject, err := h.sendRequest(url.String())
 	if err != nil {
-		log.Fatal("ServiceRecordCustom Failed: ", err)
+		return ServiceRecordCustomStruct{}, fmt.Errorf(
+			"ServiceRecordCustom request Failed: %v",
+			err,
+		)
 	}
 	err = json.Unmarshal(jsonObject, &j)
 	if err != nil {
-		log.Fatal("Failure to unmarshal json: ", err)
+		return ServiceRecordCustomStruct{}, fmt.Errorf("Failure to unmarshal json: %v", err)
 	}
-	return j
+	return j, nil
 }
 
-func (h *Halo) ServiceRecordWarzone(players string) ServiceRecordWarzoneStruct {
+func (h *Halo) ServiceRecordWarzone(players string) (ServiceRecordWarzoneStruct, error) {
 	var j ServiceRecordWarzoneStruct
 	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/servicerecords/warzone", h.baseurl, h.title))
 	if err != nil {
-		log.Fatal("ServiceRecordCampaign URL Parse Failed: ", err)
+		return ServiceRecordWarzoneStruct{}, err
 	}
 	q := url.Query()
 	q.Set("players", players)
 	url.RawQuery = q.Encode()
 	jsonObject, err := h.sendRequest(url.String())
 	if err != nil {
-		log.Fatal("ServiceRecordWarzone Failed: ", err)
+		return ServiceRecordWarzoneStruct{}, fmt.Errorf(
+			"ServiceRecordWarzone request Failed: %v",
+			err,
+		)
 	}
 	err = json.Unmarshal(jsonObject, &j)
 	if err != nil {
-		log.Fatal("Failure to unmarshal json: ", err)
+		return ServiceRecordWarzoneStruct{}, fmt.Errorf("Failure to unmarshal json: %v", err)
 	}
-	return j
+	return j, nil
 }
