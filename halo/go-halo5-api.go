@@ -16,13 +16,36 @@ func checkErr(err error) {
 	}
 }
 
-func metadataRequest(baseurl, title, datatype, id string) []byte {
-	url, err := url.Parse(fmt.Sprintf("%s/metadata/%s/metadata/%s/%s", baseurl, title, datatype, id))
-	checkErr(err)
+func (h *Halo) metadataRequest(datatype, id string) ([]byte, error) {
+	url, err := url.Parse(fmt.Sprintf("%s/metadata/%s/metadata/%s/%s", h.baseurl, h.title, datatype, id))
+	if err != nil {
+		return nil, err
+	}
 	q := url.Query()
 	url.RawQuery = q.Encode()
-	response := sendRequest(url.String())
-	return response
+	response := h.sendRequest(url.String())
+	return response, nil
+}
+
+func (h *Halo) sendRequest(url string) []byte {
+	request, err := http.NewRequest("GET", url, nil)
+	checkErr(err)
+	request.Header.Set("Ocp-Apim-Subscription-Key", h.apikey)
+
+	response, err := http.DefaultClient.Do(request)
+	checkErr(err)
+	defer response.Body.Close()
+
+	// Return the URL of the image for SpartanImage and EmblemImage
+	if url != response.Request.URL.String() {
+		return []byte(response.Request.URL.String())
+	}
+
+	// If its not SpartanImage or EmblemImage return the body
+	contents, err := ioutil.ReadAll(response.Body)
+	checkErr(err)
+
+	return contents
 }
 
 func sendRequest(url string) []byte {

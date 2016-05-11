@@ -1,5 +1,12 @@
 package main
 
+import (
+	"fmt"
+	"os"
+
+	"github.com/tbenz9/go-halo5-api/halo"
+)
+
 var baseurl string = "https://www.haloapi.com"
 var title string = "h5"
 
@@ -18,7 +25,36 @@ var sampleRequisitionPacksID string = "d10141cb-68a5-4c6b-af38-4e4935f973f7"
 var sampleRequisitionID string = "e4f549b2-90af-4dab-b2bc-11a46ea44103"
 var samplePlayers string = "motta13,smoke721"
 
+func getAPIKey() string {
+	apikey := os.Getenv("HALO_API_KEY")
+	if len(apikey) != 32 {
+		fmt.Println("Invalid API Key")
+	}
+	return apikey
+}
+
 func main() {
+
+	h := halo.NewHalo(baseurl, title, getAPIKey())
+	//fmt.Println(h.Enemies())
+	//fmt.Println(h.FlexibleStats())
+	//fmt.Println(h.GameBaseVariants())
+	//fmt.Println(h.Impulses())
+	//fmt.Println(h.Maps())
+	//fmt.Println(h.Medals())
+	//fmt.Println(h.Playlists())
+	//fmt.Println(h.Seasons())
+	//fmt.Println(h.Skulls())
+	//fmt.Println(h.SpartanRanks())
+	//time.Sleep(time.Second * 10)
+	//fmt.Println(h.TeamColors())
+	//fmt.Println(h.Vehicles())
+	//fmt.Println(h.Weapons())
+
+	//fmt.Println(h.GameVariants(sampleGameVariantID))
+	//fmt.Println(h.MapVariants(sampleMapVariantsID))
+	//fmt.Println(h.Requisitions(sampleRequisitionID))
+	fmt.Println(h.RequisitionPacks(sampleRequisitionPacksID))
 	// Uncomment any of the below for sample output.
 
 	// Metadata

@@ -1,183 +1,268 @@
 package halo
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+)
 
-// This one works!
-type CampaignMissionsStruct []struct {
-	MissionNumber json.Number `json:"missionNumber"`
-	Name          string      `json:"name"`
-	Description   string      `json:"description"`
-	ImageURL      string      `json:"imageUrl"`
-	Type          string      `json:"type"`
-	ID            string      `json:"id"`
-	ContentID     string      `json:"contentId"`
-}
-
-// This one works!
-type CommendationsStruct []struct {
-	Type         string `json:"type"`
-	Name         string `json:"name"`
-	Description  string `json:"description"`
-	IconImageURL string `json:"iconImageUrl"`
-	Levels       []struct {
-		Reward struct {
-			Xp               int `json:"xp"`
-			RequisitionPacks []struct {
-				Name                         string        `json:"name"`
-				Description                  string        `json:"description"`
-				LargeImageURL                string        `json:"largeImageUrl"`
-				IsStack                      bool          `json:"isStack"`
-				IsFeatured                   bool          `json:"isFeatured"`
-				IsNew                        bool          `json:"isNew"`
-				CreditPrice                  int           `json:"creditPrice"`
-				IsPurchasableWithCredits     bool          `json:"isPurchasableWithCredits"`
-				IsPurchasableFromMarketplace bool          `json:"isPurchasableFromMarketplace"`
-				XboxMarketplaceProductID     interface{}   `json:"xboxMarketplaceProductId"`
-				XboxMarketplaceProductURL    interface{}   `json:"xboxMarketplaceProductUrl"`
-				MerchandisingOrder           int           `json:"merchandisingOrder"`
-				Flair                        interface{}   `json:"flair"`
-				StackedRequisitionPacks      []interface{} `json:"stackedRequisitionPacks"`
-				ID                           string        `json:"id"`
-				ContentID                    string        `json:"contentId"`
-			} `json:"requisitionPacks"`
-			ID        string `json:"id"`
-			ContentID string `json:"contentId"`
-		} `json:"reward"`
-		Threshold int    `json:"threshold"`
-		ID        string `json:"id"`
-		ContentID string `json:"contentId"`
-	} `json:"levels"`
-	RequiredLevels []interface{} `json:"requiredLevels"`
-	Reward         interface{}   `json:"reward"`
-	Category       struct {
-		Name         string `json:"name"`
-		IconImageURL string `json:"iconImageUrl"`
-		Order        int    `json:"order"`
-		ID           string `json:"id"`
-		ContentID    string `json:"contentId"`
-	} `json:"category"`
-	ID        string `json:"id"`
-	ContentID string `json:"contentId"`
-}
-
-// This one works!
-type CsrDesignationsStruct []struct {
-	Name           string `json:"name"`
-	BannerImageURL string `json:"bannerImageUrl"`
-	Tiers          []struct {
-		IconImageURL string `json:"iconImageUrl"`
-		ID           string `json:"id"`
-		ContentID    string `json:"contentId"`
-	} `json:"tiers"`
-	ID        string `json:"id"`
-	ContentID string `json:"contentId"`
-}
-
-type EnemiesStruct []struct {
-	Faction           string      `json:"faction"`
-	Name              string      `json:"name"`
-	Description       interface{} `json:"description"`
-	LargeIconImageURL string      `json:"largeIconImageUrl"`
-	SmallIconImageURL string      `json:"smallIconImageUrl"`
-	ID                string      `json:"id"`
-	ContentID         string      `json:"contentId"`
-}
-
-type VehiclesStruct []struct {
-	Name              string `json:"name"`
-	Description       string `json:"description"`
-	LargeIconImageURL string `json:"largeIconImageUrl"`
-	SmallIconImageURL string `json:"smallIconImageUrl"`
-	IsUsableByPlayer  bool   `json:"isUsableByPlayer"`
-	ID                string `json:"id"`
-	ContentID         string `json:"contentId"`
-}
-
-func CampaignMissions(baseurl, title string) CampaignMissionsStruct {
+func (h *Halo) CampaignMissions() CampaignMissionsStruct {
 	var j CampaignMissionsStruct
-	err := json.Unmarshal(metadataRequest(baseurl, title, "campaign-missions", ""), &j)
-	checkErr(err)
+	jsonObject, err := h.metadataRequest("campaign-missions", "")
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
 	return j
 }
 
-func Commendations(baseurl, title string) CommendationsStruct {
+func (h *Halo) Commendations() CommendationsStruct {
 	var j CommendationsStruct
-	err := json.Unmarshal(metadataRequest(baseurl, title, "commendations", ""), &j)
-	checkErr(err)
+	jsonObject, err := h.metadataRequest("commendations", "")
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
 	return j
 }
 
-func CsrDesignations(baseurl, title string) CsrDesignationsStruct {
+func (h *Halo) CsrDesignations() CsrDesignationsStruct {
 	var j CsrDesignationsStruct
-	err := json.Unmarshal(metadataRequest(baseurl, title, "csr-designations", ""), &j)
-	checkErr(err)
+	jsonObject, err := h.metadataRequest("csr-designations", "")
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
 	return j
 }
 
-func Enemies(baseurl, title string) []byte {
-	return metadataRequest(baseurl, title, "enemies", "")
+func (h *Halo) Enemies() EnemiesStruct {
+	var j EnemiesStruct
+	jsonObject, err := h.metadataRequest("enemies", "")
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
-func FlexibleStats(baseurl, title string) []byte {
-	return metadataRequest(baseurl, title, "flexible-stats", "")
+func (h *Halo) FlexibleStats() FlexibleStatsStruct {
+	var j FlexibleStatsStruct
+	jsonObject, err := h.metadataRequest("flexible-stats", "")
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		fmt.Println("hjere")
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
-func GameBaseVariants(baseurl, title string) []byte {
-	return metadataRequest(baseurl, title, "game-base-variants", "")
+func (h *Halo) GameBaseVariants() GameBaseVariantsStruct {
+	var j GameBaseVariantsStruct
+	jsonObject, err := h.metadataRequest("game-base-variants", "")
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
-func GameVariants(baseurl, title, id string) []byte {
-	return metadataRequest(baseurl, title, "game-variants", id)
+func (h *Halo) GameVariants(id string) GameVariantsStruct {
+	var j GameVariantsStruct
+	jsonObject, err := h.metadataRequest("game-variants", id)
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
-func Impulses(baseurl, title string) []byte {
-	return metadataRequest(baseurl, title, "impulses", "")
+func (h *Halo) Impulses() ImpulsesStruct {
+	var j ImpulsesStruct
+	jsonObject, err := h.metadataRequest("impulses", "")
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
-func MapVariants(baseurl, title, id string) []byte {
-	return metadataRequest(baseurl, title, "map-variants", id)
+func (h *Halo) MapVariants(id string) MapVariantsStruct {
+	var j MapVariantsStruct
+	jsonObject, err := h.metadataRequest("map-variants", id)
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
-func Maps(baseurl, title string) []byte {
-	return metadataRequest(baseurl, title, "maps", "")
+func (h *Halo) Maps() MapsStruct {
+	var j MapsStruct
+	jsonObject, err := h.metadataRequest("maps", "")
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
-func Medals(baseurl, title string) []byte {
-	return metadataRequest(baseurl, title, "medals", "")
+func (h *Halo) Medals() MedalsStruct {
+	var j MedalsStruct
+	jsonObject, err := h.metadataRequest("medals", "")
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
-func Playlists(baseurl, title string) []byte {
-	return metadataRequest(baseurl, title, "playlists", "")
+func (h *Halo) Playlists() PlaylistsStruct {
+	var j PlaylistsStruct
+	jsonObject, err := h.metadataRequest("playlists", "")
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
-func RequisitionPacks(baseurl, title, id string) []byte {
-	return metadataRequest(baseurl, title, "requisition-packs", id)
+func (h *Halo) RequisitionPacks(id string) RequisitionPacksStruct {
+	var j RequisitionPacksStruct
+	jsonObject, err := h.metadataRequest("requisitions-packs", id)
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
-func Requisitions(baseurl, title, id string) []byte {
-	return metadataRequest(baseurl, title, "requisitions", id)
+func (h *Halo) Requisitions(id string) RequisitionsStruct {
+	var j RequisitionsStruct
+	jsonObject, err := h.metadataRequest("requisitions", id)
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
-func Seasons(baseurl, title string) []byte {
-	return metadataRequest(baseurl, title, "seasons", "")
+func (h *Halo) Seasons() SeasonsStruct {
+	var j SeasonsStruct
+	jsonObject, err := h.metadataRequest("seasons", "")
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
-func Skulls(baseurl, title string) []byte {
-	return metadataRequest(baseurl, title, "skulls", "")
+func (h *Halo) Skulls() SkullsStruct {
+	var j SkullsStruct
+	jsonObject, err := h.metadataRequest("skulls", "")
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
-func SpartanRanks(baseurl, title string) []byte {
-	return metadataRequest(baseurl, title, "spartan-ranks", "")
+func (h *Halo) SpartanRanks() SpartanRanksStruct {
+	var j SpartanRanksStruct
+	jsonObject, err := h.metadataRequest("spartan-ranks", "")
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
-func TeamColors(baseurl, title string) []byte {
-	return metadataRequest(baseurl, title, "team-colors", "")
+func (h *Halo) TeamColors() TeamColorsStruct {
+	var j TeamColorsStruct
+	jsonObject, err := h.metadataRequest("team-colors", "")
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
-func Vehicles(baseurl, title string) []byte {
-	return metadataRequest(baseurl, title, "vehicles", "")
+func (h *Halo) Vehicles() VehiclesStruct {
+	var j VehiclesStruct
+	jsonObject, err := h.metadataRequest("vehicles", "")
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
-func Weapons(baseurl, title string) []byte {
-	return metadataRequest(baseurl, title, "weapons", "")
+func (h *Halo) Weapons() WeaponsStruct {
+	var j WeaponsStruct
+	jsonObject, err := h.metadataRequest("weapons", "")
+	if err != nil {
+		log.Fatal("MetadataRequest Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }

@@ -1,4 +1,76 @@
+package halo
 
+import "encoding/json"
+
+type CampaignMissionsStruct []struct {
+	MissionNumber json.Number `json:"missionNumber"`
+	Name          string      `json:"name"`
+	Description   string      `json:"description"`
+	ImageURL      string      `json:"imageUrl"`
+	Type          string      `json:"type"`
+	ID            string      `json:"id"`
+	ContentID     string      `json:"contentId"`
+}
+
+// This one works!
+type CommendationsStruct []struct {
+	Type         string `json:"type"`
+	Name         string `json:"name"`
+	Description  string `json:"description"`
+	IconImageURL string `json:"iconImageUrl"`
+	Levels       []struct {
+		Reward struct {
+			Xp               int `json:"xp"`
+			RequisitionPacks []struct {
+				Name                         string        `json:"name"`
+				Description                  string        `json:"description"`
+				LargeImageURL                string        `json:"largeImageUrl"`
+				IsStack                      bool          `json:"isStack"`
+				IsFeatured                   bool          `json:"isFeatured"`
+				IsNew                        bool          `json:"isNew"`
+				CreditPrice                  int           `json:"creditPrice"`
+				IsPurchasableWithCredits     bool          `json:"isPurchasableWithCredits"`
+				IsPurchasableFromMarketplace bool          `json:"isPurchasableFromMarketplace"`
+				XboxMarketplaceProductID     interface{}   `json:"xboxMarketplaceProductId"`
+				XboxMarketplaceProductURL    interface{}   `json:"xboxMarketplaceProductUrl"`
+				MerchandisingOrder           int           `json:"merchandisingOrder"`
+				Flair                        interface{}   `json:"flair"`
+				StackedRequisitionPacks      []interface{} `json:"stackedRequisitionPacks"`
+				ID                           string        `json:"id"`
+				ContentID                    string        `json:"contentId"`
+			} `json:"requisitionPacks"`
+			ID        string `json:"id"`
+			ContentID string `json:"contentId"`
+		} `json:"reward"`
+		Threshold int    `json:"threshold"`
+		ID        string `json:"id"`
+		ContentID string `json:"contentId"`
+	} `json:"levels"`
+	RequiredLevels []interface{} `json:"requiredLevels"`
+	Reward         interface{}   `json:"reward"`
+	Category       struct {
+		Name         string `json:"name"`
+		IconImageURL string `json:"iconImageUrl"`
+		Order        int    `json:"order"`
+		ID           string `json:"id"`
+		ContentID    string `json:"contentId"`
+	} `json:"category"`
+	ID        string `json:"id"`
+	ContentID string `json:"contentId"`
+}
+
+// This one works!
+type CsrDesignationsStruct []struct {
+	Name           string `json:"name"`
+	BannerImageURL string `json:"bannerImageUrl"`
+	Tiers          []struct {
+		IconImageURL string `json:"iconImageUrl"`
+		ID           string `json:"id"`
+		ContentID    string `json:"contentId"`
+	} `json:"tiers"`
+	ID        string `json:"id"`
+	ContentID string `json:"contentId"`
+}
 
 type CarnageReportArenaStruct struct {
 	GameBaseVariantID     string `json:"GameBaseVariantId"`
@@ -615,7 +687,7 @@ type EventsForMatchStruct struct {
 	} `json:"Links"`
 }
 
-type FlexibleStatsStruct struct {
+type FlexibleStatsStruct []struct {
 	ContentID string `json:"contentId"`
 	ID        string `json:"id"`
 	Name      string `json:"name"`
@@ -1722,5 +1794,3 @@ type WeaponsStruct []struct {
 	SmallIconImageURL string      `json:"smallIconImageUrl"`
 	Type              string      `json:"type"`
 }
-
-
