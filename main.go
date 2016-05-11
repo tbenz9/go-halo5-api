@@ -54,7 +54,9 @@ func main() {
 	//fmt.Println(h.GameVariants(sampleGameVariantID))
 	//fmt.Println(h.MapVariants(sampleMapVariantsID))
 	//fmt.Println(h.Requisitions(sampleRequisitionID))
-	fmt.Println(h.MatchesForPlayer(sampleGamertag, "", 0, 0))
+	//fmt.Println(h.MatchesForPlayer(sampleGamertag, "", 0, 0))
+	//fmt.Println(h.PlayerLeaderboard(sampleSeasonID, samplePlaylistID, 0))
+	fmt.Println(h.CarnageReportArena(sampleArenaMatchID))
 	// Uncomment any of the below for sample output.
 
 	// Metadata
