@@ -1,23 +1,38 @@
 package halo
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"net/url"
 )
 
-func EventsForMatch(baseurl, title, matchid string) []byte {
+func (h *Halo) EventsForMatch(matchid string) EventsForMatchStruct {
 	verifyValidID(matchid, "Match ID")
-	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/matches/%s/events", baseurl, title, matchid))
-	checkErr(err)
+	var j EventsForMatchStruct
+	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/matches/%s/events", h.baseurl, h.title, matchid))
+	if err != nil {
+		log.Fatal("EventsForMatch URL Parse Failed: ", err)
+	}
 	q := url.Query()
 	url.RawQuery = q.Encode()
-	response := sendRequest(url.String())
-	return response
+	jsonObject, err := h.sendRequest(url.String())
+	if err != nil {
+		log.Fatal("EventsForMatch Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
-func MatchesForPlayer(baseurl, title, player, modes string, start, count int) []byte {
-	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/players/%s/matches", baseurl, title, player))
-	checkErr(err)
+func (h *Halo) MatchesForPlayer(player, modes string, start, count int) MatchesForPlayerStruct {
+	var j MatchesForPlayerStruct
+	url, err := url.Parse(fmt.Sprintf("%s/stats/%s/players/%s/matches", h.baseurl, h.title, player))
+	if err != nil {
+		log.Fatal("MatchesForPlayer URL Parse Failed: ", err)
+	}
 	q := url.Query()
 
 	if modes != "" {
@@ -30,8 +45,15 @@ func MatchesForPlayer(baseurl, title, player, modes string, start, count int) []
 		q.Set("count", string(count))
 	}
 	url.RawQuery = q.Encode()
-	response := sendRequest(url.String())
-	return response
+	jsonObject, err := h.sendRequest(url.String())
+	if err != nil {
+		log.Fatal("MatchesForPlayer Failed: ", err)
+	}
+	err = json.Unmarshal(jsonObject, &j)
+	if err != nil {
+		log.Fatal("Failure to unmarshal json: ", err)
+	}
+	return j
 }
 
 func PlayerLeaderboard(baseurl, title, seasonid, playlistid string, count int) []byte {

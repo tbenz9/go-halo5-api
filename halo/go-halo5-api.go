@@ -23,29 +23,34 @@ func (h *Halo) metadataRequest(datatype, id string) ([]byte, error) {
 	}
 	q := url.Query()
 	url.RawQuery = q.Encode()
-	response := h.sendRequest(url.String())
+	response, _ := h.sendRequest(url.String())
 	return response, nil
 }
 
-func (h *Halo) sendRequest(url string) []byte {
+func (h *Halo) sendRequest(url string) ([]byte, error) {
 	request, err := http.NewRequest("GET", url, nil)
-	checkErr(err)
+	if err != nil {
+		return nil, err
+	}
 	request.Header.Set("Ocp-Apim-Subscription-Key", h.apikey)
-
 	response, err := http.DefaultClient.Do(request)
-	checkErr(err)
+	if err != nil {
+		return nil, err
+	}
 	defer response.Body.Close()
 
 	// Return the URL of the image for SpartanImage and EmblemImage
 	if url != response.Request.URL.String() {
-		return []byte(response.Request.URL.String())
+		return []byte(response.Request.URL.String()), nil
 	}
 
 	// If its not SpartanImage or EmblemImage return the body
 	contents, err := ioutil.ReadAll(response.Body)
-	checkErr(err)
+	if err != nil {
+		return nil, err
+	}
 
-	return contents
+	return contents, nil
 }
 
 func sendRequest(url string) []byte {
@@ -81,6 +86,6 @@ func verifyValidID(ID, name string) {
 	re, _ := regexp.Compile("^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$")
 	valid := re.MatchString(ID)
 	if valid == false {
-		fmt.Printf("%s is not a valid %s\n", ID, name)
+		log.Fatal("%s is not a valid %s", ID, name)
 	}
 }

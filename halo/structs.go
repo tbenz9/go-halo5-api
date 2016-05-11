@@ -12,7 +12,6 @@ type CampaignMissionsStruct []struct {
 	ContentID     string      `json:"contentId"`
 }
 
-// This one works!
 type CommendationsStruct []struct {
 	Type         string `json:"type"`
 	Name         string `json:"name"`
@@ -59,7 +58,6 @@ type CommendationsStruct []struct {
 	ContentID string `json:"contentId"`
 }
 
-// This one works!
 type CsrDesignationsStruct []struct {
 	Name           string `json:"name"`
 	BannerImageURL string `json:"bannerImageUrl"`
