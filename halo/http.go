@@ -54,7 +54,7 @@ func (h *Halo) sendRequest(url string) ([]byte, error) {
 }
 
 func verifyValidID(id string) error {
-	re, _ := regexp.Compile("^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$")
+	re, _ := regexp.Compile("^\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}$")
 	if !re.MatchString(id) {
 		return fmt.Errorf("Not a Valid id: ", id)
 	}
