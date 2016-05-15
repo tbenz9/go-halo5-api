@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+	"strconv"
 )
 
 func (h *Halo) EventsForMatch(matchid string) (EventsForMatchStruct, error) {
@@ -41,10 +42,10 @@ func (h *Halo) MatchesForPlayer(player, modes string, start, count int) (Matches
 		q.Set("modes", modes)
 	}
 	if start != 0 {
-		q.Set("start", string(start))
+		q.Set("start", strconv.Itoa(start))
 	}
 	if count != 0 {
-		q.Set("count", string(count))
+		q.Set("count", strconv.Itoa(count))
 	}
 	url.RawQuery = q.Encode()
 	jsonObject, err := h.sendRequest(url.String())
@@ -72,7 +73,7 @@ func (h *Halo) PlayerLeaderboard(seasonid, playlistid string, count int) (Player
 	q := url.Query()
 
 	if count != 0 {
-		q.Set("count", string(count))
+		q.Set("count", strconv.Itoa(count))
 	}
 	url.RawQuery = q.Encode()
 	jsonObject, err := h.sendRequest(url.String())
