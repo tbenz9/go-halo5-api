@@ -2,6 +2,587 @@ package halo
 
 import "encoding/json"
 
+type CarnageReportArenaStruct struct {
+	PlayerStats []struct {
+		XpInfo struct {
+			PrevSpartanRank              int     `json:"PrevSpartanRank"`
+			SpartanRank                  int     `json:"SpartanRank"`
+			PrevTotalXP                  int     `json:"PrevTotalXP"`
+			TotalXP                      int     `json:"TotalXP"`
+			SpartanRankMatchXPScalar     float64 `json:"SpartanRankMatchXPScalar"`
+			PlayerTimePerformanceXPAward int     `json:"PlayerTimePerformanceXPAward"`
+			PerformanceXP                int     `json:"PerformanceXP"`
+			PlayerRankXPAward            int     `json:"PlayerRankXPAward"`
+			BoostAmount                  int     `json:"BoostAmount"`
+			MatchSpeedWinAmount          int     `json:"MatchSpeedWinAmount"`
+			ObjectivesCompletedAmount    int     `json:"ObjectivesCompletedAmount"`
+		} `json:"XpInfo"`
+		PreviousCsr struct {
+			Tier              int         `json:"Tier"`
+			DesignationID     int         `json:"DesignationId"`
+			Csr               int         `json:"Csr"`
+			PercentToNextTier int         `json:"PercentToNextTier"`
+			Rank              interface{} `json:"Rank"`
+		} `json:"PreviousCsr"`
+		CurrentCsr struct {
+			Tier              int         `json:"Tier"`
+			DesignationID     int         `json:"DesignationId"`
+			Csr               int         `json:"Csr"`
+			PercentToNextTier int         `json:"PercentToNextTier"`
+			Rank              interface{} `json:"Rank"`
+		} `json:"CurrentCsr"`
+		MeasurementMatchesLeft int           `json:"MeasurementMatchesLeft"`
+		RewardSets             []interface{} `json:"RewardSets"`
+		KilledOpponentDetails  []struct {
+			GamerTag   string `json:"GamerTag"`
+			TotalKills int    `json:"TotalKills"`
+		} `json:"KilledOpponentDetails"`
+		KilledByOpponentDetails []struct {
+			GamerTag   string `json:"GamerTag"`
+			TotalKills int    `json:"TotalKills"`
+		} `json:"KilledByOpponentDetails"`
+		FlexibleStats struct {
+			MedalStatCounts   []interface{} `json:"MedalStatCounts"`
+			ImpulseStatCounts []struct {
+				ID    string `json:"Id"`
+				Count int    `json:"Count"`
+			} `json:"ImpulseStatCounts"`
+			MedalTimelapses   []interface{} `json:"MedalTimelapses"`
+			ImpulseTimelapses []struct {
+				ID        string `json:"Id"`
+				Timelapse string `json:"Timelapse"`
+			} `json:"ImpulseTimelapses"`
+		} `json:"FlexibleStats"`
+		CreditsEarned struct {
+			Result                    int     `json:"Result"`
+			TotalCreditsEarned        int     `json:"TotalCreditsEarned"`
+			SpartanRankModifier       float64 `json:"SpartanRankModifier"`
+			PlayerRankAmount          int     `json:"PlayerRankAmount"`
+			TimePlayedAmount          float64 `json:"TimePlayedAmount"`
+			BoostAmount               int     `json:"BoostAmount"`
+			MatchSpeedWinAmount       int     `json:"MatchSpeedWinAmount"`
+			ObjectivesCompletedAmount int     `json:"ObjectivesCompletedAmount"`
+		} `json:"CreditsEarned"`
+		MetaCommendationDeltas        []interface{} `json:"MetaCommendationDeltas"`
+		ProgressiveCommendationDeltas []struct {
+			ID               string `json:"Id"`
+			PreviousProgress int    `json:"PreviousProgress"`
+			Progress         int    `json:"Progress"`
+		} `json:"ProgressiveCommendationDeltas"`
+		BoostInfo struct {
+			DefinitionID string `json:"DefinitionId"`
+			CardConsumed bool   `json:"CardConsumed"`
+		} `json:"BoostInfo"`
+		Player struct {
+			Gamertag string      `json:"Gamertag"`
+			Xuid     interface{} `json:"Xuid"`
+		} `json:"Player"`
+		TeamID              int         `json:"TeamId"`
+		Rank                int         `json:"Rank"`
+		DNF                 bool        `json:"DNF"`
+		AvgLifeTimeOfPlayer string      `json:"AvgLifeTimeOfPlayer"`
+		PreMatchRatings     interface{} `json:"PreMatchRatings"`
+		PostMatchRatings    interface{} `json:"PostMatchRatings"`
+		PlayerScore         int         `json:"PlayerScore"`
+		TotalKills          int         `json:"TotalKills"`
+		TotalHeadshots      int         `json:"TotalHeadshots"`
+		TotalWeaponDamage   float64     `json:"TotalWeaponDamage"`
+		TotalShotsFired     int         `json:"TotalShotsFired"`
+		TotalShotsLanded    int         `json:"TotalShotsLanded"`
+		WeaponWithMostKills struct {
+			WeaponID struct {
+				StockID     int           `json:"StockId"`
+				Attachments []interface{} `json:"Attachments"`
+			} `json:"WeaponId"`
+			TotalShotsFired     int     `json:"TotalShotsFired"`
+			TotalShotsLanded    int     `json:"TotalShotsLanded"`
+			TotalHeadshots      int     `json:"TotalHeadshots"`
+			TotalKills          int     `json:"TotalKills"`
+			TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+			TotalPossessionTime string  `json:"TotalPossessionTime"`
+		} `json:"WeaponWithMostKills"`
+		TotalMeleeKills                int     `json:"TotalMeleeKills"`
+		TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
+		TotalAssassinations            int     `json:"TotalAssassinations"`
+		TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
+		TotalGroundPoundDamage         float64 `json:"TotalGroundPoundDamage"`
+		TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
+		TotalShoulderBashDamage        float64 `json:"TotalShoulderBashDamage"`
+		TotalGrenadeDamage             float64 `json:"TotalGrenadeDamage"`
+		TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
+		TotalPowerWeaponDamage         float64 `json:"TotalPowerWeaponDamage"`
+		TotalPowerWeaponGrabs          int     `json:"TotalPowerWeaponGrabs"`
+		TotalPowerWeaponPossessionTime string  `json:"TotalPowerWeaponPossessionTime"`
+		TotalDeaths                    int     `json:"TotalDeaths"`
+		TotalAssists                   int     `json:"TotalAssists"`
+		TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
+		TotalGamesWon                  int     `json:"TotalGamesWon"`
+		TotalGamesLost                 int     `json:"TotalGamesLost"`
+		TotalGamesTied                 int     `json:"TotalGamesTied"`
+		TotalTimePlayed                string  `json:"TotalTimePlayed"`
+		TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
+		MedalAwards                    []struct {
+			MedalID int64 `json:"MedalId"`
+			Count   int   `json:"Count"`
+		} `json:"MedalAwards"`
+		DestroyedEnemyVehicles []interface{} `json:"DestroyedEnemyVehicles"`
+		EnemyKills             []interface{} `json:"EnemyKills"`
+		WeaponStats            []struct {
+			WeaponID struct {
+				StockID     int           `json:"StockId"`
+				Attachments []interface{} `json:"Attachments"`
+			} `json:"WeaponId"`
+			TotalShotsFired     int     `json:"TotalShotsFired"`
+			TotalShotsLanded    int     `json:"TotalShotsLanded"`
+			TotalHeadshots      int     `json:"TotalHeadshots"`
+			TotalKills          int     `json:"TotalKills"`
+			TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+			TotalPossessionTime string  `json:"TotalPossessionTime"`
+		} `json:"WeaponStats"`
+		Impulses          []interface{} `json:"Impulses"`
+		TotalSpartanKills int           `json:"TotalSpartanKills"`
+		FastestMatchWin   interface{}   `json:"FastestMatchWin"`
+	} `json:"PlayerStats"`
+	TeamStats []struct {
+		TeamID     int `json:"TeamId"`
+		Score      int `json:"Score"`
+		Rank       int `json:"Rank"`
+		RoundStats []struct {
+			RoundNumber int `json:"RoundNumber"`
+			Rank        int `json:"Rank"`
+			Score       int `json:"Score"`
+		} `json:"RoundStats"`
+	} `json:"TeamStats"`
+	IsMatchOver           bool   `json:"IsMatchOver"`
+	TotalDuration         string `json:"TotalDuration"`
+	MapVariantID          string `json:"MapVariantId"`
+	GameVariantID         string `json:"GameVariantId"`
+	PlaylistID            string `json:"PlaylistId"`
+	MapID                 string `json:"MapId"`
+	GameBaseVariantID     string `json:"GameBaseVariantId"`
+	IsTeamGame            bool   `json:"IsTeamGame"`
+	SeasonID              string `json:"SeasonId"`
+	GameVariantResourceID struct {
+		ResourceType int    `json:"ResourceType"`
+		ResourceID   string `json:"ResourceId"`
+		OwnerType    int    `json:"OwnerType"`
+		Owner        string `json:"Owner"`
+	} `json:"GameVariantResourceId"`
+	MapVariantResourceID struct {
+		ResourceType int    `json:"ResourceType"`
+		ResourceID   string `json:"ResourceId"`
+		OwnerType    int    `json:"OwnerType"`
+		Owner        string `json:"Owner"`
+	} `json:"MapVariantResourceId"`
+}
+
+type CarnageReportCampaignStruct struct {
+	PlayerStats []struct {
+		BiggestKillScore int `json:"BiggestKillScore"`
+		FlexibleStats    struct {
+			MedalStatCounts   []interface{} `json:"MedalStatCounts"`
+			ImpulseStatCounts []struct {
+				ID    string `json:"Id"`
+				Count int    `json:"Count"`
+			} `json:"ImpulseStatCounts"`
+			MedalTimelapses   []interface{} `json:"MedalTimelapses"`
+			ImpulseTimelapses []interface{} `json:"ImpulseTimelapses"`
+		} `json:"FlexibleStats"`
+		Score          int         `json:"Score"`
+		CharacterIndex interface{} `json:"CharacterIndex"`
+		Player         struct {
+			Gamertag string      `json:"Gamertag"`
+			Xuid     interface{} `json:"Xuid"`
+		} `json:"Player"`
+		TeamID              int         `json:"TeamId"`
+		Rank                int         `json:"Rank"`
+		DNF                 bool        `json:"DNF"`
+		AvgLifeTimeOfPlayer string      `json:"AvgLifeTimeOfPlayer"`
+		PreMatchRatings     interface{} `json:"PreMatchRatings"`
+		PostMatchRatings    interface{} `json:"PostMatchRatings"`
+		PlayerScore         interface{} `json:"PlayerScore"`
+		TotalKills          int         `json:"TotalKills"`
+		TotalHeadshots      int         `json:"TotalHeadshots"`
+		TotalWeaponDamage   float64     `json:"TotalWeaponDamage"`
+		TotalShotsFired     int         `json:"TotalShotsFired"`
+		TotalShotsLanded    int         `json:"TotalShotsLanded"`
+		WeaponWithMostKills struct {
+			WeaponID struct {
+				StockID     int           `json:"StockId"`
+				Attachments []interface{} `json:"Attachments"`
+			} `json:"WeaponId"`
+			TotalShotsFired     int     `json:"TotalShotsFired"`
+			TotalShotsLanded    int     `json:"TotalShotsLanded"`
+			TotalHeadshots      int     `json:"TotalHeadshots"`
+			TotalKills          int     `json:"TotalKills"`
+			TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+			TotalPossessionTime string  `json:"TotalPossessionTime"`
+		} `json:"WeaponWithMostKills"`
+		TotalMeleeKills                int           `json:"TotalMeleeKills"`
+		TotalMeleeDamage               float64       `json:"TotalMeleeDamage"`
+		TotalAssassinations            int           `json:"TotalAssassinations"`
+		TotalGroundPoundKills          int           `json:"TotalGroundPoundKills"`
+		TotalGroundPoundDamage         float64       `json:"TotalGroundPoundDamage"`
+		TotalShoulderBashKills         int           `json:"TotalShoulderBashKills"`
+		TotalShoulderBashDamage        float64       `json:"TotalShoulderBashDamage"`
+		TotalGrenadeDamage             float64       `json:"TotalGrenadeDamage"`
+		TotalPowerWeaponKills          int           `json:"TotalPowerWeaponKills"`
+		TotalPowerWeaponDamage         float64       `json:"TotalPowerWeaponDamage"`
+		TotalPowerWeaponGrabs          int           `json:"TotalPowerWeaponGrabs"`
+		TotalPowerWeaponPossessionTime string        `json:"TotalPowerWeaponPossessionTime"`
+		TotalDeaths                    int           `json:"TotalDeaths"`
+		TotalAssists                   int           `json:"TotalAssists"`
+		TotalGamesCompleted            int           `json:"TotalGamesCompleted"`
+		TotalGamesWon                  int           `json:"TotalGamesWon"`
+		TotalGamesLost                 int           `json:"TotalGamesLost"`
+		TotalGamesTied                 int           `json:"TotalGamesTied"`
+		TotalTimePlayed                string        `json:"TotalTimePlayed"`
+		TotalGrenadeKills              int           `json:"TotalGrenadeKills"`
+		MedalAwards                    []interface{} `json:"MedalAwards"`
+		DestroyedEnemyVehicles         []interface{} `json:"DestroyedEnemyVehicles"`
+		EnemyKills                     []struct {
+			Enemy struct {
+				BaseID      int64         `json:"BaseId"`
+				Attachments []interface{} `json:"Attachments"`
+			} `json:"Enemy"`
+			TotalKills int `json:"TotalKills"`
+		} `json:"EnemyKills"`
+		WeaponStats []struct {
+			WeaponID struct {
+				StockID     int64         `json:"StockId"`
+				Attachments []interface{} `json:"Attachments"`
+			} `json:"WeaponId"`
+			TotalShotsFired     int     `json:"TotalShotsFired"`
+			TotalShotsLanded    int     `json:"TotalShotsLanded"`
+			TotalHeadshots      int     `json:"TotalHeadshots"`
+			TotalKills          int     `json:"TotalKills"`
+			TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+			TotalPossessionTime string  `json:"TotalPossessionTime"`
+		} `json:"WeaponStats"`
+		Impulses          []interface{} `json:"Impulses"`
+		TotalSpartanKills int           `json:"TotalSpartanKills"`
+	} `json:"PlayerStats"`
+	TotalMissionPlaythroughTime string        `json:"TotalMissionPlaythroughTime"`
+	Difficulty                  int           `json:"Difficulty"`
+	Skulls                      []interface{} `json:"Skulls"`
+	MissionCompleted            bool          `json:"MissionCompleted"`
+	IsMatchOver                 bool          `json:"IsMatchOver"`
+	TotalDuration               string        `json:"TotalDuration"`
+	MapVariantID                string        `json:"MapVariantId"`
+	GameVariantID               string        `json:"GameVariantId"`
+	PlaylistID                  string        `json:"PlaylistId"`
+	MapID                       string        `json:"MapId"`
+	GameBaseVariantID           string        `json:"GameBaseVariantId"`
+	IsTeamGame                  bool          `json:"IsTeamGame"`
+	SeasonID                    interface{}   `json:"SeasonId"`
+	GameVariantResourceID       struct {
+		ResourceType int    `json:"ResourceType"`
+		ResourceID   string `json:"ResourceId"`
+		OwnerType    int    `json:"OwnerType"`
+		Owner        string `json:"Owner"`
+	} `json:"GameVariantResourceId"`
+	MapVariantResourceID struct {
+		ResourceType int    `json:"ResourceType"`
+		ResourceID   string `json:"ResourceId"`
+		OwnerType    int    `json:"OwnerType"`
+		Owner        string `json:"Owner"`
+	} `json:"MapVariantResourceId"`
+}
+
+type CarnageReportCustomStruct struct {
+	PlayerStats []struct {
+		KilledOpponentDetails []struct {
+			GamerTag   string `json:"GamerTag"`
+			TotalKills int    `json:"TotalKills"`
+		} `json:"KilledOpponentDetails"`
+		KilledByOpponentDetails []struct {
+			GamerTag   string `json:"GamerTag"`
+			TotalKills int    `json:"TotalKills"`
+		} `json:"KilledByOpponentDetails"`
+		FlexibleStats struct {
+			MedalStatCounts   []interface{} `json:"MedalStatCounts"`
+			ImpulseStatCounts []struct {
+				ID    string `json:"Id"`
+				Count int    `json:"Count"`
+			} `json:"ImpulseStatCounts"`
+			MedalTimelapses   []interface{} `json:"MedalTimelapses"`
+			ImpulseTimelapses []struct {
+				ID        string `json:"Id"`
+				Timelapse string `json:"Timelapse"`
+			} `json:"ImpulseTimelapses"`
+		} `json:"FlexibleStats"`
+		Player struct {
+			Gamertag string      `json:"Gamertag"`
+			Xuid     interface{} `json:"Xuid"`
+		} `json:"Player"`
+		TeamID              int         `json:"TeamId"`
+		Rank                int         `json:"Rank"`
+		DNF                 bool        `json:"DNF"`
+		AvgLifeTimeOfPlayer string      `json:"AvgLifeTimeOfPlayer"`
+		PreMatchRatings     interface{} `json:"PreMatchRatings"`
+		PostMatchRatings    interface{} `json:"PostMatchRatings"`
+		PlayerScore         int         `json:"PlayerScore"`
+		TotalKills          int         `json:"TotalKills"`
+		TotalHeadshots      int         `json:"TotalHeadshots"`
+		TotalWeaponDamage   float64     `json:"TotalWeaponDamage"`
+		TotalShotsFired     int         `json:"TotalShotsFired"`
+		TotalShotsLanded    int         `json:"TotalShotsLanded"`
+		WeaponWithMostKills struct {
+			WeaponID struct {
+				StockID     int           `json:"StockId"`
+				Attachments []interface{} `json:"Attachments"`
+			} `json:"WeaponId"`
+			TotalShotsFired     int     `json:"TotalShotsFired"`
+			TotalShotsLanded    int     `json:"TotalShotsLanded"`
+			TotalHeadshots      int     `json:"TotalHeadshots"`
+			TotalKills          int     `json:"TotalKills"`
+			TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+			TotalPossessionTime string  `json:"TotalPossessionTime"`
+		} `json:"WeaponWithMostKills"`
+		TotalMeleeKills                int     `json:"TotalMeleeKills"`
+		TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
+		TotalAssassinations            int     `json:"TotalAssassinations"`
+		TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
+		TotalGroundPoundDamage         float64 `json:"TotalGroundPoundDamage"`
+		TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
+		TotalShoulderBashDamage        float64 `json:"TotalShoulderBashDamage"`
+		TotalGrenadeDamage             float64 `json:"TotalGrenadeDamage"`
+		TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
+		TotalPowerWeaponDamage         float64 `json:"TotalPowerWeaponDamage"`
+		TotalPowerWeaponGrabs          int     `json:"TotalPowerWeaponGrabs"`
+		TotalPowerWeaponPossessionTime string  `json:"TotalPowerWeaponPossessionTime"`
+		TotalDeaths                    int     `json:"TotalDeaths"`
+		TotalAssists                   int     `json:"TotalAssists"`
+		TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
+		TotalGamesWon                  int     `json:"TotalGamesWon"`
+		TotalGamesLost                 int     `json:"TotalGamesLost"`
+		TotalGamesTied                 int     `json:"TotalGamesTied"`
+		TotalTimePlayed                string  `json:"TotalTimePlayed"`
+		TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
+		MedalAwards                    []struct {
+			MedalID int64 `json:"MedalId"`
+			Count   int   `json:"Count"`
+		} `json:"MedalAwards"`
+		DestroyedEnemyVehicles []interface{} `json:"DestroyedEnemyVehicles"`
+		EnemyKills             []interface{} `json:"EnemyKills"`
+		WeaponStats            []struct {
+			WeaponID struct {
+				StockID     int           `json:"StockId"`
+				Attachments []interface{} `json:"Attachments"`
+			} `json:"WeaponId"`
+			TotalShotsFired     int     `json:"TotalShotsFired"`
+			TotalShotsLanded    int     `json:"TotalShotsLanded"`
+			TotalHeadshots      int     `json:"TotalHeadshots"`
+			TotalKills          int     `json:"TotalKills"`
+			TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+			TotalPossessionTime string  `json:"TotalPossessionTime"`
+		} `json:"WeaponStats"`
+		Impulses []struct {
+			ID    int64 `json:"Id"`
+			Count int   `json:"Count"`
+		} `json:"Impulses"`
+		TotalSpartanKills int `json:"TotalSpartanKills"`
+	} `json:"PlayerStats"`
+	TeamStats []struct {
+		TeamID     int           `json:"TeamId"`
+		Score      int           `json:"Score"`
+		Rank       int           `json:"Rank"`
+		RoundStats []interface{} `json:"RoundStats"`
+	} `json:"TeamStats"`
+	IsMatchOver           bool        `json:"IsMatchOver"`
+	TotalDuration         string      `json:"TotalDuration"`
+	MapVariantID          string      `json:"MapVariantId"`
+	GameVariantID         string      `json:"GameVariantId"`
+	PlaylistID            string      `json:"PlaylistId"`
+	MapID                 string      `json:"MapId"`
+	GameBaseVariantID     string      `json:"GameBaseVariantId"`
+	IsTeamGame            bool        `json:"IsTeamGame"`
+	SeasonID              interface{} `json:"SeasonId"`
+	GameVariantResourceID struct {
+		ResourceType int    `json:"ResourceType"`
+		ResourceID   string `json:"ResourceId"`
+		OwnerType    int    `json:"OwnerType"`
+		Owner        string `json:"Owner"`
+	} `json:"GameVariantResourceId"`
+	MapVariantResourceID struct {
+		ResourceType int    `json:"ResourceType"`
+		ResourceID   string `json:"ResourceId"`
+		OwnerType    int    `json:"OwnerType"`
+		Owner        string `json:"Owner"`
+	} `json:"MapVariantResourceId"`
+}
+
+type CarnageReportWarzoneStruct struct {
+	PlayerStats []struct {
+		XpInfo struct {
+			PrevSpartanRank              int     `json:"PrevSpartanRank"`
+			SpartanRank                  int     `json:"SpartanRank"`
+			PrevTotalXP                  int     `json:"PrevTotalXP"`
+			TotalXP                      int     `json:"TotalXP"`
+			SpartanRankMatchXPScalar     float64 `json:"SpartanRankMatchXPScalar"`
+			PlayerTimePerformanceXPAward int     `json:"PlayerTimePerformanceXPAward"`
+			PerformanceXP                int     `json:"PerformanceXP"`
+			PlayerRankXPAward            int     `json:"PlayerRankXPAward"`
+			BoostAmount                  int     `json:"BoostAmount"`
+			MatchSpeedWinAmount          int     `json:"MatchSpeedWinAmount"`
+			ObjectivesCompletedAmount    int     `json:"ObjectivesCompletedAmount"`
+		} `json:"XpInfo"`
+		KilledOpponentDetails []struct {
+			GamerTag   string `json:"GamerTag"`
+			TotalKills int    `json:"TotalKills"`
+		} `json:"KilledOpponentDetails"`
+		KilledByOpponentDetails []struct {
+			GamerTag   string `json:"GamerTag"`
+			TotalKills int    `json:"TotalKills"`
+		} `json:"KilledByOpponentDetails"`
+		WarzoneLevel    int `json:"WarzoneLevel"`
+		TotalPiesEarned int `json:"TotalPiesEarned"`
+		FlexibleStats   struct {
+			MedalStatCounts []struct {
+				ID    string `json:"Id"`
+				Count int    `json:"Count"`
+			} `json:"MedalStatCounts"`
+			ImpulseStatCounts []struct {
+				ID    string `json:"Id"`
+				Count int    `json:"Count"`
+			} `json:"ImpulseStatCounts"`
+			MedalTimelapses   []interface{} `json:"MedalTimelapses"`
+			ImpulseTimelapses []interface{} `json:"ImpulseTimelapses"`
+		} `json:"FlexibleStats"`
+		RewardSets []struct {
+			RewardSet           string      `json:"RewardSet"`
+			RewardSourceType    int         `json:"RewardSourceType"`
+			SpartanRankSource   interface{} `json:"SpartanRankSource"`
+			CommendationLevelID string      `json:"CommendationLevelId"`
+			CommendationSource  string      `json:"CommendationSource"`
+		} `json:"RewardSets"`
+		CreditsEarned struct {
+			Result                    int     `json:"Result"`
+			TotalCreditsEarned        int     `json:"TotalCreditsEarned"`
+			SpartanRankModifier       float64 `json:"SpartanRankModifier"`
+			PlayerRankAmount          int     `json:"PlayerRankAmount"`
+			TimePlayedAmount          float64 `json:"TimePlayedAmount"`
+			BoostAmount               int     `json:"BoostAmount"`
+			MatchSpeedWinAmount       int     `json:"MatchSpeedWinAmount"`
+			ObjectivesCompletedAmount int     `json:"ObjectivesCompletedAmount"`
+		} `json:"CreditsEarned"`
+		MetaCommendationDeltas        []interface{} `json:"MetaCommendationDeltas"`
+		ProgressiveCommendationDeltas []struct {
+			ID               string `json:"Id"`
+			PreviousProgress int    `json:"PreviousProgress"`
+			Progress         int    `json:"Progress"`
+		} `json:"ProgressiveCommendationDeltas"`
+		Player struct {
+			Gamertag string      `json:"Gamertag"`
+			Xuid     interface{} `json:"Xuid"`
+		} `json:"Player"`
+		TeamID              int         `json:"TeamId"`
+		Rank                int         `json:"Rank"`
+		DNF                 bool        `json:"DNF"`
+		AvgLifeTimeOfPlayer string      `json:"AvgLifeTimeOfPlayer"`
+		PreMatchRatings     interface{} `json:"PreMatchRatings"`
+		PostMatchRatings    interface{} `json:"PostMatchRatings"`
+		PlayerScore         int         `json:"PlayerScore"`
+		TotalKills          int         `json:"TotalKills"`
+		TotalHeadshots      int         `json:"TotalHeadshots"`
+		TotalWeaponDamage   float64     `json:"TotalWeaponDamage"`
+		TotalShotsFired     int         `json:"TotalShotsFired"`
+		TotalShotsLanded    int         `json:"TotalShotsLanded"`
+		WeaponWithMostKills struct {
+			WeaponID struct {
+				StockID     int           `json:"StockId"`
+				Attachments []interface{} `json:"Attachments"`
+			} `json:"WeaponId"`
+			TotalShotsFired     int     `json:"TotalShotsFired"`
+			TotalShotsLanded    int     `json:"TotalShotsLanded"`
+			TotalHeadshots      int     `json:"TotalHeadshots"`
+			TotalKills          int     `json:"TotalKills"`
+			TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+			TotalPossessionTime string  `json:"TotalPossessionTime"`
+		} `json:"WeaponWithMostKills"`
+		TotalMeleeKills                int     `json:"TotalMeleeKills"`
+		TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
+		TotalAssassinations            int     `json:"TotalAssassinations"`
+		TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
+		TotalGroundPoundDamage         float64 `json:"TotalGroundPoundDamage"`
+		TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
+		TotalShoulderBashDamage        float64 `json:"TotalShoulderBashDamage"`
+		TotalGrenadeDamage             float64 `json:"TotalGrenadeDamage"`
+		TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
+		TotalPowerWeaponDamage         float64 `json:"TotalPowerWeaponDamage"`
+		TotalPowerWeaponGrabs          int     `json:"TotalPowerWeaponGrabs"`
+		TotalPowerWeaponPossessionTime string  `json:"TotalPowerWeaponPossessionTime"`
+		TotalDeaths                    int     `json:"TotalDeaths"`
+		TotalAssists                   int     `json:"TotalAssists"`
+		TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
+		TotalGamesWon                  int     `json:"TotalGamesWon"`
+		TotalGamesLost                 int     `json:"TotalGamesLost"`
+		TotalGamesTied                 int     `json:"TotalGamesTied"`
+		TotalTimePlayed                string  `json:"TotalTimePlayed"`
+		TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
+		MedalAwards                    []struct {
+			MedalID int64 `json:"MedalId"`
+			Count   int   `json:"Count"`
+		} `json:"MedalAwards"`
+		DestroyedEnemyVehicles []interface{} `json:"DestroyedEnemyVehicles"`
+		EnemyKills             []struct {
+			Enemy struct {
+				BaseID      int64         `json:"BaseId"`
+				Attachments []interface{} `json:"Attachments"`
+			} `json:"Enemy"`
+			TotalKills int `json:"TotalKills"`
+		} `json:"EnemyKills"`
+		WeaponStats []struct {
+			WeaponID struct {
+				StockID     int64         `json:"StockId"`
+				Attachments []interface{} `json:"Attachments"`
+			} `json:"WeaponId"`
+			TotalShotsFired     int     `json:"TotalShotsFired"`
+			TotalShotsLanded    int     `json:"TotalShotsLanded"`
+			TotalHeadshots      int     `json:"TotalHeadshots"`
+			TotalKills          int     `json:"TotalKills"`
+			TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+			TotalPossessionTime string  `json:"TotalPossessionTime"`
+		} `json:"WeaponStats"`
+		Impulses []struct {
+			ID    int `json:"Id"`
+			Count int `json:"Count"`
+		} `json:"Impulses"`
+		TotalSpartanKills int `json:"TotalSpartanKills"`
+	} `json:"PlayerStats"`
+	TeamStats []struct {
+		TeamID     int `json:"TeamId"`
+		Score      int `json:"Score"`
+		Rank       int `json:"Rank"`
+		RoundStats []struct {
+			RoundNumber int `json:"RoundNumber"`
+			Rank        int `json:"Rank"`
+			Score       int `json:"Score"`
+		} `json:"RoundStats"`
+	} `json:"TeamStats"`
+	IsMatchOver           bool   `json:"IsMatchOver"`
+	TotalDuration         string `json:"TotalDuration"`
+	MapVariantID          string `json:"MapVariantId"`
+	GameVariantID         string `json:"GameVariantId"`
+	PlaylistID            string `json:"PlaylistId"`
+	MapID                 string `json:"MapId"`
+	GameBaseVariantID     string `json:"GameBaseVariantId"`
+	IsTeamGame            bool   `json:"IsTeamGame"`
+	SeasonID              string `json:"SeasonId"`
+	GameVariantResourceID struct {
+		ResourceType int    `json:"ResourceType"`
+		ResourceID   string `json:"ResourceId"`
+		OwnerType    int    `json:"OwnerType"`
+		Owner        string `json:"Owner"`
+	} `json:"GameVariantResourceId"`
+	MapVariantResourceID struct {
+		ResourceType int    `json:"ResourceType"`
+		ResourceID   string `json:"ResourceId"`
+		OwnerType    int    `json:"OwnerType"`
+		Owner        string `json:"Owner"`
+	} `json:"MapVariantResourceId"`
+}
+
 type CampaignMissionsStruct []struct {
 	MissionNumber json.Number `json:"missionNumber"`
 	Name          string      `json:"name"`
@@ -68,582 +649,6 @@ type CsrDesignationsStruct []struct {
 	} `json:"tiers"`
 	ID        string `json:"id"`
 	ContentID string `json:"contentId"`
-}
-
-type CarnageReportArenaStruct struct {
-	GameBaseVariantID     string `json:"GameBaseVariantId"`
-	GameVariantID         string `json:"GameVariantId"`
-	GameVariantResourceID struct {
-		Owner        string `json:"Owner"`
-		OwnerType    int    `json:"OwnerType"`
-		ResourceID   string `json:"ResourceId"`
-		ResourceType int    `json:"ResourceType"`
-	} `json:"GameVariantResourceId"`
-	IsMatchOver          bool   `json:"IsMatchOver"`
-	IsTeamGame           bool   `json:"IsTeamGame"`
-	MapID                string `json:"MapId"`
-	MapVariantID         string `json:"MapVariantId"`
-	MapVariantResourceID struct {
-		Owner        string `json:"Owner"`
-		OwnerType    int    `json:"OwnerType"`
-		ResourceID   string `json:"ResourceId"`
-		ResourceType int    `json:"ResourceType"`
-	} `json:"MapVariantResourceId"`
-	PlayerStats []struct {
-		AvgLifeTimeOfPlayer string `json:"AvgLifeTimeOfPlayer"`
-		CreditsEarned       struct {
-			BoostAmount               int `json:"BoostAmount"`
-			MatchSpeedWinAmount       int `json:"MatchSpeedWinAmount"`
-			ObjectivesCompletedAmount int `json:"ObjectivesCompletedAmount"`
-			PlayerRankAmount          int `json:"PlayerRankAmount"`
-			Result                    int `json:"Result"`
-			SpartanRankModifier       int `json:"SpartanRankModifier"`
-			TimePlayedAmount          int `json:"TimePlayedAmount"`
-			TotalCreditsEarned        int `json:"TotalCreditsEarned"`
-		} `json:"CreditsEarned"`
-		CurrentCsr struct {
-			Csr               int         `json:"Csr"`
-			DesignationID     int         `json:"DesignationId"`
-			PercentToNextTier int         `json:"PercentToNextTier"`
-			Rank              interface{} `json:"Rank"`
-			Tier              int         `json:"Tier"`
-		} `json:"CurrentCsr"`
-		DNF                    bool          `json:"DNF"`
-		DestroyedEnemyVehicles []interface{} `json:"DestroyedEnemyVehicles"`
-		EnemyKills             []interface{} `json:"EnemyKills"`
-		FlexibleStats          struct {
-			ImpulseStatCounts []struct {
-				Count int    `json:"Count"`
-				ID    string `json:"Id"`
-			} `json:"ImpulseStatCounts"`
-			ImpulseTimelapses []struct {
-				ID        string `json:"Id"`
-				Timelapse string `json:"Timelapse"`
-			} `json:"ImpulseTimelapses"`
-			MedalStatCounts []interface{} `json:"MedalStatCounts"`
-			MedalTimelapses []interface{} `json:"MedalTimelapses"`
-		} `json:"FlexibleStats"`
-		Impulses                []interface{} `json:"Impulses"`
-		KilledByOpponentDetails []struct {
-			GamerTag   string `json:"GamerTag"`
-			TotalKills int    `json:"TotalKills"`
-		} `json:"KilledByOpponentDetails"`
-		KilledOpponentDetails []struct {
-			GamerTag   string `json:"GamerTag"`
-			TotalKills int    `json:"TotalKills"`
-		} `json:"KilledOpponentDetails"`
-		MeasurementMatchesLeft int `json:"MeasurementMatchesLeft"`
-		MedalAwards            []struct {
-			Count   int `json:"Count"`
-			MedalID int `json:"MedalId"`
-		} `json:"MedalAwards"`
-		MetaCommendationDeltas []interface{} `json:"MetaCommendationDeltas"`
-		Player                 struct {
-			Gamertag string      `json:"Gamertag"`
-			Xuid     interface{} `json:"Xuid"`
-		} `json:"Player"`
-		PlayerScore      int         `json:"PlayerScore"`
-		PostMatchRatings interface{} `json:"PostMatchRatings"`
-		PreMatchRatings  interface{} `json:"PreMatchRatings"`
-		PreviousCsr      struct {
-			Csr               int         `json:"Csr"`
-			DesignationID     int         `json:"DesignationId"`
-			PercentToNextTier int         `json:"PercentToNextTier"`
-			Rank              interface{} `json:"Rank"`
-			Tier              int         `json:"Tier"`
-		} `json:"PreviousCsr"`
-		ProgressiveCommendationDeltas []struct {
-			ID               string `json:"Id"`
-			PreviousProgress int    `json:"PreviousProgress"`
-			Progress         int    `json:"Progress"`
-		} `json:"ProgressiveCommendationDeltas"`
-		Rank                           int           `json:"Rank"`
-		RewardSets                     []interface{} `json:"RewardSets"`
-		TeamID                         int           `json:"TeamId"`
-		TotalAssassinations            int           `json:"TotalAssassinations"`
-		TotalAssists                   int           `json:"TotalAssists"`
-		TotalDeaths                    int           `json:"TotalDeaths"`
-		TotalGamesCompleted            int           `json:"TotalGamesCompleted"`
-		TotalGamesLost                 int           `json:"TotalGamesLost"`
-		TotalGamesTied                 int           `json:"TotalGamesTied"`
-		TotalGamesWon                  int           `json:"TotalGamesWon"`
-		TotalGrenadeDamage             int           `json:"TotalGrenadeDamage"`
-		TotalGrenadeKills              int           `json:"TotalGrenadeKills"`
-		TotalGroundPoundDamage         int           `json:"TotalGroundPoundDamage"`
-		TotalGroundPoundKills          int           `json:"TotalGroundPoundKills"`
-		TotalHeadshots                 int           `json:"TotalHeadshots"`
-		TotalKills                     int           `json:"TotalKills"`
-		TotalMeleeDamage               int           `json:"TotalMeleeDamage"`
-		TotalMeleeKills                int           `json:"TotalMeleeKills"`
-		TotalPowerWeaponDamage         int           `json:"TotalPowerWeaponDamage"`
-		TotalPowerWeaponGrabs          int           `json:"TotalPowerWeaponGrabs"`
-		TotalPowerWeaponKills          int           `json:"TotalPowerWeaponKills"`
-		TotalPowerWeaponPossessionTime string        `json:"TotalPowerWeaponPossessionTime"`
-		TotalShotsFired                int           `json:"TotalShotsFired"`
-		TotalShotsLanded               int           `json:"TotalShotsLanded"`
-		TotalShoulderBashDamage        int           `json:"TotalShoulderBashDamage"`
-		TotalShoulderBashKills         int           `json:"TotalShoulderBashKills"`
-		TotalSpartanKills              int           `json:"TotalSpartanKills"`
-		TotalTimePlayed                string        `json:"TotalTimePlayed"`
-		TotalWeaponDamage              int           `json:"TotalWeaponDamage"`
-		WeaponStats                    []struct {
-			TotalDamageDealt    int    `json:"TotalDamageDealt"`
-			TotalHeadshots      int    `json:"TotalHeadshots"`
-			TotalKills          int    `json:"TotalKills"`
-			TotalPossessionTime string `json:"TotalPossessionTime"`
-			TotalShotsFired     int    `json:"TotalShotsFired"`
-			TotalShotsLanded    int    `json:"TotalShotsLanded"`
-			WeaponID            struct {
-				Attachments []interface{} `json:"Attachments"`
-				StockID     int           `json:"StockId"`
-			} `json:"WeaponId"`
-		} `json:"WeaponStats"`
-		WeaponWithMostKills struct {
-			TotalDamageDealt    int    `json:"TotalDamageDealt"`
-			TotalHeadshots      int    `json:"TotalHeadshots"`
-			TotalKills          int    `json:"TotalKills"`
-			TotalPossessionTime string `json:"TotalPossessionTime"`
-			TotalShotsFired     int    `json:"TotalShotsFired"`
-			TotalShotsLanded    int    `json:"TotalShotsLanded"`
-			WeaponID            struct {
-				Attachments []interface{} `json:"Attachments"`
-				StockID     int           `json:"StockId"`
-			} `json:"WeaponId"`
-		} `json:"WeaponWithMostKills"`
-		XpInfo struct {
-			BoostAmount                  int `json:"BoostAmount"`
-			MatchSpeedWinAmount          int `json:"MatchSpeedWinAmount"`
-			ObjectivesCompletedAmount    int `json:"ObjectivesCompletedAmount"`
-			PerformanceXP                int `json:"PerformanceXP"`
-			PlayerRankXPAward            int `json:"PlayerRankXPAward"`
-			PlayerTimePerformanceXPAward int `json:"PlayerTimePerformanceXPAward"`
-			PrevSpartanRank              int `json:"PrevSpartanRank"`
-			PrevTotalXP                  int `json:"PrevTotalXP"`
-			SpartanRank                  int `json:"SpartanRank"`
-			SpartanRankMatchXPScalar     int `json:"SpartanRankMatchXPScalar"`
-			TotalXP                      int `json:"TotalXP"`
-		} `json:"XpInfo"`
-	} `json:"PlayerStats"`
-	PlaylistID string `json:"PlaylistId"`
-	SeasonID   string `json:"SeasonId"`
-	TeamStats  []struct {
-		Rank       int `json:"Rank"`
-		RoundStats []struct {
-			Rank        int `json:"Rank"`
-			RoundNumber int `json:"RoundNumber"`
-			Score       int `json:"Score"`
-		} `json:"RoundStats"`
-		Score  int `json:"Score"`
-		TeamID int `json:"TeamId"`
-	} `json:"TeamStats"`
-	TotalDuration string `json:"TotalDuration"`
-}
-
-type CarnageReportCampaignStruct struct {
-	Difficulty            int    `json:"Difficulty"`
-	GameBaseVariantID     string `json:"GameBaseVariantId"`
-	GameVariantID         string `json:"GameVariantId"`
-	GameVariantResourceID struct {
-		Owner        string `json:"Owner"`
-		OwnerType    int    `json:"OwnerType"`
-		ResourceID   string `json:"ResourceId"`
-		ResourceType int    `json:"ResourceType"`
-	} `json:"GameVariantResourceId"`
-	IsMatchOver          bool   `json:"IsMatchOver"`
-	IsTeamGame           bool   `json:"IsTeamGame"`
-	MapID                string `json:"MapId"`
-	MapVariantID         string `json:"MapVariantId"`
-	MapVariantResourceID struct {
-		Owner        string `json:"Owner"`
-		OwnerType    int    `json:"OwnerType"`
-		ResourceID   string `json:"ResourceId"`
-		ResourceType int    `json:"ResourceType"`
-	} `json:"MapVariantResourceId"`
-	MissionCompleted bool `json:"MissionCompleted"`
-	PlayerStats      []struct {
-		AvgLifeTimeOfPlayer    string        `json:"AvgLifeTimeOfPlayer"`
-		BiggestKillScore       int           `json:"BiggestKillScore"`
-		CharacterIndex         interface{}   `json:"CharacterIndex"`
-		DNF                    bool          `json:"DNF"`
-		DestroyedEnemyVehicles []interface{} `json:"DestroyedEnemyVehicles"`
-		EnemyKills             []struct {
-			Enemy struct {
-				Attachments []interface{} `json:"Attachments"`
-				BaseID      int           `json:"BaseId"`
-			} `json:"Enemy"`
-			TotalKills int `json:"TotalKills"`
-		} `json:"EnemyKills"`
-		FlexibleStats struct {
-			ImpulseStatCounts []struct {
-				Count int    `json:"Count"`
-				ID    string `json:"Id"`
-			} `json:"ImpulseStatCounts"`
-			ImpulseTimelapses []interface{} `json:"ImpulseTimelapses"`
-			MedalStatCounts   []interface{} `json:"MedalStatCounts"`
-			MedalTimelapses   []interface{} `json:"MedalTimelapses"`
-		} `json:"FlexibleStats"`
-		Impulses    []interface{} `json:"Impulses"`
-		MedalAwards []interface{} `json:"MedalAwards"`
-		Player      struct {
-			Gamertag string      `json:"Gamertag"`
-			Xuid     interface{} `json:"Xuid"`
-		} `json:"Player"`
-		PlayerScore                    interface{} `json:"PlayerScore"`
-		PostMatchRatings               interface{} `json:"PostMatchRatings"`
-		PreMatchRatings                interface{} `json:"PreMatchRatings"`
-		Rank                           int         `json:"Rank"`
-		Score                          int         `json:"Score"`
-		TeamID                         int         `json:"TeamId"`
-		TotalAssassinations            int         `json:"TotalAssassinations"`
-		TotalAssists                   int         `json:"TotalAssists"`
-		TotalDeaths                    int         `json:"TotalDeaths"`
-		TotalGamesCompleted            int         `json:"TotalGamesCompleted"`
-		TotalGamesLost                 int         `json:"TotalGamesLost"`
-		TotalGamesTied                 int         `json:"TotalGamesTied"`
-		TotalGamesWon                  int         `json:"TotalGamesWon"`
-		TotalGrenadeDamage             int         `json:"TotalGrenadeDamage"`
-		TotalGrenadeKills              int         `json:"TotalGrenadeKills"`
-		TotalGroundPoundDamage         int         `json:"TotalGroundPoundDamage"`
-		TotalGroundPoundKills          int         `json:"TotalGroundPoundKills"`
-		TotalHeadshots                 int         `json:"TotalHeadshots"`
-		TotalKills                     int         `json:"TotalKills"`
-		TotalMeleeDamage               int         `json:"TotalMeleeDamage"`
-		TotalMeleeKills                int         `json:"TotalMeleeKills"`
-		TotalPowerWeaponDamage         int         `json:"TotalPowerWeaponDamage"`
-		TotalPowerWeaponGrabs          int         `json:"TotalPowerWeaponGrabs"`
-		TotalPowerWeaponKills          int         `json:"TotalPowerWeaponKills"`
-		TotalPowerWeaponPossessionTime string      `json:"TotalPowerWeaponPossessionTime"`
-		TotalShotsFired                int         `json:"TotalShotsFired"`
-		TotalShotsLanded               int         `json:"TotalShotsLanded"`
-		TotalShoulderBashDamage        int         `json:"TotalShoulderBashDamage"`
-		TotalShoulderBashKills         int         `json:"TotalShoulderBashKills"`
-		TotalSpartanKills              int         `json:"TotalSpartanKills"`
-		TotalTimePlayed                string      `json:"TotalTimePlayed"`
-		TotalWeaponDamage              int         `json:"TotalWeaponDamage"`
-		WeaponStats                    []struct {
-			TotalDamageDealt    int    `json:"TotalDamageDealt"`
-			TotalHeadshots      int    `json:"TotalHeadshots"`
-			TotalKills          int    `json:"TotalKills"`
-			TotalPossessionTime string `json:"TotalPossessionTime"`
-			TotalShotsFired     int    `json:"TotalShotsFired"`
-			TotalShotsLanded    int    `json:"TotalShotsLanded"`
-			WeaponID            struct {
-				Attachments []interface{} `json:"Attachments"`
-				StockID     int           `json:"StockId"`
-			} `json:"WeaponId"`
-		} `json:"WeaponStats"`
-		WeaponWithMostKills struct {
-			TotalDamageDealt    int    `json:"TotalDamageDealt"`
-			TotalHeadshots      int    `json:"TotalHeadshots"`
-			TotalKills          int    `json:"TotalKills"`
-			TotalPossessionTime string `json:"TotalPossessionTime"`
-			TotalShotsFired     int    `json:"TotalShotsFired"`
-			TotalShotsLanded    int    `json:"TotalShotsLanded"`
-			WeaponID            struct {
-				Attachments []interface{} `json:"Attachments"`
-				StockID     int           `json:"StockId"`
-			} `json:"WeaponId"`
-		} `json:"WeaponWithMostKills"`
-	} `json:"PlayerStats"`
-	PlaylistID                  string        `json:"PlaylistId"`
-	SeasonID                    interface{}   `json:"SeasonId"`
-	Skulls                      []interface{} `json:"Skulls"`
-	TotalDuration               string        `json:"TotalDuration"`
-	TotalMissionPlaythroughTime string        `json:"TotalMissionPlaythroughTime"`
-}
-
-type CarnageReportCustomStruct struct {
-	GameBaseVariantID     string `json:"GameBaseVariantId"`
-	GameVariantID         string `json:"GameVariantId"`
-	GameVariantResourceID struct {
-		Owner        string `json:"Owner"`
-		OwnerType    int    `json:"OwnerType"`
-		ResourceID   string `json:"ResourceId"`
-		ResourceType int    `json:"ResourceType"`
-	} `json:"GameVariantResourceId"`
-	IsMatchOver          bool   `json:"IsMatchOver"`
-	IsTeamGame           bool   `json:"IsTeamGame"`
-	MapID                string `json:"MapId"`
-	MapVariantID         string `json:"MapVariantId"`
-	MapVariantResourceID struct {
-		Owner        string `json:"Owner"`
-		OwnerType    int    `json:"OwnerType"`
-		ResourceID   string `json:"ResourceId"`
-		ResourceType int    `json:"ResourceType"`
-	} `json:"MapVariantResourceId"`
-	PlayerStats []struct {
-		AvgLifeTimeOfPlayer    string        `json:"AvgLifeTimeOfPlayer"`
-		DNF                    bool          `json:"DNF"`
-		DestroyedEnemyVehicles []interface{} `json:"DestroyedEnemyVehicles"`
-		EnemyKills             []interface{} `json:"EnemyKills"`
-		FlexibleStats          struct {
-			ImpulseStatCounts []struct {
-				Count int    `json:"Count"`
-				ID    string `json:"Id"`
-			} `json:"ImpulseStatCounts"`
-			ImpulseTimelapses []struct {
-				ID        string `json:"Id"`
-				Timelapse string `json:"Timelapse"`
-			} `json:"ImpulseTimelapses"`
-			MedalStatCounts []interface{} `json:"MedalStatCounts"`
-			MedalTimelapses []interface{} `json:"MedalTimelapses"`
-		} `json:"FlexibleStats"`
-		Impulses []struct {
-			Count int `json:"Count"`
-			ID    int `json:"Id"`
-		} `json:"Impulses"`
-		KilledByOpponentDetails []struct {
-			GamerTag   string `json:"GamerTag"`
-			TotalKills int    `json:"TotalKills"`
-		} `json:"KilledByOpponentDetails"`
-		KilledOpponentDetails []struct {
-			GamerTag   string `json:"GamerTag"`
-			TotalKills int    `json:"TotalKills"`
-		} `json:"KilledOpponentDetails"`
-		MedalAwards []struct {
-			Count   int `json:"Count"`
-			MedalID int `json:"MedalId"`
-		} `json:"MedalAwards"`
-		Player struct {
-			Gamertag string      `json:"Gamertag"`
-			Xuid     interface{} `json:"Xuid"`
-		} `json:"Player"`
-		PlayerScore                    int         `json:"PlayerScore"`
-		PostMatchRatings               interface{} `json:"PostMatchRatings"`
-		PreMatchRatings                interface{} `json:"PreMatchRatings"`
-		Rank                           int         `json:"Rank"`
-		TeamID                         int         `json:"TeamId"`
-		TotalAssassinations            int         `json:"TotalAssassinations"`
-		TotalAssists                   int         `json:"TotalAssists"`
-		TotalDeaths                    int         `json:"TotalDeaths"`
-		TotalGamesCompleted            int         `json:"TotalGamesCompleted"`
-		TotalGamesLost                 int         `json:"TotalGamesLost"`
-		TotalGamesTied                 int         `json:"TotalGamesTied"`
-		TotalGamesWon                  int         `json:"TotalGamesWon"`
-		TotalGrenadeDamage             int         `json:"TotalGrenadeDamage"`
-		TotalGrenadeKills              int         `json:"TotalGrenadeKills"`
-		TotalGroundPoundDamage         int         `json:"TotalGroundPoundDamage"`
-		TotalGroundPoundKills          int         `json:"TotalGroundPoundKills"`
-		TotalHeadshots                 int         `json:"TotalHeadshots"`
-		TotalKills                     int         `json:"TotalKills"`
-		TotalMeleeDamage               float64     `json:"TotalMeleeDamage"`
-		TotalMeleeKills                int         `json:"TotalMeleeKills"`
-		TotalPowerWeaponDamage         float64     `json:"TotalPowerWeaponDamage"`
-		TotalPowerWeaponGrabs          int         `json:"TotalPowerWeaponGrabs"`
-		TotalPowerWeaponKills          int         `json:"TotalPowerWeaponKills"`
-		TotalPowerWeaponPossessionTime string      `json:"TotalPowerWeaponPossessionTime"`
-		TotalShotsFired                int         `json:"TotalShotsFired"`
-		TotalShotsLanded               int         `json:"TotalShotsLanded"`
-		TotalShoulderBashDamage        int         `json:"TotalShoulderBashDamage"`
-		TotalShoulderBashKills         int         `json:"TotalShoulderBashKills"`
-		TotalSpartanKills              int         `json:"TotalSpartanKills"`
-		TotalTimePlayed                string      `json:"TotalTimePlayed"`
-		TotalWeaponDamage              float64     `json:"TotalWeaponDamage"`
-		WeaponStats                    []struct {
-			TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-			TotalHeadshots      int     `json:"TotalHeadshots"`
-			TotalKills          int     `json:"TotalKills"`
-			TotalPossessionTime string  `json:"TotalPossessionTime"`
-			TotalShotsFired     int     `json:"TotalShotsFired"`
-			TotalShotsLanded    int     `json:"TotalShotsLanded"`
-			WeaponID            struct {
-				Attachments []interface{} `json:"Attachments"`
-				StockID     int           `json:"StockId"`
-			} `json:"WeaponId"`
-		} `json:"WeaponStats"`
-		WeaponWithMostKills struct {
-			TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-			TotalHeadshots      int     `json:"TotalHeadshots"`
-			TotalKills          int     `json:"TotalKills"`
-			TotalPossessionTime string  `json:"TotalPossessionTime"`
-			TotalShotsFired     int     `json:"TotalShotsFired"`
-			TotalShotsLanded    int     `json:"TotalShotsLanded"`
-			WeaponID            struct {
-				Attachments []interface{} `json:"Attachments"`
-				StockID     int           `json:"StockId"`
-			} `json:"WeaponId"`
-		} `json:"WeaponWithMostKills"`
-	} `json:"PlayerStats"`
-	PlaylistID string      `json:"PlaylistId"`
-	SeasonID   interface{} `json:"SeasonId"`
-	TeamStats  []struct {
-		Rank       int           `json:"Rank"`
-		RoundStats []interface{} `json:"RoundStats"`
-		Score      int           `json:"Score"`
-		TeamID     int           `json:"TeamId"`
-	} `json:"TeamStats"`
-	TotalDuration string `json:"TotalDuration"`
-}
-
-type CarnageReportWarzoneStruct struct {
-	GameBaseVariantID     string `json:"GameBaseVariantId"`
-	GameVariantID         string `json:"GameVariantId"`
-	GameVariantResourceID struct {
-		Owner        string `json:"Owner"`
-		OwnerType    int    `json:"OwnerType"`
-		ResourceID   string `json:"ResourceId"`
-		ResourceType int    `json:"ResourceType"`
-	} `json:"GameVariantResourceId"`
-	IsMatchOver          bool   `json:"IsMatchOver"`
-	IsTeamGame           bool   `json:"IsTeamGame"`
-	MapID                string `json:"MapId"`
-	MapVariantID         string `json:"MapVariantId"`
-	MapVariantResourceID struct {
-		Owner        string `json:"Owner"`
-		OwnerType    int    `json:"OwnerType"`
-		ResourceID   string `json:"ResourceId"`
-		ResourceType int    `json:"ResourceType"`
-	} `json:"MapVariantResourceId"`
-	PlayerStats []struct {
-		AvgLifeTimeOfPlayer string `json:"AvgLifeTimeOfPlayer"`
-		CreditsEarned       struct {
-			BoostAmount               int `json:"BoostAmount"`
-			MatchSpeedWinAmount       int `json:"MatchSpeedWinAmount"`
-			ObjectivesCompletedAmount int `json:"ObjectivesCompletedAmount"`
-			PlayerRankAmount          int `json:"PlayerRankAmount"`
-			Result                    int `json:"Result"`
-			SpartanRankModifier       int `json:"SpartanRankModifier"`
-			TimePlayedAmount          int `json:"TimePlayedAmount"`
-			TotalCreditsEarned        int `json:"TotalCreditsEarned"`
-		} `json:"CreditsEarned"`
-		DNF                    bool          `json:"DNF"`
-		DestroyedEnemyVehicles []interface{} `json:"DestroyedEnemyVehicles"`
-		EnemyKills             []struct {
-			Enemy struct {
-				Attachments []interface{} `json:"Attachments"`
-				BaseID      int           `json:"BaseId"`
-			} `json:"Enemy"`
-			TotalKills int `json:"TotalKills"`
-		} `json:"EnemyKills"`
-		FlexibleStats struct {
-			ImpulseStatCounts []struct {
-				Count int    `json:"Count"`
-				ID    string `json:"Id"`
-			} `json:"ImpulseStatCounts"`
-			ImpulseTimelapses []interface{} `json:"ImpulseTimelapses"`
-			MedalStatCounts   []struct {
-				Count int    `json:"Count"`
-				ID    string `json:"Id"`
-			} `json:"MedalStatCounts"`
-			MedalTimelapses []interface{} `json:"MedalTimelapses"`
-		} `json:"FlexibleStats"`
-		Impulses []struct {
-			Count int `json:"Count"`
-			ID    int `json:"Id"`
-		} `json:"Impulses"`
-		KilledByOpponentDetails []struct {
-			GamerTag   string `json:"GamerTag"`
-			TotalKills int    `json:"TotalKills"`
-		} `json:"KilledByOpponentDetails"`
-		KilledOpponentDetails []struct {
-			GamerTag   string `json:"GamerTag"`
-			TotalKills int    `json:"TotalKills"`
-		} `json:"KilledOpponentDetails"`
-		MedalAwards []struct {
-			Count   int `json:"Count"`
-			MedalID int `json:"MedalId"`
-		} `json:"MedalAwards"`
-		MetaCommendationDeltas []interface{} `json:"MetaCommendationDeltas"`
-		Player                 struct {
-			Gamertag string      `json:"Gamertag"`
-			Xuid     interface{} `json:"Xuid"`
-		} `json:"Player"`
-		PlayerScore                   int         `json:"PlayerScore"`
-		PostMatchRatings              interface{} `json:"PostMatchRatings"`
-		PreMatchRatings               interface{} `json:"PreMatchRatings"`
-		ProgressiveCommendationDeltas []struct {
-			ID               string `json:"Id"`
-			PreviousProgress int    `json:"PreviousProgress"`
-			Progress         int    `json:"Progress"`
-		} `json:"ProgressiveCommendationDeltas"`
-		Rank       int `json:"Rank"`
-		RewardSets []struct {
-			CommendationLevelID string      `json:"CommendationLevelId"`
-			CommendationSource  string      `json:"CommendationSource"`
-			RewardSet           string      `json:"RewardSet"`
-			RewardSourceType    int         `json:"RewardSourceType"`
-			SpartanRankSource   interface{} `json:"SpartanRankSource"`
-		} `json:"RewardSets"`
-		TeamID                         int     `json:"TeamId"`
-		TotalAssassinations            int     `json:"TotalAssassinations"`
-		TotalAssists                   int     `json:"TotalAssists"`
-		TotalDeaths                    int     `json:"TotalDeaths"`
-		TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
-		TotalGamesLost                 int     `json:"TotalGamesLost"`
-		TotalGamesTied                 int     `json:"TotalGamesTied"`
-		TotalGamesWon                  int     `json:"TotalGamesWon"`
-		TotalGrenadeDamage             float64 `json:"TotalGrenadeDamage"`
-		TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
-		TotalGroundPoundDamage         int     `json:"TotalGroundPoundDamage"`
-		TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
-		TotalHeadshots                 int     `json:"TotalHeadshots"`
-		TotalKills                     int     `json:"TotalKills"`
-		TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
-		TotalMeleeKills                int     `json:"TotalMeleeKills"`
-		TotalPiesEarned                int     `json:"TotalPiesEarned"`
-		TotalPowerWeaponDamage         float64 `json:"TotalPowerWeaponDamage"`
-		TotalPowerWeaponGrabs          int     `json:"TotalPowerWeaponGrabs"`
-		TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
-		TotalPowerWeaponPossessionTime string  `json:"TotalPowerWeaponPossessionTime"`
-		TotalShotsFired                int     `json:"TotalShotsFired"`
-		TotalShotsLanded               int     `json:"TotalShotsLanded"`
-		TotalShoulderBashDamage        int     `json:"TotalShoulderBashDamage"`
-		TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
-		TotalSpartanKills              int     `json:"TotalSpartanKills"`
-		TotalTimePlayed                string  `json:"TotalTimePlayed"`
-		TotalWeaponDamage              float64 `json:"TotalWeaponDamage"`
-		WarzoneLevel                   int     `json:"WarzoneLevel"`
-		WeaponStats                    []struct {
-			TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-			TotalHeadshots      int     `json:"TotalHeadshots"`
-			TotalKills          int     `json:"TotalKills"`
-			TotalPossessionTime string  `json:"TotalPossessionTime"`
-			TotalShotsFired     int     `json:"TotalShotsFired"`
-			TotalShotsLanded    int     `json:"TotalShotsLanded"`
-			WeaponID            struct {
-				Attachments []interface{} `json:"Attachments"`
-				StockID     int           `json:"StockId"`
-			} `json:"WeaponId"`
-		} `json:"WeaponStats"`
-		WeaponWithMostKills struct {
-			TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-			TotalHeadshots      int     `json:"TotalHeadshots"`
-			TotalKills          int     `json:"TotalKills"`
-			TotalPossessionTime string  `json:"TotalPossessionTime"`
-			TotalShotsFired     int     `json:"TotalShotsFired"`
-			TotalShotsLanded    int     `json:"TotalShotsLanded"`
-			WeaponID            struct {
-				Attachments []interface{} `json:"Attachments"`
-				StockID     int           `json:"StockId"`
-			} `json:"WeaponId"`
-		} `json:"WeaponWithMostKills"`
-		XpInfo struct {
-			BoostAmount                  int     `json:"BoostAmount"`
-			MatchSpeedWinAmount          int     `json:"MatchSpeedWinAmount"`
-			ObjectivesCompletedAmount    int     `json:"ObjectivesCompletedAmount"`
-			PerformanceXP                int     `json:"PerformanceXP"`
-			PlayerRankXPAward            int     `json:"PlayerRankXPAward"`
-			PlayerTimePerformanceXPAward int     `json:"PlayerTimePerformanceXPAward"`
-			PrevSpartanRank              int     `json:"PrevSpartanRank"`
-			PrevTotalXP                  int     `json:"PrevTotalXP"`
-			SpartanRank                  int     `json:"SpartanRank"`
-			SpartanRankMatchXPScalar     float64 `json:"SpartanRankMatchXPScalar"`
-			TotalXP                      int     `json:"TotalXP"`
-		} `json:"XpInfo"`
-	} `json:"PlayerStats"`
-	PlaylistID string `json:"PlaylistId"`
-	SeasonID   string `json:"SeasonId"`
-	TeamStats  []struct {
-		Rank       int `json:"Rank"`
-		RoundStats []struct {
-			Rank        int `json:"Rank"`
-			RoundNumber int `json:"RoundNumber"`
-			Score       int `json:"Score"`
-		} `json:"RoundStats"`
-		Score  int `json:"Score"`
-		TeamID int `json:"TeamId"`
-	} `json:"TeamStats"`
-	TotalDuration string `json:"TotalDuration"`
 }
 
 type EnemiesStruct []struct {
@@ -941,437 +946,168 @@ type SeasonsStruct []struct {
 	StartDate string `json:"startDate"`
 }
 
-type ServiceRecordArenaStruct struct {
-	Links struct {
-		Self struct {
-			AcknowledgementTypeID                    int    `json:"AcknowledgementTypeId"`
-			AuthenticationLifetimeExtensionSupported bool   `json:"AuthenticationLifetimeExtensionSupported"`
-			AuthorityID                              string `json:"AuthorityId"`
-			Path                                     string `json:"Path"`
-			QueryString                              string `json:"QueryString"`
-			RetryPolicyID                            string `json:"RetryPolicyId"`
-			TopicName                                string `json:"TopicName"`
-		} `json:"Self"`
-	} `json:"Links"`
+type ServiceRecordWarzoneStruct struct {
 	Results []struct {
-		ID     string `json:"Id"`
-		Result struct {
-			ArenaStats struct {
-				ArenaGameBaseVariantStats []struct {
-					DestroyedEnemyVehicles []interface{} `json:"DestroyedEnemyVehicles"`
-					EnemyKills             []interface{} `json:"EnemyKills"`
-					FlexibleStats          struct {
-						ImpulseStatCounts []struct {
-							Count int    `json:"Count"`
-							ID    string `json:"Id"`
-						} `json:"ImpulseStatCounts"`
-						ImpulseTimelapses []struct {
-							ID        string `json:"Id"`
-							Timelapse string `json:"Timelapse"`
-						} `json:"ImpulseTimelapses"`
+		ID         string `json:"Id"`
+		ResultCode int    `json:"ResultCode"`
+		Result     struct {
+			WarzoneStat struct {
+				TotalPiesEarned int `json:"TotalPiesEarned"`
+				ScenarioStats   []struct {
+					TotalPiesEarned int `json:"TotalPiesEarned"`
+					FlexibleStats   struct {
 						MedalStatCounts []struct {
-							Count int    `json:"Count"`
 							ID    string `json:"Id"`
+							Count int    `json:"Count"`
 						} `json:"MedalStatCounts"`
-						MedalTimelapses []interface{} `json:"MedalTimelapses"`
+						ImpulseStatCounts []struct {
+							ID    string `json:"Id"`
+							Count int    `json:"Count"`
+						} `json:"ImpulseStatCounts"`
+						MedalTimelapses   []interface{} `json:"MedalTimelapses"`
+						ImpulseTimelapses []interface{} `json:"ImpulseTimelapses"`
 					} `json:"FlexibleStats"`
-					GameBaseVariantID string `json:"GameBaseVariantId"`
-					Impulses          []struct {
-						Count int `json:"Count"`
-						ID    int `json:"Id"`
-					} `json:"Impulses"`
-					MedalAwards []struct {
-						Count   int `json:"Count"`
-						MedalID int `json:"MedalId"`
-					} `json:"MedalAwards"`
-					TotalAssassinations            int     `json:"TotalAssassinations"`
-					TotalAssists                   int     `json:"TotalAssists"`
-					TotalDeaths                    int     `json:"TotalDeaths"`
-					TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
-					TotalGamesLost                 int     `json:"TotalGamesLost"`
-					TotalGamesTied                 int     `json:"TotalGamesTied"`
-					TotalGamesWon                  int     `json:"TotalGamesWon"`
-					TotalGrenadeDamage             float64 `json:"TotalGrenadeDamage"`
-					TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
-					TotalGroundPoundDamage         int     `json:"TotalGroundPoundDamage"`
-					TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
-					TotalHeadshots                 int     `json:"TotalHeadshots"`
-					TotalKills                     int     `json:"TotalKills"`
-					TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
+					MapID               string  `json:"MapId"`
+					GameBaseVariantID   string  `json:"GameBaseVariantId"`
+					TotalKills          int     `json:"TotalKills"`
+					TotalHeadshots      int     `json:"TotalHeadshots"`
+					TotalWeaponDamage   float64 `json:"TotalWeaponDamage"`
+					TotalShotsFired     int     `json:"TotalShotsFired"`
+					TotalShotsLanded    int     `json:"TotalShotsLanded"`
+					WeaponWithMostKills struct {
+						WeaponID struct {
+							StockID     int           `json:"StockId"`
+							Attachments []interface{} `json:"Attachments"`
+						} `json:"WeaponId"`
+						TotalShotsFired     int     `json:"TotalShotsFired"`
+						TotalShotsLanded    int     `json:"TotalShotsLanded"`
+						TotalHeadshots      int     `json:"TotalHeadshots"`
+						TotalKills          int     `json:"TotalKills"`
+						TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+						TotalPossessionTime string  `json:"TotalPossessionTime"`
+					} `json:"WeaponWithMostKills"`
 					TotalMeleeKills                int     `json:"TotalMeleeKills"`
+					TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
+					TotalAssassinations            int     `json:"TotalAssassinations"`
+					TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
+					TotalGroundPoundDamage         float64 `json:"TotalGroundPoundDamage"`
+					TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
+					TotalShoulderBashDamage        float64 `json:"TotalShoulderBashDamage"`
+					TotalGrenadeDamage             float64 `json:"TotalGrenadeDamage"`
+					TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
 					TotalPowerWeaponDamage         float64 `json:"TotalPowerWeaponDamage"`
 					TotalPowerWeaponGrabs          int     `json:"TotalPowerWeaponGrabs"`
-					TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
 					TotalPowerWeaponPossessionTime string  `json:"TotalPowerWeaponPossessionTime"`
-					TotalShotsFired                int     `json:"TotalShotsFired"`
-					TotalShotsLanded               int     `json:"TotalShotsLanded"`
-					TotalShoulderBashDamage        int     `json:"TotalShoulderBashDamage"`
-					TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
-					TotalSpartanKills              int     `json:"TotalSpartanKills"`
+					TotalDeaths                    int     `json:"TotalDeaths"`
+					TotalAssists                   int     `json:"TotalAssists"`
+					TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
+					TotalGamesWon                  int     `json:"TotalGamesWon"`
+					TotalGamesLost                 int     `json:"TotalGamesLost"`
+					TotalGamesTied                 int     `json:"TotalGamesTied"`
 					TotalTimePlayed                string  `json:"TotalTimePlayed"`
-					TotalWeaponDamage              float64 `json:"TotalWeaponDamage"`
-					WeaponStats                    []struct {
-						TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-						TotalHeadshots      int     `json:"TotalHeadshots"`
-						TotalKills          int     `json:"TotalKills"`
-						TotalPossessionTime string  `json:"TotalPossessionTime"`
-						TotalShotsFired     int     `json:"TotalShotsFired"`
-						TotalShotsLanded    int     `json:"TotalShotsLanded"`
-						WeaponID            struct {
-							Attachments []interface{} `json:"Attachments"`
-							StockID     int           `json:"StockId"`
-						} `json:"WeaponId"`
-					} `json:"WeaponStats"`
-					WeaponWithMostKills struct {
-						TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-						TotalHeadshots      int     `json:"TotalHeadshots"`
-						TotalKills          int     `json:"TotalKills"`
-						TotalPossessionTime string  `json:"TotalPossessionTime"`
-						TotalShotsFired     int     `json:"TotalShotsFired"`
-						TotalShotsLanded    int     `json:"TotalShotsLanded"`
-						WeaponID            struct {
-							Attachments []interface{} `json:"Attachments"`
-							StockID     int           `json:"StockId"`
-						} `json:"WeaponId"`
-					} `json:"WeaponWithMostKills"`
-				} `json:"ArenaGameBaseVariantStats"`
-				ArenaPlaylistStats []struct {
-					Csr                    interface{}   `json:"Csr"`
-					CsrPercentile          interface{}   `json:"CsrPercentile"`
-					DestroyedEnemyVehicles []interface{} `json:"DestroyedEnemyVehicles"`
-					EnemyKills             []interface{} `json:"EnemyKills"`
-					HighestCsr             interface{}   `json:"HighestCsr"`
-					Impulses               []interface{} `json:"Impulses"`
-					MeasurementMatchesLeft int           `json:"MeasurementMatchesLeft"`
-					MedalAwards            []struct {
-						Count   int `json:"Count"`
+					TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
+					MedalAwards                    []struct {
 						MedalID int `json:"MedalId"`
+						Count   int `json:"Count"`
 					} `json:"MedalAwards"`
-					PlaylistID                     string `json:"PlaylistId"`
-					TotalAssassinations            int    `json:"TotalAssassinations"`
-					TotalAssists                   int    `json:"TotalAssists"`
-					TotalDeaths                    int    `json:"TotalDeaths"`
-					TotalGamesCompleted            int    `json:"TotalGamesCompleted"`
-					TotalGamesLost                 int    `json:"TotalGamesLost"`
-					TotalGamesTied                 int    `json:"TotalGamesTied"`
-					TotalGamesWon                  int    `json:"TotalGamesWon"`
-					TotalGrenadeDamage             int    `json:"TotalGrenadeDamage"`
-					TotalGrenadeKills              int    `json:"TotalGrenadeKills"`
-					TotalGroundPoundDamage         int    `json:"TotalGroundPoundDamage"`
-					TotalGroundPoundKills          int    `json:"TotalGroundPoundKills"`
-					TotalHeadshots                 int    `json:"TotalHeadshots"`
-					TotalKills                     int    `json:"TotalKills"`
-					TotalMeleeDamage               int    `json:"TotalMeleeDamage"`
-					TotalMeleeKills                int    `json:"TotalMeleeKills"`
-					TotalPowerWeaponDamage         int    `json:"TotalPowerWeaponDamage"`
-					TotalPowerWeaponGrabs          int    `json:"TotalPowerWeaponGrabs"`
-					TotalPowerWeaponKills          int    `json:"TotalPowerWeaponKills"`
-					TotalPowerWeaponPossessionTime string `json:"TotalPowerWeaponPossessionTime"`
-					TotalShotsFired                int    `json:"TotalShotsFired"`
-					TotalShotsLanded               int    `json:"TotalShotsLanded"`
-					TotalShoulderBashDamage        int    `json:"TotalShoulderBashDamage"`
-					TotalShoulderBashKills         int    `json:"TotalShoulderBashKills"`
-					TotalSpartanKills              int    `json:"TotalSpartanKills"`
-					TotalTimePlayed                string `json:"TotalTimePlayed"`
-					TotalWeaponDamage              int    `json:"TotalWeaponDamage"`
-					WeaponStats                    []struct {
-						TotalDamageDealt    int    `json:"TotalDamageDealt"`
-						TotalHeadshots      int    `json:"TotalHeadshots"`
-						TotalKills          int    `json:"TotalKills"`
-						TotalPossessionTime string `json:"TotalPossessionTime"`
-						TotalShotsFired     int    `json:"TotalShotsFired"`
-						TotalShotsLanded    int    `json:"TotalShotsLanded"`
-						WeaponID            struct {
-							Attachments []interface{} `json:"Attachments"`
-							StockID     int           `json:"StockId"`
-						} `json:"WeaponId"`
-					} `json:"WeaponStats"`
-					WeaponWithMostKills struct {
-						TotalDamageDealt    int    `json:"TotalDamageDealt"`
-						TotalHeadshots      int    `json:"TotalHeadshots"`
-						TotalKills          int    `json:"TotalKills"`
-						TotalPossessionTime string `json:"TotalPossessionTime"`
-						TotalShotsFired     int    `json:"TotalShotsFired"`
-						TotalShotsLanded    int    `json:"TotalShotsLanded"`
-						WeaponID            struct {
-							Attachments []interface{} `json:"Attachments"`
-							StockID     int           `json:"StockId"`
-						} `json:"WeaponId"`
-					} `json:"WeaponWithMostKills"`
-				} `json:"ArenaPlaylistStats"`
-				ArenaPlaylistStatsSeasonID string `json:"ArenaPlaylistStatsSeasonId"`
-				DestroyedEnemyVehicles     []struct {
-					Enemy struct {
-						Attachments []interface{} `json:"Attachments"`
-						BaseID      int           `json:"BaseId"`
-					} `json:"Enemy"`
-					TotalKills int `json:"TotalKills"`
-				} `json:"DestroyedEnemyVehicles"`
-				EnemyKills         []interface{} `json:"EnemyKills"`
-				HighestCsrAttained struct {
-					Csr               int         `json:"Csr"`
-					DesignationID     int         `json:"DesignationId"`
-					PercentToNextTier int         `json:"PercentToNextTier"`
-					Rank              interface{} `json:"Rank"`
-					Tier              int         `json:"Tier"`
-				} `json:"HighestCsrAttained"`
-				HighestCsrPlaylistID string      `json:"HighestCsrPlaylistId"`
-				HighestCsrSeasonID   interface{} `json:"HighestCsrSeasonId"`
-				Impulses             []struct {
-					Count int `json:"Count"`
-					ID    int `json:"Id"`
-				} `json:"Impulses"`
-				MedalAwards []struct {
-					Count   int `json:"Count"`
-					MedalID int `json:"MedalId"`
-				} `json:"MedalAwards"`
-				TopGameBaseVariants []struct {
-					GameBaseVariantID        string `json:"GameBaseVariantId"`
-					GameBaseVariantRank      int    `json:"GameBaseVariantRank"`
-					NumberOfMatchesCompleted int    `json:"NumberOfMatchesCompleted"`
-					NumberOfMatchesWon       int    `json:"NumberOfMatchesWon"`
-				} `json:"TopGameBaseVariants"`
-				TotalAssassinations            int     `json:"TotalAssassinations"`
-				TotalAssists                   int     `json:"TotalAssists"`
-				TotalDeaths                    int     `json:"TotalDeaths"`
-				TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
-				TotalGamesLost                 int     `json:"TotalGamesLost"`
-				TotalGamesTied                 int     `json:"TotalGamesTied"`
-				TotalGamesWon                  int     `json:"TotalGamesWon"`
-				TotalGrenadeDamage             float64 `json:"TotalGrenadeDamage"`
-				TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
-				TotalGroundPoundDamage         float64 `json:"TotalGroundPoundDamage"`
-				TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
-				TotalHeadshots                 int     `json:"TotalHeadshots"`
-				TotalKills                     int     `json:"TotalKills"`
-				TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
-				TotalMeleeKills                int     `json:"TotalMeleeKills"`
-				TotalPowerWeaponDamage         float64 `json:"TotalPowerWeaponDamage"`
-				TotalPowerWeaponGrabs          int     `json:"TotalPowerWeaponGrabs"`
-				TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
-				TotalPowerWeaponPossessionTime string  `json:"TotalPowerWeaponPossessionTime"`
-				TotalShotsFired                int     `json:"TotalShotsFired"`
-				TotalShotsLanded               int     `json:"TotalShotsLanded"`
-				TotalShoulderBashDamage        float64 `json:"TotalShoulderBashDamage"`
-				TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
-				TotalSpartanKills              int     `json:"TotalSpartanKills"`
-				TotalTimePlayed                string  `json:"TotalTimePlayed"`
-				TotalWeaponDamage              float64 `json:"TotalWeaponDamage"`
-				WeaponStats                    []struct {
-					TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-					TotalHeadshots      int     `json:"TotalHeadshots"`
-					TotalKills          int     `json:"TotalKills"`
-					TotalPossessionTime string  `json:"TotalPossessionTime"`
-					TotalShotsFired     int     `json:"TotalShotsFired"`
-					TotalShotsLanded    int     `json:"TotalShotsLanded"`
-					WeaponID            struct {
-						Attachments []interface{} `json:"Attachments"`
-						StockID     int           `json:"StockId"`
-					} `json:"WeaponId"`
-				} `json:"WeaponStats"`
-				WeaponWithMostKills struct {
-					TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-					TotalHeadshots      int     `json:"TotalHeadshots"`
-					TotalKills          int     `json:"TotalKills"`
-					TotalPossessionTime string  `json:"TotalPossessionTime"`
-					TotalShotsFired     int     `json:"TotalShotsFired"`
-					TotalShotsLanded    int     `json:"TotalShotsLanded"`
-					WeaponID            struct {
-						Attachments []interface{} `json:"Attachments"`
-						StockID     int           `json:"StockId"`
-					} `json:"WeaponId"`
-				} `json:"WeaponWithMostKills"`
-			} `json:"ArenaStats"`
-			PlayerID struct {
-				Gamertag string      `json:"Gamertag"`
-				Xuid     interface{} `json:"Xuid"`
-			} `json:"PlayerId"`
-			SpartanRank int `json:"SpartanRank"`
-			Xp          int `json:"Xp"`
-		} `json:"Result"`
-		ResultCode int `json:"ResultCode"`
-	} `json:"Results"`
-}
-
-type ServiceRecordCampaignStruct struct {
-	Links struct {
-		Self struct {
-			AcknowledgementTypeID                    int    `json:"AcknowledgementTypeId"`
-			AuthenticationLifetimeExtensionSupported bool   `json:"AuthenticationLifetimeExtensionSupported"`
-			AuthorityID                              string `json:"AuthorityId"`
-			Path                                     string `json:"Path"`
-			QueryString                              string `json:"QueryString"`
-			RetryPolicyID                            string `json:"RetryPolicyId"`
-			TopicName                                string `json:"TopicName"`
-		} `json:"Self"`
-	} `json:"Links"`
-	Results []struct {
-		ID     string `json:"Id"`
-		Result struct {
-			CampaignStat struct {
-				CampaignMissionStats []struct {
-					CoopStats struct {
-						Three struct {
-							AllSkullsOn           bool          `json:"AllSkullsOn"`
-							FastestCompletionTime string        `json:"FastestCompletionTime"`
-							HighestScore          int           `json:"HighestScore"`
-							Skulls                []interface{} `json:"Skulls"`
-							TotalTimesCompleted   int           `json:"TotalTimesCompleted"`
-						} `json:"3"`
-					} `json:"CoopStats"`
 					DestroyedEnemyVehicles []interface{} `json:"DestroyedEnemyVehicles"`
 					EnemyKills             []struct {
 						Enemy struct {
-							Attachments []interface{} `json:"Attachments"`
 							BaseID      int           `json:"BaseId"`
+							Attachments []interface{} `json:"Attachments"`
 						} `json:"Enemy"`
 						TotalKills int `json:"TotalKills"`
 					} `json:"EnemyKills"`
-					FlexibleStats struct {
-						ImpulseStatCounts []struct {
-							Count int    `json:"Count"`
-							ID    string `json:"Id"`
-						} `json:"ImpulseStatCounts"`
-						ImpulseTimelapses []interface{} `json:"ImpulseTimelapses"`
-						MedalStatCounts   []interface{} `json:"MedalStatCounts"`
-						MedalTimelapses   []interface{} `json:"MedalTimelapses"`
-					} `json:"FlexibleStats"`
-					Impulses []struct {
-						Count int `json:"Count"`
-						ID    int `json:"Id"`
-					} `json:"Impulses"`
-					MedalAwards []interface{} `json:"MedalAwards"`
-					MissionID   string        `json:"MissionId"`
-					SoloStats   struct {
-						Two struct {
-							AllSkullsOn           bool          `json:"AllSkullsOn"`
-							FastestCompletionTime string        `json:"FastestCompletionTime"`
-							HighestScore          int           `json:"HighestScore"`
-							Skulls                []interface{} `json:"Skulls"`
-							TotalTimesCompleted   int           `json:"TotalTimesCompleted"`
-						} `json:"2"`
-					} `json:"SoloStats"`
-					TotalAssassinations            int     `json:"TotalAssassinations"`
-					TotalAssists                   int     `json:"TotalAssists"`
-					TotalDeaths                    int     `json:"TotalDeaths"`
-					TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
-					TotalGamesLost                 int     `json:"TotalGamesLost"`
-					TotalGamesTied                 int     `json:"TotalGamesTied"`
-					TotalGamesWon                  int     `json:"TotalGamesWon"`
-					TotalGrenadeDamage             float64 `json:"TotalGrenadeDamage"`
-					TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
-					TotalGroundPoundDamage         int     `json:"TotalGroundPoundDamage"`
-					TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
-					TotalHeadshots                 int     `json:"TotalHeadshots"`
-					TotalKills                     int     `json:"TotalKills"`
-					TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
-					TotalMeleeKills                int     `json:"TotalMeleeKills"`
-					TotalPowerWeaponDamage         float64 `json:"TotalPowerWeaponDamage"`
-					TotalPowerWeaponGrabs          int     `json:"TotalPowerWeaponGrabs"`
-					TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
-					TotalPowerWeaponPossessionTime string  `json:"TotalPowerWeaponPossessionTime"`
-					TotalShotsFired                int     `json:"TotalShotsFired"`
-					TotalShotsLanded               int     `json:"TotalShotsLanded"`
-					TotalShoulderBashDamage        int     `json:"TotalShoulderBashDamage"`
-					TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
-					TotalSpartanKills              int     `json:"TotalSpartanKills"`
-					TotalTimePlayed                string  `json:"TotalTimePlayed"`
-					TotalWeaponDamage              float64 `json:"TotalWeaponDamage"`
-					WeaponStats                    []struct {
-						TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-						TotalHeadshots      int     `json:"TotalHeadshots"`
-						TotalKills          int     `json:"TotalKills"`
-						TotalPossessionTime string  `json:"TotalPossessionTime"`
+					WeaponStats []struct {
+						WeaponID struct {
+							StockID     int           `json:"StockId"`
+							Attachments []interface{} `json:"Attachments"`
+						} `json:"WeaponId"`
 						TotalShotsFired     int     `json:"TotalShotsFired"`
 						TotalShotsLanded    int     `json:"TotalShotsLanded"`
-						WeaponID            struct {
-							Attachments []interface{} `json:"Attachments"`
-							StockID     int           `json:"StockId"`
-						} `json:"WeaponId"`
+						TotalHeadshots      int     `json:"TotalHeadshots"`
+						TotalKills          int     `json:"TotalKills"`
+						TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+						TotalPossessionTime string  `json:"TotalPossessionTime"`
 					} `json:"WeaponStats"`
-					WeaponWithMostKills struct {
-						TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-						TotalHeadshots      int     `json:"TotalHeadshots"`
-						TotalKills          int     `json:"TotalKills"`
-						TotalPossessionTime string  `json:"TotalPossessionTime"`
-						TotalShotsFired     int     `json:"TotalShotsFired"`
-						TotalShotsLanded    int     `json:"TotalShotsLanded"`
-						WeaponID            struct {
-							Attachments []interface{} `json:"Attachments"`
-							StockID     int           `json:"StockId"`
-						} `json:"WeaponId"`
-					} `json:"WeaponWithMostKills"`
-				} `json:"CampaignMissionStats"`
+					Impulses          []interface{} `json:"Impulses"`
+					TotalSpartanKills int           `json:"TotalSpartanKills"`
+					FastestMatchWin   interface{}   `json:"FastestMatchWin"`
+				} `json:"ScenarioStats"`
+				TotalKills          int     `json:"TotalKills"`
+				TotalHeadshots      int     `json:"TotalHeadshots"`
+				TotalWeaponDamage   float64 `json:"TotalWeaponDamage"`
+				TotalShotsFired     int     `json:"TotalShotsFired"`
+				TotalShotsLanded    int     `json:"TotalShotsLanded"`
+				WeaponWithMostKills struct {
+					WeaponID struct {
+						StockID     int           `json:"StockId"`
+						Attachments []interface{} `json:"Attachments"`
+					} `json:"WeaponId"`
+					TotalShotsFired     int     `json:"TotalShotsFired"`
+					TotalShotsLanded    int     `json:"TotalShotsLanded"`
+					TotalHeadshots      int     `json:"TotalHeadshots"`
+					TotalKills          int     `json:"TotalKills"`
+					TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+					TotalPossessionTime string  `json:"TotalPossessionTime"`
+				} `json:"WeaponWithMostKills"`
+				TotalMeleeKills                int     `json:"TotalMeleeKills"`
+				TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
+				TotalAssassinations            int     `json:"TotalAssassinations"`
+				TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
+				TotalGroundPoundDamage         float64 `json:"TotalGroundPoundDamage"`
+				TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
+				TotalShoulderBashDamage        float64 `json:"TotalShoulderBashDamage"`
+				TotalGrenadeDamage             float64 `json:"TotalGrenadeDamage"`
+				TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
+				TotalPowerWeaponDamage         float64 `json:"TotalPowerWeaponDamage"`
+				TotalPowerWeaponGrabs          int     `json:"TotalPowerWeaponGrabs"`
+				TotalPowerWeaponPossessionTime string  `json:"TotalPowerWeaponPossessionTime"`
+				TotalDeaths                    int     `json:"TotalDeaths"`
+				TotalAssists                   int     `json:"TotalAssists"`
+				TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
+				TotalGamesWon                  int     `json:"TotalGamesWon"`
+				TotalGamesLost                 int     `json:"TotalGamesLost"`
+				TotalGamesTied                 int     `json:"TotalGamesTied"`
+				TotalTimePlayed                string  `json:"TotalTimePlayed"`
+				TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
+				MedalAwards                    []struct {
+					MedalID int `json:"MedalId"`
+					Count   int `json:"Count"`
+				} `json:"MedalAwards"`
 				DestroyedEnemyVehicles []struct {
 					Enemy struct {
-						Attachments []interface{} `json:"Attachments"`
 						BaseID      int           `json:"BaseId"`
+						Attachments []interface{} `json:"Attachments"`
 					} `json:"Enemy"`
 					TotalKills int `json:"TotalKills"`
 				} `json:"DestroyedEnemyVehicles"`
 				EnemyKills []struct {
 					Enemy struct {
-						Attachments []interface{} `json:"Attachments"`
 						BaseID      int           `json:"BaseId"`
+						Attachments []interface{} `json:"Attachments"`
 					} `json:"Enemy"`
 					TotalKills int `json:"TotalKills"`
 				} `json:"EnemyKills"`
-				Impulses []struct {
-					Count int `json:"Count"`
-					ID    int `json:"Id"`
-				} `json:"Impulses"`
-				MedalAwards                    []interface{} `json:"MedalAwards"`
-				TotalAssassinations            int           `json:"TotalAssassinations"`
-				TotalAssists                   int           `json:"TotalAssists"`
-				TotalDeaths                    int           `json:"TotalDeaths"`
-				TotalGamesCompleted            int           `json:"TotalGamesCompleted"`
-				TotalGamesLost                 int           `json:"TotalGamesLost"`
-				TotalGamesTied                 int           `json:"TotalGamesTied"`
-				TotalGamesWon                  int           `json:"TotalGamesWon"`
-				TotalGrenadeDamage             float64       `json:"TotalGrenadeDamage"`
-				TotalGrenadeKills              int           `json:"TotalGrenadeKills"`
-				TotalGroundPoundDamage         float64       `json:"TotalGroundPoundDamage"`
-				TotalGroundPoundKills          int           `json:"TotalGroundPoundKills"`
-				TotalHeadshots                 int           `json:"TotalHeadshots"`
-				TotalKills                     int           `json:"TotalKills"`
-				TotalMeleeDamage               float64       `json:"TotalMeleeDamage"`
-				TotalMeleeKills                int           `json:"TotalMeleeKills"`
-				TotalPowerWeaponDamage         float64       `json:"TotalPowerWeaponDamage"`
-				TotalPowerWeaponGrabs          int           `json:"TotalPowerWeaponGrabs"`
-				TotalPowerWeaponKills          int           `json:"TotalPowerWeaponKills"`
-				TotalPowerWeaponPossessionTime string        `json:"TotalPowerWeaponPossessionTime"`
-				TotalShotsFired                int           `json:"TotalShotsFired"`
-				TotalShotsLanded               int           `json:"TotalShotsLanded"`
-				TotalShoulderBashDamage        float64       `json:"TotalShoulderBashDamage"`
-				TotalShoulderBashKills         int           `json:"TotalShoulderBashKills"`
-				TotalSpartanKills              int           `json:"TotalSpartanKills"`
-				TotalTimePlayed                string        `json:"TotalTimePlayed"`
-				TotalWeaponDamage              float64       `json:"TotalWeaponDamage"`
-				WeaponStats                    []struct {
-					TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-					TotalHeadshots      int     `json:"TotalHeadshots"`
-					TotalKills          int     `json:"TotalKills"`
-					TotalPossessionTime string  `json:"TotalPossessionTime"`
+				WeaponStats []struct {
+					WeaponID struct {
+						StockID     int           `json:"StockId"`
+						Attachments []interface{} `json:"Attachments"`
+					} `json:"WeaponId"`
 					TotalShotsFired     int     `json:"TotalShotsFired"`
 					TotalShotsLanded    int     `json:"TotalShotsLanded"`
-					WeaponID            struct {
-						Attachments []interface{} `json:"Attachments"`
-						StockID     int           `json:"StockId"`
-					} `json:"WeaponId"`
+					TotalHeadshots      int     `json:"TotalHeadshots"`
+					TotalKills          int     `json:"TotalKills"`
+					TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+					TotalPossessionTime string  `json:"TotalPossessionTime"`
 				} `json:"WeaponStats"`
-				WeaponWithMostKills struct {
-					TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-					TotalHeadshots      int     `json:"TotalHeadshots"`
-					TotalKills          int     `json:"TotalKills"`
-					TotalPossessionTime string  `json:"TotalPossessionTime"`
-					TotalShotsFired     int     `json:"TotalShotsFired"`
-					TotalShotsLanded    int     `json:"TotalShotsLanded"`
-					WeaponID            struct {
-						Attachments []interface{} `json:"Attachments"`
-						StockID     int           `json:"StockId"`
-					} `json:"WeaponId"`
-				} `json:"WeaponWithMostKills"`
-			} `json:"CampaignStat"`
+				Impulses []struct {
+					ID    int64 `json:"Id"`
+					Count int   `json:"Count"`
+				} `json:"Impulses"`
+				TotalSpartanKills int         `json:"TotalSpartanKills"`
+				FastestMatchWin   interface{} `json:"FastestMatchWin"`
+			} `json:"WarzoneStat"`
 			PlayerID struct {
 				Gamertag string      `json:"Gamertag"`
 				Xuid     interface{} `json:"Xuid"`
@@ -1379,167 +1115,169 @@ type ServiceRecordCampaignStruct struct {
 			SpartanRank int `json:"SpartanRank"`
 			Xp          int `json:"Xp"`
 		} `json:"Result"`
-		ResultCode int `json:"ResultCode"`
 	} `json:"Results"`
-}
-
-type ServiceRecordCustomStruct struct {
 	Links struct {
 		Self struct {
-			AcknowledgementTypeID                    int    `json:"AcknowledgementTypeId"`
-			AuthenticationLifetimeExtensionSupported bool   `json:"AuthenticationLifetimeExtensionSupported"`
 			AuthorityID                              string `json:"AuthorityId"`
 			Path                                     string `json:"Path"`
 			QueryString                              string `json:"QueryString"`
 			RetryPolicyID                            string `json:"RetryPolicyId"`
 			TopicName                                string `json:"TopicName"`
+			AcknowledgementTypeID                    int    `json:"AcknowledgementTypeId"`
+			AuthenticationLifetimeExtensionSupported bool   `json:"AuthenticationLifetimeExtensionSupported"`
 		} `json:"Self"`
 	} `json:"Links"`
+}
+
+type ServiceRecordCustomStruct struct {
 	Results []struct {
-		ID     string `json:"Id"`
-		Result struct {
+		ID         string `json:"Id"`
+		ResultCode int    `json:"ResultCode"`
+		Result     struct {
 			CustomStats struct {
 				CustomGameBaseVariantStats []struct {
-					DestroyedEnemyVehicles []interface{} `json:"DestroyedEnemyVehicles"`
-					EnemyKills             []interface{} `json:"EnemyKills"`
-					FlexibleStats          struct {
+					FlexibleStats struct {
+						MedalStatCounts   []interface{} `json:"MedalStatCounts"`
 						ImpulseStatCounts []struct {
-							Count int    `json:"Count"`
 							ID    string `json:"Id"`
+							Count int    `json:"Count"`
 						} `json:"ImpulseStatCounts"`
+						MedalTimelapses   []interface{} `json:"MedalTimelapses"`
 						ImpulseTimelapses []struct {
 							ID        string `json:"Id"`
 							Timelapse string `json:"Timelapse"`
 						} `json:"ImpulseTimelapses"`
-						MedalStatCounts []interface{} `json:"MedalStatCounts"`
-						MedalTimelapses []interface{} `json:"MedalTimelapses"`
 					} `json:"FlexibleStats"`
-					GameBaseVariantID string `json:"GameBaseVariantId"`
-					Impulses          []struct {
-						Count int `json:"Count"`
-						ID    int `json:"Id"`
-					} `json:"Impulses"`
-					MedalAwards []struct {
-						Count   int `json:"Count"`
-						MedalID int `json:"MedalId"`
-					} `json:"MedalAwards"`
-					TotalAssassinations            int     `json:"TotalAssassinations"`
-					TotalAssists                   int     `json:"TotalAssists"`
-					TotalDeaths                    int     `json:"TotalDeaths"`
-					TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
-					TotalGamesLost                 int     `json:"TotalGamesLost"`
-					TotalGamesTied                 int     `json:"TotalGamesTied"`
-					TotalGamesWon                  int     `json:"TotalGamesWon"`
-					TotalGrenadeDamage             int     `json:"TotalGrenadeDamage"`
-					TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
-					TotalGroundPoundDamage         int     `json:"TotalGroundPoundDamage"`
-					TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
-					TotalHeadshots                 int     `json:"TotalHeadshots"`
-					TotalKills                     int     `json:"TotalKills"`
-					TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
-					TotalMeleeKills                int     `json:"TotalMeleeKills"`
-					TotalPowerWeaponDamage         float64 `json:"TotalPowerWeaponDamage"`
-					TotalPowerWeaponGrabs          int     `json:"TotalPowerWeaponGrabs"`
-					TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
-					TotalPowerWeaponPossessionTime string  `json:"TotalPowerWeaponPossessionTime"`
-					TotalShotsFired                int     `json:"TotalShotsFired"`
-					TotalShotsLanded               int     `json:"TotalShotsLanded"`
-					TotalShoulderBashDamage        int     `json:"TotalShoulderBashDamage"`
-					TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
-					TotalSpartanKills              int     `json:"TotalSpartanKills"`
-					TotalTimePlayed                string  `json:"TotalTimePlayed"`
-					TotalWeaponDamage              float64 `json:"TotalWeaponDamage"`
-					WeaponStats                    []struct {
-						TotalDamageDealt    int    `json:"TotalDamageDealt"`
-						TotalHeadshots      int    `json:"TotalHeadshots"`
-						TotalKills          int    `json:"TotalKills"`
-						TotalPossessionTime string `json:"TotalPossessionTime"`
-						TotalShotsFired     int    `json:"TotalShotsFired"`
-						TotalShotsLanded    int    `json:"TotalShotsLanded"`
-						WeaponID            struct {
-							Attachments []interface{} `json:"Attachments"`
-							StockID     int           `json:"StockId"`
-						} `json:"WeaponId"`
-					} `json:"WeaponStats"`
+					GameBaseVariantID   string  `json:"GameBaseVariantId"`
+					TotalKills          int     `json:"TotalKills"`
+					TotalHeadshots      int     `json:"TotalHeadshots"`
+					TotalWeaponDamage   float64 `json:"TotalWeaponDamage"`
+					TotalShotsFired     int     `json:"TotalShotsFired"`
+					TotalShotsLanded    int     `json:"TotalShotsLanded"`
 					WeaponWithMostKills struct {
-						TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-						TotalHeadshots      int     `json:"TotalHeadshots"`
-						TotalKills          int     `json:"TotalKills"`
-						TotalPossessionTime string  `json:"TotalPossessionTime"`
+						WeaponID struct {
+							StockID     int64         `json:"StockId"`
+							Attachments []interface{} `json:"Attachments"`
+						} `json:"WeaponId"`
 						TotalShotsFired     int     `json:"TotalShotsFired"`
 						TotalShotsLanded    int     `json:"TotalShotsLanded"`
-						WeaponID            struct {
-							Attachments []interface{} `json:"Attachments"`
-							StockID     int           `json:"StockId"`
-						} `json:"WeaponId"`
+						TotalHeadshots      int     `json:"TotalHeadshots"`
+						TotalKills          int     `json:"TotalKills"`
+						TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+						TotalPossessionTime string  `json:"TotalPossessionTime"`
 					} `json:"WeaponWithMostKills"`
+					TotalMeleeKills                int     `json:"TotalMeleeKills"`
+					TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
+					TotalAssassinations            int     `json:"TotalAssassinations"`
+					TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
+					TotalGroundPoundDamage         float64 `json:"TotalGroundPoundDamage"`
+					TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
+					TotalShoulderBashDamage        float64 `json:"TotalShoulderBashDamage"`
+					TotalGrenadeDamage             float64 `json:"TotalGrenadeDamage"`
+					TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
+					TotalPowerWeaponDamage         float64 `json:"TotalPowerWeaponDamage"`
+					TotalPowerWeaponGrabs          int     `json:"TotalPowerWeaponGrabs"`
+					TotalPowerWeaponPossessionTime string  `json:"TotalPowerWeaponPossessionTime"`
+					TotalDeaths                    int     `json:"TotalDeaths"`
+					TotalAssists                   int     `json:"TotalAssists"`
+					TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
+					TotalGamesWon                  int     `json:"TotalGamesWon"`
+					TotalGamesLost                 int     `json:"TotalGamesLost"`
+					TotalGamesTied                 int     `json:"TotalGamesTied"`
+					TotalTimePlayed                string  `json:"TotalTimePlayed"`
+					TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
+					MedalAwards                    []struct {
+						MedalID int64 `json:"MedalId"`
+						Count   int   `json:"Count"`
+					} `json:"MedalAwards"`
+					DestroyedEnemyVehicles []interface{} `json:"DestroyedEnemyVehicles"`
+					EnemyKills             []interface{} `json:"EnemyKills"`
+					WeaponStats            []struct {
+						WeaponID struct {
+							StockID     int           `json:"StockId"`
+							Attachments []interface{} `json:"Attachments"`
+						} `json:"WeaponId"`
+						TotalShotsFired     int     `json:"TotalShotsFired"`
+						TotalShotsLanded    int     `json:"TotalShotsLanded"`
+						TotalHeadshots      int     `json:"TotalHeadshots"`
+						TotalKills          int     `json:"TotalKills"`
+						TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+						TotalPossessionTime string  `json:"TotalPossessionTime"`
+					} `json:"WeaponStats"`
+					Impulses []struct {
+						ID    int `json:"Id"`
+						Count int `json:"Count"`
+					} `json:"Impulses"`
+					TotalSpartanKills int         `json:"TotalSpartanKills"`
+					FastestMatchWin   interface{} `json:"FastestMatchWin"`
 				} `json:"CustomGameBaseVariantStats"`
-				DestroyedEnemyVehicles []interface{} `json:"DestroyedEnemyVehicles"`
-				EnemyKills             []interface{} `json:"EnemyKills"`
-				Impulses               []struct {
-					Count int `json:"Count"`
-					ID    int `json:"Id"`
-				} `json:"Impulses"`
-				MedalAwards []struct {
-					Count   int `json:"Count"`
-					MedalID int `json:"MedalId"`
-				} `json:"MedalAwards"`
 				TopGameBaseVariants []struct {
-					GameBaseVariantID        string `json:"GameBaseVariantId"`
 					GameBaseVariantRank      int    `json:"GameBaseVariantRank"`
 					NumberOfMatchesCompleted int    `json:"NumberOfMatchesCompleted"`
+					GameBaseVariantID        string `json:"GameBaseVariantId"`
 					NumberOfMatchesWon       int    `json:"NumberOfMatchesWon"`
 				} `json:"TopGameBaseVariants"`
-				TotalAssassinations            int     `json:"TotalAssassinations"`
-				TotalAssists                   int     `json:"TotalAssists"`
-				TotalDeaths                    int     `json:"TotalDeaths"`
-				TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
-				TotalGamesLost                 int     `json:"TotalGamesLost"`
-				TotalGamesTied                 int     `json:"TotalGamesTied"`
-				TotalGamesWon                  int     `json:"TotalGamesWon"`
-				TotalGrenadeDamage             int     `json:"TotalGrenadeDamage"`
-				TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
-				TotalGroundPoundDamage         int     `json:"TotalGroundPoundDamage"`
-				TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
-				TotalHeadshots                 int     `json:"TotalHeadshots"`
-				TotalKills                     int     `json:"TotalKills"`
-				TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
+				TotalKills          int     `json:"TotalKills"`
+				TotalHeadshots      int     `json:"TotalHeadshots"`
+				TotalWeaponDamage   float64 `json:"TotalWeaponDamage"`
+				TotalShotsFired     int     `json:"TotalShotsFired"`
+				TotalShotsLanded    int     `json:"TotalShotsLanded"`
+				WeaponWithMostKills struct {
+					WeaponID struct {
+						StockID     int64         `json:"StockId"`
+						Attachments []interface{} `json:"Attachments"`
+					} `json:"WeaponId"`
+					TotalShotsFired     int     `json:"TotalShotsFired"`
+					TotalShotsLanded    int     `json:"TotalShotsLanded"`
+					TotalHeadshots      int     `json:"TotalHeadshots"`
+					TotalKills          int     `json:"TotalKills"`
+					TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+					TotalPossessionTime string  `json:"TotalPossessionTime"`
+				} `json:"WeaponWithMostKills"`
 				TotalMeleeKills                int     `json:"TotalMeleeKills"`
+				TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
+				TotalAssassinations            int     `json:"TotalAssassinations"`
+				TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
+				TotalGroundPoundDamage         float64 `json:"TotalGroundPoundDamage"`
+				TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
+				TotalShoulderBashDamage        float64 `json:"TotalShoulderBashDamage"`
+				TotalGrenadeDamage             float64 `json:"TotalGrenadeDamage"`
+				TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
 				TotalPowerWeaponDamage         float64 `json:"TotalPowerWeaponDamage"`
 				TotalPowerWeaponGrabs          int     `json:"TotalPowerWeaponGrabs"`
-				TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
 				TotalPowerWeaponPossessionTime string  `json:"TotalPowerWeaponPossessionTime"`
-				TotalShotsFired                int     `json:"TotalShotsFired"`
-				TotalShotsLanded               int     `json:"TotalShotsLanded"`
-				TotalShoulderBashDamage        int     `json:"TotalShoulderBashDamage"`
-				TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
-				TotalSpartanKills              int     `json:"TotalSpartanKills"`
+				TotalDeaths                    int     `json:"TotalDeaths"`
+				TotalAssists                   int     `json:"TotalAssists"`
+				TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
+				TotalGamesWon                  int     `json:"TotalGamesWon"`
+				TotalGamesLost                 int     `json:"TotalGamesLost"`
+				TotalGamesTied                 int     `json:"TotalGamesTied"`
 				TotalTimePlayed                string  `json:"TotalTimePlayed"`
-				TotalWeaponDamage              float64 `json:"TotalWeaponDamage"`
-				WeaponStats                    []struct {
-					TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-					TotalHeadshots      int     `json:"TotalHeadshots"`
-					TotalKills          int     `json:"TotalKills"`
-					TotalPossessionTime string  `json:"TotalPossessionTime"`
+				TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
+				MedalAwards                    []struct {
+					MedalID int64 `json:"MedalId"`
+					Count   int   `json:"Count"`
+				} `json:"MedalAwards"`
+				DestroyedEnemyVehicles []interface{} `json:"DestroyedEnemyVehicles"`
+				EnemyKills             []interface{} `json:"EnemyKills"`
+				WeaponStats            []struct {
+					WeaponID struct {
+						StockID     int           `json:"StockId"`
+						Attachments []interface{} `json:"Attachments"`
+					} `json:"WeaponId"`
 					TotalShotsFired     int     `json:"TotalShotsFired"`
 					TotalShotsLanded    int     `json:"TotalShotsLanded"`
-					WeaponID            struct {
-						Attachments []interface{} `json:"Attachments"`
-						StockID     int           `json:"StockId"`
-					} `json:"WeaponId"`
+					TotalHeadshots      int     `json:"TotalHeadshots"`
+					TotalKills          int     `json:"TotalKills"`
+					TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+					TotalPossessionTime string  `json:"TotalPossessionTime"`
 				} `json:"WeaponStats"`
-				WeaponWithMostKills struct {
-					TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-					TotalHeadshots      int     `json:"TotalHeadshots"`
-					TotalKills          int     `json:"TotalKills"`
-					TotalPossessionTime string  `json:"TotalPossessionTime"`
-					TotalShotsFired     int     `json:"TotalShotsFired"`
-					TotalShotsLanded    int     `json:"TotalShotsLanded"`
-					WeaponID            struct {
-						Attachments []interface{} `json:"Attachments"`
-						StockID     int           `json:"StockId"`
-					} `json:"WeaponId"`
-				} `json:"WeaponWithMostKills"`
+				Impulses []struct {
+					ID    int `json:"Id"`
+					Count int `json:"Count"`
+				} `json:"Impulses"`
+				TotalSpartanKills int         `json:"TotalSpartanKills"`
+				FastestMatchWin   interface{} `json:"FastestMatchWin"`
 			} `json:"CustomStats"`
 			PlayerID struct {
 				Gamertag string      `json:"Gamertag"`
@@ -1548,200 +1286,466 @@ type ServiceRecordCustomStruct struct {
 			SpartanRank int `json:"SpartanRank"`
 			Xp          int `json:"Xp"`
 		} `json:"Result"`
-		ResultCode int `json:"ResultCode"`
 	} `json:"Results"`
-}
-
-type ServiceRecordWarzoneStruct struct {
 	Links struct {
 		Self struct {
-			AcknowledgementTypeID                    int    `json:"AcknowledgementTypeId"`
-			AuthenticationLifetimeExtensionSupported bool   `json:"AuthenticationLifetimeExtensionSupported"`
 			AuthorityID                              string `json:"AuthorityId"`
 			Path                                     string `json:"Path"`
 			QueryString                              string `json:"QueryString"`
 			RetryPolicyID                            string `json:"RetryPolicyId"`
 			TopicName                                string `json:"TopicName"`
+			AcknowledgementTypeID                    int    `json:"AcknowledgementTypeId"`
+			AuthenticationLifetimeExtensionSupported bool   `json:"AuthenticationLifetimeExtensionSupported"`
 		} `json:"Self"`
 	} `json:"Links"`
+}
+
+type ServiceRecordCampaignStruct struct {
 	Results []struct {
-		ID     string `json:"Id"`
-		Result struct {
-			PlayerID struct {
-				Gamertag string      `json:"Gamertag"`
-				Xuid     interface{} `json:"Xuid"`
-			} `json:"PlayerId"`
-			SpartanRank int `json:"SpartanRank"`
-			WarzoneStat struct {
-				DestroyedEnemyVehicles []struct {
-					Enemy struct {
+		ID         string `json:"Id"`
+		ResultCode int    `json:"ResultCode"`
+		Result     struct {
+			CampaignStat struct {
+				CampaignMissionStats []struct {
+					FlexibleStats struct {
+						MedalStatCounts   []interface{} `json:"MedalStatCounts"`
+						ImpulseStatCounts []struct {
+							ID    string `json:"Id"`
+							Count int    `json:"Count"`
+						} `json:"ImpulseStatCounts"`
+						MedalTimelapses   []interface{} `json:"MedalTimelapses"`
+						ImpulseTimelapses []interface{} `json:"ImpulseTimelapses"`
+					} `json:"FlexibleStats"`
+					CoopStats struct {
+						Num3 struct {
+							HighestScore          int           `json:"HighestScore"`
+							FastestCompletionTime string        `json:"FastestCompletionTime"`
+							Skulls                []interface{} `json:"Skulls"`
+							TotalTimesCompleted   int           `json:"TotalTimesCompleted"`
+							AllSkullsOn           bool          `json:"AllSkullsOn"`
+						} `json:"3"`
+					} `json:"CoopStats"`
+					SoloStats struct {
+						Num2 struct {
+							HighestScore          int           `json:"HighestScore"`
+							FastestCompletionTime string        `json:"FastestCompletionTime"`
+							Skulls                []interface{} `json:"Skulls"`
+							TotalTimesCompleted   int           `json:"TotalTimesCompleted"`
+							AllSkullsOn           bool          `json:"AllSkullsOn"`
+						} `json:"2"`
+					} `json:"SoloStats"`
+					MissionID           string  `json:"MissionId"`
+					TotalKills          int     `json:"TotalKills"`
+					TotalHeadshots      int     `json:"TotalHeadshots"`
+					TotalWeaponDamage   float64 `json:"TotalWeaponDamage"`
+					TotalShotsFired     int     `json:"TotalShotsFired"`
+					TotalShotsLanded    int     `json:"TotalShotsLanded"`
+					WeaponWithMostKills struct {
+						WeaponID struct {
+							StockID     int64         `json:"StockId"`
+							Attachments []interface{} `json:"Attachments"`
+						} `json:"WeaponId"`
+						TotalShotsFired     int     `json:"TotalShotsFired"`
+						TotalShotsLanded    int     `json:"TotalShotsLanded"`
+						TotalHeadshots      int     `json:"TotalHeadshots"`
+						TotalKills          int     `json:"TotalKills"`
+						TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+						TotalPossessionTime string  `json:"TotalPossessionTime"`
+					} `json:"WeaponWithMostKills"`
+					TotalMeleeKills                int           `json:"TotalMeleeKills"`
+					TotalMeleeDamage               float64       `json:"TotalMeleeDamage"`
+					TotalAssassinations            int           `json:"TotalAssassinations"`
+					TotalGroundPoundKills          int           `json:"TotalGroundPoundKills"`
+					TotalGroundPoundDamage         float64       `json:"TotalGroundPoundDamage"`
+					TotalShoulderBashKills         int           `json:"TotalShoulderBashKills"`
+					TotalShoulderBashDamage        float64       `json:"TotalShoulderBashDamage"`
+					TotalGrenadeDamage             float64       `json:"TotalGrenadeDamage"`
+					TotalPowerWeaponKills          int           `json:"TotalPowerWeaponKills"`
+					TotalPowerWeaponDamage         float64       `json:"TotalPowerWeaponDamage"`
+					TotalPowerWeaponGrabs          int           `json:"TotalPowerWeaponGrabs"`
+					TotalPowerWeaponPossessionTime string        `json:"TotalPowerWeaponPossessionTime"`
+					TotalDeaths                    int           `json:"TotalDeaths"`
+					TotalAssists                   int           `json:"TotalAssists"`
+					TotalGamesCompleted            int           `json:"TotalGamesCompleted"`
+					TotalGamesWon                  int           `json:"TotalGamesWon"`
+					TotalGamesLost                 int           `json:"TotalGamesLost"`
+					TotalGamesTied                 int           `json:"TotalGamesTied"`
+					TotalTimePlayed                string        `json:"TotalTimePlayed"`
+					TotalGrenadeKills              int           `json:"TotalGrenadeKills"`
+					MedalAwards                    []interface{} `json:"MedalAwards"`
+					DestroyedEnemyVehicles         []interface{} `json:"DestroyedEnemyVehicles"`
+					EnemyKills                     []struct {
+						Enemy struct {
+							BaseID      int64         `json:"BaseId"`
+							Attachments []interface{} `json:"Attachments"`
+						} `json:"Enemy"`
+						TotalKills int `json:"TotalKills"`
+					} `json:"EnemyKills"`
+					WeaponStats []struct {
+						WeaponID struct {
+							StockID     int           `json:"StockId"`
+							Attachments []interface{} `json:"Attachments"`
+						} `json:"WeaponId"`
+						TotalShotsFired     int     `json:"TotalShotsFired"`
+						TotalShotsLanded    int     `json:"TotalShotsLanded"`
+						TotalHeadshots      int     `json:"TotalHeadshots"`
+						TotalKills          int     `json:"TotalKills"`
+						TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+						TotalPossessionTime string  `json:"TotalPossessionTime"`
+					} `json:"WeaponStats"`
+					Impulses []struct {
+						ID    int `json:"Id"`
+						Count int `json:"Count"`
+					} `json:"Impulses"`
+					TotalSpartanKills int         `json:"TotalSpartanKills"`
+					FastestMatchWin   interface{} `json:"FastestMatchWin"`
+				} `json:"CampaignMissionStats"`
+				TotalKills          int     `json:"TotalKills"`
+				TotalHeadshots      int     `json:"TotalHeadshots"`
+				TotalWeaponDamage   float64 `json:"TotalWeaponDamage"`
+				TotalShotsFired     int     `json:"TotalShotsFired"`
+				TotalShotsLanded    int     `json:"TotalShotsLanded"`
+				WeaponWithMostKills struct {
+					WeaponID struct {
+						StockID     int           `json:"StockId"`
 						Attachments []interface{} `json:"Attachments"`
+					} `json:"WeaponId"`
+					TotalShotsFired     int     `json:"TotalShotsFired"`
+					TotalShotsLanded    int     `json:"TotalShotsLanded"`
+					TotalHeadshots      int     `json:"TotalHeadshots"`
+					TotalKills          int     `json:"TotalKills"`
+					TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+					TotalPossessionTime string  `json:"TotalPossessionTime"`
+				} `json:"WeaponWithMostKills"`
+				TotalMeleeKills                int           `json:"TotalMeleeKills"`
+				TotalMeleeDamage               float64       `json:"TotalMeleeDamage"`
+				TotalAssassinations            int           `json:"TotalAssassinations"`
+				TotalGroundPoundKills          int           `json:"TotalGroundPoundKills"`
+				TotalGroundPoundDamage         float64       `json:"TotalGroundPoundDamage"`
+				TotalShoulderBashKills         int           `json:"TotalShoulderBashKills"`
+				TotalShoulderBashDamage        float64       `json:"TotalShoulderBashDamage"`
+				TotalGrenadeDamage             float64       `json:"TotalGrenadeDamage"`
+				TotalPowerWeaponKills          int           `json:"TotalPowerWeaponKills"`
+				TotalPowerWeaponDamage         float64       `json:"TotalPowerWeaponDamage"`
+				TotalPowerWeaponGrabs          int           `json:"TotalPowerWeaponGrabs"`
+				TotalPowerWeaponPossessionTime string        `json:"TotalPowerWeaponPossessionTime"`
+				TotalDeaths                    int           `json:"TotalDeaths"`
+				TotalAssists                   int           `json:"TotalAssists"`
+				TotalGamesCompleted            int           `json:"TotalGamesCompleted"`
+				TotalGamesWon                  int           `json:"TotalGamesWon"`
+				TotalGamesLost                 int           `json:"TotalGamesLost"`
+				TotalGamesTied                 int           `json:"TotalGamesTied"`
+				TotalTimePlayed                string        `json:"TotalTimePlayed"`
+				TotalGrenadeKills              int           `json:"TotalGrenadeKills"`
+				MedalAwards                    []interface{} `json:"MedalAwards"`
+				DestroyedEnemyVehicles         []struct {
+					Enemy struct {
 						BaseID      int           `json:"BaseId"`
+						Attachments []interface{} `json:"Attachments"`
 					} `json:"Enemy"`
 					TotalKills int `json:"TotalKills"`
 				} `json:"DestroyedEnemyVehicles"`
 				EnemyKills []struct {
 					Enemy struct {
+						BaseID      int64         `json:"BaseId"`
 						Attachments []interface{} `json:"Attachments"`
-						BaseID      int           `json:"BaseId"`
 					} `json:"Enemy"`
 					TotalKills int `json:"TotalKills"`
 				} `json:"EnemyKills"`
-				Impulses []struct {
-					Count int `json:"Count"`
-					ID    int `json:"Id"`
-				} `json:"Impulses"`
-				MedalAwards []struct {
-					Count   int `json:"Count"`
-					MedalID int `json:"MedalId"`
-				} `json:"MedalAwards"`
-				ScenarioStats []struct {
-					DestroyedEnemyVehicles []struct {
-						Enemy struct {
-							Attachments []interface{} `json:"Attachments"`
-							BaseID      int           `json:"BaseId"`
-						} `json:"Enemy"`
-						TotalKills int `json:"TotalKills"`
-					} `json:"DestroyedEnemyVehicles"`
-					EnemyKills []struct {
-						Enemy struct {
-							Attachments []interface{} `json:"Attachments"`
-							BaseID      int           `json:"BaseId"`
-						} `json:"Enemy"`
-						TotalKills int `json:"TotalKills"`
-					} `json:"EnemyKills"`
-					FlexibleStats struct {
-						ImpulseStatCounts []struct {
-							Count int    `json:"Count"`
-							ID    string `json:"Id"`
-						} `json:"ImpulseStatCounts"`
-						ImpulseTimelapses []interface{} `json:"ImpulseTimelapses"`
-						MedalStatCounts   []struct {
-							Count int    `json:"Count"`
-							ID    string `json:"Id"`
-						} `json:"MedalStatCounts"`
-						MedalTimelapses []interface{} `json:"MedalTimelapses"`
-					} `json:"FlexibleStats"`
-					GameBaseVariantID string `json:"GameBaseVariantId"`
-					Impulses          []struct {
-						Count int `json:"Count"`
-						ID    int `json:"Id"`
-					} `json:"Impulses"`
-					MapID       string `json:"MapId"`
-					MedalAwards []struct {
-						Count   int `json:"Count"`
-						MedalID int `json:"MedalId"`
-					} `json:"MedalAwards"`
-					TotalAssassinations            int     `json:"TotalAssassinations"`
-					TotalAssists                   int     `json:"TotalAssists"`
-					TotalDeaths                    int     `json:"TotalDeaths"`
-					TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
-					TotalGamesLost                 int     `json:"TotalGamesLost"`
-					TotalGamesTied                 int     `json:"TotalGamesTied"`
-					TotalGamesWon                  int     `json:"TotalGamesWon"`
-					TotalGrenadeDamage             float64 `json:"TotalGrenadeDamage"`
-					TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
-					TotalGroundPoundDamage         int     `json:"TotalGroundPoundDamage"`
-					TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
-					TotalHeadshots                 int     `json:"TotalHeadshots"`
-					TotalKills                     int     `json:"TotalKills"`
-					TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
-					TotalMeleeKills                int     `json:"TotalMeleeKills"`
-					TotalPiesEarned                int     `json:"TotalPiesEarned"`
-					TotalPowerWeaponDamage         float64 `json:"TotalPowerWeaponDamage"`
-					TotalPowerWeaponGrabs          int     `json:"TotalPowerWeaponGrabs"`
-					TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
-					TotalPowerWeaponPossessionTime string  `json:"TotalPowerWeaponPossessionTime"`
-					TotalShotsFired                int     `json:"TotalShotsFired"`
-					TotalShotsLanded               int     `json:"TotalShotsLanded"`
-					TotalShoulderBashDamage        int     `json:"TotalShoulderBashDamage"`
-					TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
-					TotalSpartanKills              int     `json:"TotalSpartanKills"`
-					TotalTimePlayed                string  `json:"TotalTimePlayed"`
-					TotalWeaponDamage              float64 `json:"TotalWeaponDamage"`
-					WeaponStats                    []struct {
-						TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-						TotalHeadshots      int     `json:"TotalHeadshots"`
-						TotalKills          int     `json:"TotalKills"`
-						TotalPossessionTime string  `json:"TotalPossessionTime"`
-						TotalShotsFired     int     `json:"TotalShotsFired"`
-						TotalShotsLanded    int     `json:"TotalShotsLanded"`
-						WeaponID            struct {
-							Attachments []interface{} `json:"Attachments"`
-							StockID     int           `json:"StockId"`
-						} `json:"WeaponId"`
-					} `json:"WeaponStats"`
-					WeaponWithMostKills struct {
-						TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-						TotalHeadshots      int     `json:"TotalHeadshots"`
-						TotalKills          int     `json:"TotalKills"`
-						TotalPossessionTime string  `json:"TotalPossessionTime"`
-						TotalShotsFired     int     `json:"TotalShotsFired"`
-						TotalShotsLanded    int     `json:"TotalShotsLanded"`
-						WeaponID            struct {
-							Attachments []interface{} `json:"Attachments"`
-							StockID     int           `json:"StockId"`
-						} `json:"WeaponId"`
-					} `json:"WeaponWithMostKills"`
-				} `json:"ScenarioStats"`
-				TotalAssassinations            int     `json:"TotalAssassinations"`
-				TotalAssists                   int     `json:"TotalAssists"`
-				TotalDeaths                    int     `json:"TotalDeaths"`
-				TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
-				TotalGamesLost                 int     `json:"TotalGamesLost"`
-				TotalGamesTied                 int     `json:"TotalGamesTied"`
-				TotalGamesWon                  int     `json:"TotalGamesWon"`
-				TotalGrenadeDamage             float64 `json:"TotalGrenadeDamage"`
-				TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
-				TotalGroundPoundDamage         float64 `json:"TotalGroundPoundDamage"`
-				TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
-				TotalHeadshots                 int     `json:"TotalHeadshots"`
-				TotalKills                     int     `json:"TotalKills"`
-				TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
-				TotalMeleeKills                int     `json:"TotalMeleeKills"`
-				TotalPiesEarned                int     `json:"TotalPiesEarned"`
-				TotalPowerWeaponDamage         float64 `json:"TotalPowerWeaponDamage"`
-				TotalPowerWeaponGrabs          int     `json:"TotalPowerWeaponGrabs"`
-				TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
-				TotalPowerWeaponPossessionTime string  `json:"TotalPowerWeaponPossessionTime"`
-				TotalShotsFired                int     `json:"TotalShotsFired"`
-				TotalShotsLanded               int     `json:"TotalShotsLanded"`
-				TotalShoulderBashDamage        float64 `json:"TotalShoulderBashDamage"`
-				TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
-				TotalSpartanKills              int     `json:"TotalSpartanKills"`
-				TotalTimePlayed                string  `json:"TotalTimePlayed"`
-				TotalWeaponDamage              float64 `json:"TotalWeaponDamage"`
-				WeaponStats                    []struct {
-					TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-					TotalHeadshots      int     `json:"TotalHeadshots"`
-					TotalKills          int     `json:"TotalKills"`
-					TotalPossessionTime string  `json:"TotalPossessionTime"`
+				WeaponStats []struct {
+					WeaponID struct {
+						StockID     int           `json:"StockId"`
+						Attachments []interface{} `json:"Attachments"`
+					} `json:"WeaponId"`
 					TotalShotsFired     int     `json:"TotalShotsFired"`
 					TotalShotsLanded    int     `json:"TotalShotsLanded"`
-					WeaponID            struct {
-						Attachments []interface{} `json:"Attachments"`
-						StockID     int           `json:"StockId"`
-					} `json:"WeaponId"`
+					TotalHeadshots      int     `json:"TotalHeadshots"`
+					TotalKills          int     `json:"TotalKills"`
+					TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+					TotalPossessionTime string  `json:"TotalPossessionTime"`
 				} `json:"WeaponStats"`
-				WeaponWithMostKills struct {
-					TotalDamageDealt    float64 `json:"TotalDamageDealt"`
-					TotalHeadshots      int     `json:"TotalHeadshots"`
-					TotalKills          int     `json:"TotalKills"`
-					TotalPossessionTime string  `json:"TotalPossessionTime"`
-					TotalShotsFired     int     `json:"TotalShotsFired"`
-					TotalShotsLanded    int     `json:"TotalShotsLanded"`
-					WeaponID            struct {
-						Attachments []interface{} `json:"Attachments"`
-						StockID     int           `json:"StockId"`
-					} `json:"WeaponId"`
-				} `json:"WeaponWithMostKills"`
-			} `json:"WarzoneStat"`
-			Xp int `json:"Xp"`
+				Impulses []struct {
+					ID    int `json:"Id"`
+					Count int `json:"Count"`
+				} `json:"Impulses"`
+				TotalSpartanKills int         `json:"TotalSpartanKills"`
+				FastestMatchWin   interface{} `json:"FastestMatchWin"`
+			} `json:"CampaignStat"`
+			PlayerID struct {
+				Gamertag string      `json:"Gamertag"`
+				Xuid     interface{} `json:"Xuid"`
+			} `json:"PlayerId"`
+			SpartanRank int `json:"SpartanRank"`
+			Xp          int `json:"Xp"`
 		} `json:"Result"`
-		ResultCode int `json:"ResultCode"`
 	} `json:"Results"`
+	Links struct {
+		Self struct {
+			AuthorityID                              string `json:"AuthorityId"`
+			Path                                     string `json:"Path"`
+			QueryString                              string `json:"QueryString"`
+			RetryPolicyID                            string `json:"RetryPolicyId"`
+			TopicName                                string `json:"TopicName"`
+			AcknowledgementTypeID                    int    `json:"AcknowledgementTypeId"`
+			AuthenticationLifetimeExtensionSupported bool   `json:"AuthenticationLifetimeExtensionSupported"`
+		} `json:"Self"`
+	} `json:"Links"`
 }
 
+type ServiceRecordArenaStruct struct {
+	Results []struct {
+		ID         string `json:"Id"`
+		ResultCode int    `json:"ResultCode"`
+		Result     struct {
+			ArenaStats struct {
+				ArenaPlaylistStats []struct {
+					PlaylistID             string      `json:"PlaylistId"`
+					MeasurementMatchesLeft int         `json:"MeasurementMatchesLeft"`
+					HighestCsr             interface{} `json:"HighestCsr"`
+					Csr                    interface{} `json:"Csr"`
+					CsrPercentile          interface{} `json:"CsrPercentile"`
+					TotalKills             int         `json:"TotalKills"`
+					TotalHeadshots         int         `json:"TotalHeadshots"`
+					TotalWeaponDamage      float64     `json:"TotalWeaponDamage"`
+					TotalShotsFired        int         `json:"TotalShotsFired"`
+					TotalShotsLanded       int         `json:"TotalShotsLanded"`
+					WeaponWithMostKills    struct {
+						WeaponID struct {
+							StockID     int           `json:"StockId"`
+							Attachments []interface{} `json:"Attachments"`
+						} `json:"WeaponId"`
+						TotalShotsFired     int     `json:"TotalShotsFired"`
+						TotalShotsLanded    int     `json:"TotalShotsLanded"`
+						TotalHeadshots      int     `json:"TotalHeadshots"`
+						TotalKills          int     `json:"TotalKills"`
+						TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+						TotalPossessionTime string  `json:"TotalPossessionTime"`
+					} `json:"WeaponWithMostKills"`
+					TotalMeleeKills                int     `json:"TotalMeleeKills"`
+					TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
+					TotalAssassinations            int     `json:"TotalAssassinations"`
+					TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
+					TotalGroundPoundDamage         float64 `json:"TotalGroundPoundDamage"`
+					TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
+					TotalShoulderBashDamage        float64 `json:"TotalShoulderBashDamage"`
+					TotalGrenadeDamage             float64 `json:"TotalGrenadeDamage"`
+					TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
+					TotalPowerWeaponDamage         float64 `json:"TotalPowerWeaponDamage"`
+					TotalPowerWeaponGrabs          int     `json:"TotalPowerWeaponGrabs"`
+					TotalPowerWeaponPossessionTime string  `json:"TotalPowerWeaponPossessionTime"`
+					TotalDeaths                    int     `json:"TotalDeaths"`
+					TotalAssists                   int     `json:"TotalAssists"`
+					TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
+					TotalGamesWon                  int     `json:"TotalGamesWon"`
+					TotalGamesLost                 int     `json:"TotalGamesLost"`
+					TotalGamesTied                 int     `json:"TotalGamesTied"`
+					TotalTimePlayed                string  `json:"TotalTimePlayed"`
+					TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
+					MedalAwards                    []struct {
+						MedalID int64 `json:"MedalId"`
+						Count   int   `json:"Count"`
+					} `json:"MedalAwards"`
+					DestroyedEnemyVehicles []interface{} `json:"DestroyedEnemyVehicles"`
+					EnemyKills             []interface{} `json:"EnemyKills"`
+					WeaponStats            []struct {
+						WeaponID struct {
+							StockID     int           `json:"StockId"`
+							Attachments []interface{} `json:"Attachments"`
+						} `json:"WeaponId"`
+						TotalShotsFired     int     `json:"TotalShotsFired"`
+						TotalShotsLanded    int     `json:"TotalShotsLanded"`
+						TotalHeadshots      int     `json:"TotalHeadshots"`
+						TotalKills          int     `json:"TotalKills"`
+						TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+						TotalPossessionTime string  `json:"TotalPossessionTime"`
+					} `json:"WeaponStats"`
+					Impulses          []interface{} `json:"Impulses"`
+					TotalSpartanKills int           `json:"TotalSpartanKills"`
+					FastestMatchWin   interface{}   `json:"FastestMatchWin"`
+				} `json:"ArenaPlaylistStats"`
+				HighestCsrAttained struct {
+					Tier              int         `json:"Tier"`
+					DesignationID     int         `json:"DesignationId"`
+					Csr               int         `json:"Csr"`
+					PercentToNextTier int         `json:"PercentToNextTier"`
+					Rank              interface{} `json:"Rank"`
+				} `json:"HighestCsrAttained"`
+				ArenaGameBaseVariantStats []struct {
+					FlexibleStats struct {
+						MedalStatCounts []struct {
+							ID    string `json:"Id"`
+							Count int    `json:"Count"`
+						} `json:"MedalStatCounts"`
+						ImpulseStatCounts []struct {
+							ID    string `json:"Id"`
+							Count int    `json:"Count"`
+						} `json:"ImpulseStatCounts"`
+						MedalTimelapses   []interface{} `json:"MedalTimelapses"`
+						ImpulseTimelapses []struct {
+							ID        string `json:"Id"`
+							Timelapse string `json:"Timelapse"`
+						} `json:"ImpulseTimelapses"`
+					} `json:"FlexibleStats"`
+					GameBaseVariantID   string  `json:"GameBaseVariantId"`
+					TotalKills          int     `json:"TotalKills"`
+					TotalHeadshots      int     `json:"TotalHeadshots"`
+					TotalWeaponDamage   float64 `json:"TotalWeaponDamage"`
+					TotalShotsFired     int     `json:"TotalShotsFired"`
+					TotalShotsLanded    int     `json:"TotalShotsLanded"`
+					WeaponWithMostKills struct {
+						WeaponID struct {
+							StockID     int           `json:"StockId"`
+							Attachments []interface{} `json:"Attachments"`
+						} `json:"WeaponId"`
+						TotalShotsFired     int     `json:"TotalShotsFired"`
+						TotalShotsLanded    int     `json:"TotalShotsLanded"`
+						TotalHeadshots      int     `json:"TotalHeadshots"`
+						TotalKills          int     `json:"TotalKills"`
+						TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+						TotalPossessionTime string  `json:"TotalPossessionTime"`
+					} `json:"WeaponWithMostKills"`
+					TotalMeleeKills                int     `json:"TotalMeleeKills"`
+					TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
+					TotalAssassinations            int     `json:"TotalAssassinations"`
+					TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
+					TotalGroundPoundDamage         float64 `json:"TotalGroundPoundDamage"`
+					TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
+					TotalShoulderBashDamage        float64 `json:"TotalShoulderBashDamage"`
+					TotalGrenadeDamage             float64 `json:"TotalGrenadeDamage"`
+					TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
+					TotalPowerWeaponDamage         float64 `json:"TotalPowerWeaponDamage"`
+					TotalPowerWeaponGrabs          int     `json:"TotalPowerWeaponGrabs"`
+					TotalPowerWeaponPossessionTime string  `json:"TotalPowerWeaponPossessionTime"`
+					TotalDeaths                    int     `json:"TotalDeaths"`
+					TotalAssists                   int     `json:"TotalAssists"`
+					TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
+					TotalGamesWon                  int     `json:"TotalGamesWon"`
+					TotalGamesLost                 int     `json:"TotalGamesLost"`
+					TotalGamesTied                 int     `json:"TotalGamesTied"`
+					TotalTimePlayed                string  `json:"TotalTimePlayed"`
+					TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
+					MedalAwards                    []struct {
+						MedalID int `json:"MedalId"`
+						Count   int `json:"Count"`
+					} `json:"MedalAwards"`
+					DestroyedEnemyVehicles []interface{} `json:"DestroyedEnemyVehicles"`
+					EnemyKills             []interface{} `json:"EnemyKills"`
+					WeaponStats            []struct {
+						WeaponID struct {
+							StockID     int64         `json:"StockId"`
+							Attachments []interface{} `json:"Attachments"`
+						} `json:"WeaponId"`
+						TotalShotsFired     int     `json:"TotalShotsFired"`
+						TotalShotsLanded    int     `json:"TotalShotsLanded"`
+						TotalHeadshots      int     `json:"TotalHeadshots"`
+						TotalKills          int     `json:"TotalKills"`
+						TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+						TotalPossessionTime string  `json:"TotalPossessionTime"`
+					} `json:"WeaponStats"`
+					Impulses []struct {
+						ID    int64 `json:"Id"`
+						Count int   `json:"Count"`
+					} `json:"Impulses"`
+					TotalSpartanKills int    `json:"TotalSpartanKills"`
+					FastestMatchWin   string `json:"FastestMatchWin"`
+				} `json:"ArenaGameBaseVariantStats"`
+				TopGameBaseVariants []struct {
+					GameBaseVariantRank      int    `json:"GameBaseVariantRank"`
+					NumberOfMatchesCompleted int    `json:"NumberOfMatchesCompleted"`
+					GameBaseVariantID        string `json:"GameBaseVariantId"`
+					NumberOfMatchesWon       int    `json:"NumberOfMatchesWon"`
+				} `json:"TopGameBaseVariants"`
+				HighestCsrPlaylistID       string      `json:"HighestCsrPlaylistId"`
+				HighestCsrSeasonID         interface{} `json:"HighestCsrSeasonId"`
+				ArenaPlaylistStatsSeasonID string      `json:"ArenaPlaylistStatsSeasonId"`
+				TotalKills                 int         `json:"TotalKills"`
+				TotalHeadshots             int         `json:"TotalHeadshots"`
+				TotalWeaponDamage          float64     `json:"TotalWeaponDamage"`
+				TotalShotsFired            int         `json:"TotalShotsFired"`
+				TotalShotsLanded           int         `json:"TotalShotsLanded"`
+				WeaponWithMostKills        struct {
+					WeaponID struct {
+						StockID     int64         `json:"StockId"`
+						Attachments []interface{} `json:"Attachments"`
+					} `json:"WeaponId"`
+					TotalShotsFired     int     `json:"TotalShotsFired"`
+					TotalShotsLanded    int     `json:"TotalShotsLanded"`
+					TotalHeadshots      int     `json:"TotalHeadshots"`
+					TotalKills          int     `json:"TotalKills"`
+					TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+					TotalPossessionTime string  `json:"TotalPossessionTime"`
+				} `json:"WeaponWithMostKills"`
+				TotalMeleeKills                int     `json:"TotalMeleeKills"`
+				TotalMeleeDamage               float64 `json:"TotalMeleeDamage"`
+				TotalAssassinations            int     `json:"TotalAssassinations"`
+				TotalGroundPoundKills          int     `json:"TotalGroundPoundKills"`
+				TotalGroundPoundDamage         float64 `json:"TotalGroundPoundDamage"`
+				TotalShoulderBashKills         int     `json:"TotalShoulderBashKills"`
+				TotalShoulderBashDamage        float64 `json:"TotalShoulderBashDamage"`
+				TotalGrenadeDamage             float64 `json:"TotalGrenadeDamage"`
+				TotalPowerWeaponKills          int     `json:"TotalPowerWeaponKills"`
+				TotalPowerWeaponDamage         float64 `json:"TotalPowerWeaponDamage"`
+				TotalPowerWeaponGrabs          int     `json:"TotalPowerWeaponGrabs"`
+				TotalPowerWeaponPossessionTime string  `json:"TotalPowerWeaponPossessionTime"`
+				TotalDeaths                    int     `json:"TotalDeaths"`
+				TotalAssists                   int     `json:"TotalAssists"`
+				TotalGamesCompleted            int     `json:"TotalGamesCompleted"`
+				TotalGamesWon                  int     `json:"TotalGamesWon"`
+				TotalGamesLost                 int     `json:"TotalGamesLost"`
+				TotalGamesTied                 int     `json:"TotalGamesTied"`
+				TotalTimePlayed                string  `json:"TotalTimePlayed"`
+				TotalGrenadeKills              int     `json:"TotalGrenadeKills"`
+				MedalAwards                    []struct {
+					MedalID int `json:"MedalId"`
+					Count   int `json:"Count"`
+				} `json:"MedalAwards"`
+				DestroyedEnemyVehicles []struct {
+					Enemy struct {
+						BaseID      int64         `json:"BaseId"`
+						Attachments []interface{} `json:"Attachments"`
+					} `json:"Enemy"`
+					TotalKills int `json:"TotalKills"`
+				} `json:"DestroyedEnemyVehicles"`
+				EnemyKills  []interface{} `json:"EnemyKills"`
+				WeaponStats []struct {
+					WeaponID struct {
+						StockID     int64         `json:"StockId"`
+						Attachments []interface{} `json:"Attachments"`
+					} `json:"WeaponId"`
+					TotalShotsFired     int     `json:"TotalShotsFired"`
+					TotalShotsLanded    int     `json:"TotalShotsLanded"`
+					TotalHeadshots      int     `json:"TotalHeadshots"`
+					TotalKills          int     `json:"TotalKills"`
+					TotalDamageDealt    float64 `json:"TotalDamageDealt"`
+					TotalPossessionTime string  `json:"TotalPossessionTime"`
+				} `json:"WeaponStats"`
+				Impulses []struct {
+					ID    int64 `json:"Id"`
+					Count int   `json:"Count"`
+				} `json:"Impulses"`
+				TotalSpartanKills int    `json:"TotalSpartanKills"`
+				FastestMatchWin   string `json:"FastestMatchWin"`
+			} `json:"ArenaStats"`
+			PlayerID struct {
+				Gamertag string      `json:"Gamertag"`
+				Xuid     interface{} `json:"Xuid"`
+			} `json:"PlayerId"`
+			SpartanRank int `json:"SpartanRank"`
+			Xp          int `json:"Xp"`
+		} `json:"Result"`
+	} `json:"Results"`
+	Links struct {
+		Self struct {
+			AuthorityID                              string `json:"AuthorityId"`
+			Path                                     string `json:"Path"`
+			QueryString                              string `json:"QueryString"`
+			RetryPolicyID                            string `json:"RetryPolicyId"`
+			TopicName                                string `json:"TopicName"`
+			AcknowledgementTypeID                    int    `json:"AcknowledgementTypeId"`
+			AuthenticationLifetimeExtensionSupported bool   `json:"AuthenticationLifetimeExtensionSupported"`
+		} `json:"Self"`
+	} `json:"Links"`
+}
 type SkullsStruct []struct {
 	ContentID   string `json:"contentId"`
 	Description string `json:"description"`
