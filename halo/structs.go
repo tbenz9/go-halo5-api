@@ -662,32 +662,68 @@ type EnemiesStruct []struct {
 }
 
 type EventsForMatchStruct struct {
-	GameEvents []struct {
-		EventName      string `json:"EventName"`
-		RoundIndex     int    `json:"RoundIndex"`
-		TimeSinceStart string `json:"TimeSinceStart"`
-	} `json:"GameEvents"`
-	IsCompleteSetOfEvents bool `json:"IsCompleteSetOfEvents"`
-	Links                 struct {
+	Links struct {
 		StatsMatchDetails struct {
-			AcknowledgementTypeID                    int         `json:"AcknowledgementTypeId"`
-			AuthenticationLifetimeExtensionSupported bool        `json:"AuthenticationLifetimeExtensionSupported"`
 			AuthorityID                              string      `json:"AuthorityId"`
 			Path                                     string      `json:"Path"`
 			QueryString                              interface{} `json:"QueryString"`
 			RetryPolicyID                            string      `json:"RetryPolicyId"`
 			TopicName                                string      `json:"TopicName"`
+			AcknowledgementTypeID                    int         `json:"AcknowledgementTypeId"`
+			AuthenticationLifetimeExtensionSupported bool        `json:"AuthenticationLifetimeExtensionSupported"`
 		} `json:"StatsMatchDetails"`
 		UgcFilmManifest struct {
-			AcknowledgementTypeID                    int    `json:"AcknowledgementTypeId"`
-			AuthenticationLifetimeExtensionSupported bool   `json:"AuthenticationLifetimeExtensionSupported"`
 			AuthorityID                              string `json:"AuthorityId"`
 			Path                                     string `json:"Path"`
 			QueryString                              string `json:"QueryString"`
 			RetryPolicyID                            string `json:"RetryPolicyId"`
 			TopicName                                string `json:"TopicName"`
+			AcknowledgementTypeID                    int    `json:"AcknowledgementTypeId"`
+			AuthenticationLifetimeExtensionSupported bool   `json:"AuthenticationLifetimeExtensionSupported"`
 		} `json:"UgcFilmManifest"`
 	} `json:"Links"`
+	GameEvents []struct {
+		RoundIndex                int           `json:"RoundIndex,omitempty"`
+		EventName                 string        `json:"EventName"`
+		TimeSinceStart            string        `json:"TimeSinceStart"`
+		Assistants                []interface{} `json:"Assistants,omitempty"`
+		DeathDisposition          int           `json:"DeathDisposition,omitempty"`
+		IsAssassination           bool          `json:"IsAssassination,omitempty"`
+		IsGroundPound             bool          `json:"IsGroundPound,omitempty"`
+		IsHeadshot                bool          `json:"IsHeadshot,omitempty"`
+		IsMelee                   bool          `json:"IsMelee,omitempty"`
+		IsShoulderBash            bool          `json:"IsShoulderBash,omitempty"`
+		IsWeapon                  bool          `json:"IsWeapon,omitempty"`
+		Killer                    interface{}   `json:"Killer,omitempty"`
+		KillerAgent               int           `json:"KillerAgent,omitempty"`
+		KillerWeaponAttachmentIds []interface{} `json:"KillerWeaponAttachmentIds,omitempty"`
+		KillerWeaponStockID       int           `json:"KillerWeaponStockId,omitempty"`
+		KillerWorldLocation       struct {
+			X float64 `json:"x"`
+			Y float64 `json:"y"`
+			Z float64 `json:"z"`
+		} `json:"KillerWorldLocation,omitempty"`
+		Victim              interface{}   `json:"Victim,omitempty"`
+		VictimAgent         int           `json:"VictimAgent,omitempty"`
+		VictimAttachmentIds []interface{} `json:"VictimAttachmentIds,omitempty"`
+		VictimStockID       int           `json:"VictimStockId,omitempty"`
+		VictimWorldLocation struct {
+			X float64 `json:"x"`
+			Y float64 `json:"y"`
+			Z float64 `json:"z"`
+		} `json:"VictimWorldLocation,omitempty"`
+		Player struct {
+			Gamertag string      `json:"Gamertag"`
+			Xuid     interface{} `json:"Xuid"`
+		} `json:"Player,omitempty"`
+		WeaponAttachmentIds       []int  `json:"WeaponAttachmentIds,omitempty"`
+		WeaponStockID             int    `json:"WeaponStockId,omitempty"`
+		MedalID                   int    `json:"MedalId,omitempty"`
+		ShotsFired                int    `json:"ShotsFired,omitempty"`
+		ShotsLanded               int    `json:"ShotsLanded,omitempty"`
+		TimeWeaponActiveAsPrimary string `json:"TimeWeaponActiveAsPrimary,omitempty"`
+	} `json:"GameEvents"`
+	IsCompleteSetOfEvents bool `json:"IsCompleteSetOfEvents"`
 }
 
 type FlexibleStatsStruct []struct {
