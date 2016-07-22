@@ -18,22 +18,28 @@ type CarnageReportArenaStruct struct {
 			ObjectivesCompletedAmount    int     `json:"ObjectivesCompletedAmount"`
 		} `json:"XpInfo"`
 		PreviousCsr struct {
-			Tier              int         `json:"Tier"`
-			DesignationID     int         `json:"DesignationId"`
-			Csr               int         `json:"Csr"`
-			PercentToNextTier int         `json:"PercentToNextTier"`
-			Rank              interface{} `json:"Rank"`
+			Tier              int `json:"Tier"`
+			DesignationID     int `json:"DesignationId"`
+			Csr               int `json:"Csr"`
+			PercentToNextTier int `json:"PercentToNextTier"`
+			Rank              int `json:"Rank"`
 		} `json:"PreviousCsr"`
 		CurrentCsr struct {
-			Tier              int         `json:"Tier"`
-			DesignationID     int         `json:"DesignationId"`
-			Csr               int         `json:"Csr"`
-			PercentToNextTier int         `json:"PercentToNextTier"`
-			Rank              interface{} `json:"Rank"`
+			Tier              int `json:"Tier"`
+			DesignationID     int `json:"DesignationId"`
+			Csr               int `json:"Csr"`
+			PercentToNextTier int `json:"PercentToNextTier"`
+			Rank              int `json:"Rank"`
 		} `json:"CurrentCsr"`
-		MeasurementMatchesLeft int           `json:"MeasurementMatchesLeft"`
-		RewardSets             []interface{} `json:"RewardSets"`
-		KilledOpponentDetails  []struct {
+		MeasurementMatchesLeft int `json:"MeasurementMatchesLeft"`
+		RewardSets             []struct {
+			RewardSet           string `json:"RewardSet"`
+			RewardSourceType    int    `json:"RewardSourceType"`
+			SpartanRankSource   int    `json:"SpartanRankSource"`
+			CommendationLevelID string `json:"CommendationLevelId"`
+			CommendationSource  string `json:"CommendationSource"`
+		} `json:"RewardSets"`
+		KilledOpponentDetails []struct {
 			GamerTag   string `json:"GamerTag"`
 			TotalKills int    `json:"TotalKills"`
 		} `json:"KilledOpponentDetails"`
@@ -42,12 +48,18 @@ type CarnageReportArenaStruct struct {
 			TotalKills int    `json:"TotalKills"`
 		} `json:"KilledByOpponentDetails"`
 		FlexibleStats struct {
-			MedalStatCounts   []interface{} `json:"MedalStatCounts"`
+			MedalStatCounts []struct {
+				ID    string `json:"Id"`
+				Count int    `json:"Count"`
+			} `json:"MedalStatCounts"`
 			ImpulseStatCounts []struct {
 				ID    string `json:"Id"`
 				Count int    `json:"Count"`
 			} `json:"ImpulseStatCounts"`
-			MedalTimelapses   []interface{} `json:"MedalTimelapses"`
+			MedalTimelapses []struct {
+				ID        string `json:"Id"`
+				Timelapse string `json:"Timelapse"`
+			} `json:"MedalTimelapses"`
 			ImpulseTimelapses []struct {
 				ID        string `json:"Id"`
 				Timelapse string `json:"Timelapse"`
@@ -74,21 +86,21 @@ type CarnageReportArenaStruct struct {
 			CardConsumed bool   `json:"CardConsumed"`
 		} `json:"BoostInfo"`
 		Player struct {
-			Gamertag string      `json:"Gamertag"`
-			Xuid     interface{} `json:"Xuid"`
+			Gamertag string `json:"Gamertag"`
+			Xuid     int    `json:"Xuid"`
 		} `json:"Player"`
-		TeamID              int         `json:"TeamId"`
-		Rank                int         `json:"Rank"`
-		DNF                 bool        `json:"DNF"`
-		AvgLifeTimeOfPlayer string      `json:"AvgLifeTimeOfPlayer"`
-		PreMatchRatings     interface{} `json:"PreMatchRatings"`
-		PostMatchRatings    interface{} `json:"PostMatchRatings"`
-		PlayerScore         int         `json:"PlayerScore"`
-		TotalKills          int         `json:"TotalKills"`
-		TotalHeadshots      int         `json:"TotalHeadshots"`
-		TotalWeaponDamage   float64     `json:"TotalWeaponDamage"`
-		TotalShotsFired     int         `json:"TotalShotsFired"`
-		TotalShotsLanded    int         `json:"TotalShotsLanded"`
+		TeamID              int     `json:"TeamId"`
+		Rank                int     `json:"Rank"`
+		DNF                 bool    `json:"DNF"`
+		AvgLifeTimeOfPlayer string  `json:"AvgLifeTimeOfPlayer"`
+		PreMatchRatings     int     `json:"PreMatchRatings"`
+		PostMatchRatings    int     `json:"PostMatchRatings"`
+		PlayerScore         int     `json:"PlayerScore"`
+		TotalKills          int     `json:"TotalKills"`
+		TotalHeadshots      int     `json:"TotalHeadshots"`
+		TotalWeaponDamage   float64 `json:"TotalWeaponDamage"`
+		TotalShotsFired     int     `json:"TotalShotsFired"`
+		TotalShotsLanded    int     `json:"TotalShotsLanded"`
 		WeaponWithMostKills struct {
 			WeaponID struct {
 				StockID     int           `json:"StockId"`
@@ -125,9 +137,21 @@ type CarnageReportArenaStruct struct {
 			MedalID int64 `json:"MedalId"`
 			Count   int   `json:"Count"`
 		} `json:"MedalAwards"`
-		DestroyedEnemyVehicles []interface{} `json:"DestroyedEnemyVehicles"`
-		EnemyKills             []interface{} `json:"EnemyKills"`
-		WeaponStats            []struct {
+		DestroyedEnemyVehicles []struct {
+			Enemy struct {
+				BaseId      int           `json:"BaseId"`
+				Attachments []interface{} `json:"Attachments"`
+			} `json:"Enemy"`
+			TotalKills int `json:"TotalKills"`
+		} `json:"DestroyedEnemyVehicles"`
+		EnemyKills []struct {
+			Enemy struct {
+				BaseId      int           `json:"BaseId"`
+				Attachments []interface{} `json:"Attachments"`
+			} `json:"Enemy"`
+			TotalKills int `json:"TotalKills"`
+		} `json:"EnemyKills"`
+		WeaponStats []struct {
 			WeaponID struct {
 				StockID     int           `json:"StockId"`
 				Attachments []interface{} `json:"Attachments"`
@@ -139,9 +163,12 @@ type CarnageReportArenaStruct struct {
 			TotalDamageDealt    float64 `json:"TotalDamageDealt"`
 			TotalPossessionTime string  `json:"TotalPossessionTime"`
 		} `json:"WeaponStats"`
-		Impulses          []interface{} `json:"Impulses"`
-		TotalSpartanKills int           `json:"TotalSpartanKills"`
-		FastestMatchWin   interface{}   `json:"FastestMatchWin"`
+		Impulses []struct {
+			ID    int64 `json:"Id"`
+			Count int   `json:"Count"`
+		} `json:"Impulses"`
+		TotalSpartanKills int         `json:"TotalSpartanKills"`
+		FastestMatchWin   interface{} `json:"FastestMatchWin"`
 	} `json:"PlayerStats"`
 	TeamStats []struct {
 		TeamID     int `json:"TeamId"`
