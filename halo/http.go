@@ -6,7 +6,12 @@ import (
 	"net/http"
 	"net/url"
 	"regexp"
+	"time"
 )
+
+var callList = make([]int64, 200)
+
+//var callCount int = 0
 
 func (h *Halo) metadataRequest(datatype, id string) ([]byte, error) {
 	url, err := url.Parse(fmt.Sprintf("%s/metadata/%s/metadata/%s/%s", h.baseurl, h.title, datatype, id))
@@ -28,6 +33,16 @@ func (h *Halo) sendRequest(url string) ([]byte, error) {
 		return nil, err
 	}
 	request.Header.Set("Ocp-Apim-Subscription-Key", h.apikey)
+	currentTime := time.Now().Unix()
+	callList = append(callList[:0], callList[1:]...)
+	callList = append(callList, currentTime)
+	if callList[0]+10 > currentTime {
+		sleepTime := (callList[0] + 10) - currentTime
+		//		fmt.Println(sleepTime)
+		time.Sleep(time.Duration(sleepTime) * time.Second)
+	}
+	//	callCount++
+	//	fmt.Println(callCount)
 	response, err := http.DefaultClient.Do(request)
 	if err != nil {
 		return nil, err
