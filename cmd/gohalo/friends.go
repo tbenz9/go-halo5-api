@@ -70,22 +70,18 @@ func totalGamesCompleted(gamertag string, gameTypes []string, h *halo.Halo) [4]i
 	gamesCompleted[1] = w.Results[0].Result.WarzoneStat.TotalGamesCompleted
 	gamesCompleted[2] = c.Results[0].Result.CustomStats.TotalGamesCompleted
 	gamesCompleted[3] = ca.Results[0].Result.CampaignStat.TotalGamesCompleted
-	//	time.Sleep(4 * time.Second)
 	return gamesCompleted
 }
 
-func main() {
-	var gamertag = "motta13"
-	gameTypes := []string{"arena", "warzone", "custom", "campaign"}
+func getAllMatchIDs(gamertag string, gameTypes []string, h *halo.Halo) [4][]string {
 	matchIDs := [4][]string{}
 	var ID string
-	h := halo.NewHalo(baseurl, title, getAPIKey(), 200)
 
 	gamesCompleted := totalGamesCompleted(gamertag, gameTypes, h)
-	fmt.Println(gamesCompleted)
+	fmt.Println("Games Completed: ", gamesCompleted)
 	for k := 0; k < len(gameTypes); k++ { // Loop through game types
 		for i := 0; i < gamesCompleted[k]; i = i + 25 { // Loop through game history 25 at a time
-			//	for i := 0; i < 200; i = i + 25 { // Loop through game history 25 at a time
+			//		for i := 0; i < 25; i = i + 25 { // Loop through game history 25 at a time
 			a1, err := h.MatchesForPlayer(gamertag, gameTypes[k], i, i+25)
 			if err != nil {
 				fmt.Println("a")
@@ -99,4 +95,82 @@ func main() {
 		}
 	}
 	//fmt.Printf("%+v", matchIDs)
+	return matchIDs
+}
+
+func getPlayersInMatch(ID, gameType string, h *halo.Halo) []string {
+	playerList := []string{}
+	if gameType == "arena" {
+		a, err := h.CarnageReportArena(ID)
+		if err != nil {
+			log.Fatal(err)
+		}
+		for j := 0; j < len(a.PlayerStats); j++ { // Loop through results
+			ID = a.PlayerStats[j].Player.Gamertag
+			playerList = append(playerList, ID)
+		}
+	}
+	if gameType == "warzone" {
+		a, err := h.CarnageReportWarzone(ID)
+		if err != nil {
+			log.Fatal(err)
+		}
+		for j := 0; j < len(a.PlayerStats); j++ { // Loop through results
+			ID = a.PlayerStats[j].Player.Gamertag
+			playerList = append(playerList, ID)
+		}
+	}
+	if gameType == "custom" {
+		a, err := h.CarnageReportCustom(ID)
+		if err != nil {
+			log.Fatal(err)
+		}
+		for j := 0; j < len(a.PlayerStats); j++ { // Loop through results
+			ID = a.PlayerStats[j].Player.Gamertag
+			playerList = append(playerList, ID)
+		}
+	}
+	if gameType == "campaign" {
+		a, err := h.CarnageReportCampaign(ID)
+		if err != nil {
+			log.Fatal(err)
+		}
+		for j := 0; j < len(a.PlayerStats); j++ { // Loop through results
+			ID = a.PlayerStats[j].Player.Gamertag
+			playerList = append(playerList, ID)
+		}
+	}
+	return playerList
+}
+
+func main() {
+	h := halo.NewHalo(baseurl, title, getAPIKey(), 200)
+	gamertag := "smoke721"
+	gameTypes := []string{"arena", "warzone", "custom", "campaign"}
+	playerMap := make([]map[string][]string, 4)
+	gamesTogether := 0
+	matchIDs := getAllMatchIDs(gamertag, gameTypes, h)
+
+	for i := 0; i < len(playerMap); i++ { // Loop through game types
+		playerMap[i] = map[string][]string{}
+		for j := 0; j < len(matchIDs[i]); j++ { // Loop through MatchIDs in each game type
+			playerMap[i][matchIDs[i][j]] = getPlayersInMatch(matchIDs[i][j], gameTypes[i], h) // Add list of players to playerMap
+		}
+	}
+
+	// Print the results nicely
+	for x := 0; x < len(playerMap); x++ {
+		fmt.Printf("\n%v", gameTypes[x]) // Print Gametype
+		for k, _ := range playerMap[x] {
+			fmt.Printf("\n\t%v", k) // Print Key (Match ID)
+			for _, v := range playerMap[x][k] {
+				fmt.Printf("\n\t\t%v", v) // Print Values (Gamertag)
+				if v == "motta13" {
+					gamesTogether++
+				}
+			}
+		}
+	}
+	fmt.Printf("\n\n%v played %v with Thomas", gamertag, gamesTogether)
+
 }

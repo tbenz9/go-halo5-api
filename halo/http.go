@@ -11,7 +11,7 @@ import (
 
 var callList = make([]int64, 200)
 
-//var callCount int = 0
+var callCount int = 0
 
 func (h *Halo) metadataRequest(datatype, id string) ([]byte, error) {
 	url, err := url.Parse(fmt.Sprintf("%s/metadata/%s/metadata/%s/%s", h.baseurl, h.title, datatype, id))
@@ -41,7 +41,7 @@ func (h *Halo) sendRequest(url string) ([]byte, error) {
 		//		fmt.Println(sleepTime)
 		time.Sleep(time.Duration(sleepTime) * time.Second)
 	}
-	//	callCount++
+	callCount++
 	//	fmt.Println(callCount)
 	response, err := http.DefaultClient.Do(request)
 	if err != nil {
