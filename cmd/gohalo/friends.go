@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 
@@ -27,6 +28,10 @@ var sampleMapVariantsID string = "a44373ee-9f63-4733-befd-5cd8fbb1b44a" //Truth
 var sampleRequisitionPacksID string = "d10141cb-68a5-4c6b-af38-4e4935f973f7"
 var sampleRequisitionID string = "e4f549b2-90af-4dab-b2bc-11a46ea44103"
 var samplePlayers string = "motta13,smoke721"
+
+var print bool = true
+var saveToFile bool = false
+var importFromFile bool = true
 
 func getAPIKey() string {
 	apikey := os.Getenv("HALO_API_KEY")
@@ -78,7 +83,7 @@ func getAllMatchIDs(gamertag string, gameTypes []string, h *halo.Halo) [4][]stri
 	var ID string
 
 	gamesCompleted := totalGamesCompleted(gamertag, gameTypes, h)
-	fmt.Println("Games Completed: ", gamesCompleted)
+	//	fmt.Println("Games Completed: ", gamesCompleted)
 	for k := 0; k < len(gameTypes); k++ { // Loop through game types
 		for i := 0; i < gamesCompleted[k]; i = i + 25 { // Loop through game history 25 at a time
 			//		for i := 0; i < 25; i = i + 25 { // Loop through game history 25 at a time
@@ -143,34 +148,75 @@ func getPlayersInMatch(ID, gameType string, h *halo.Halo) []string {
 	return playerList
 }
 
-func main() {
-	h := halo.NewHalo(baseurl, title, getAPIKey(), 200)
-	gamertag := "smoke721"
-	gameTypes := []string{"arena", "warzone", "custom", "campaign"}
-	playerMap := make([]map[string][]string, 4)
+func printNicely(playerMap []map[string][]string, gameTypes []string, gamertag, gamertag2 string) {
 	gamesTogether := 0
-	matchIDs := getAllMatchIDs(gamertag, gameTypes, h)
-
-	for i := 0; i < len(playerMap); i++ { // Loop through game types
-		playerMap[i] = map[string][]string{}
-		for j := 0; j < len(matchIDs[i]); j++ { // Loop through MatchIDs in each game type
-			playerMap[i][matchIDs[i][j]] = getPlayersInMatch(matchIDs[i][j], gameTypes[i], h) // Add list of players to playerMap
-		}
-	}
-
 	// Print the results nicely
-	for x := 0; x < len(playerMap); x++ {
-		fmt.Printf("\n%v", gameTypes[x]) // Print Gametype
-		for k, _ := range playerMap[x] {
-			fmt.Printf("\n\t%v", k) // Print Key (Match ID)
-			for _, v := range playerMap[x][k] {
-				fmt.Printf("\n\t\t%v", v) // Print Values (Gamertag)
-				if v == "motta13" {
-					gamesTogether++
+	if print == true { // turn on printing easily
+		for x := 0; x < len(playerMap); x++ {
+			fmt.Printf("\n%v", gameTypes[x]) // Print Gametype
+			for k, _ := range playerMap[x] {
+				fmt.Printf("\n\t%v", k) // Print Key (Match ID)
+				for _, v := range playerMap[x][k] {
+					fmt.Printf("\n\t\t%v", v) // Print Values (Gamertag)
+					if v == gamertag2 {       // count how many games gamertag2 has played with gamertag
+						gamesTogether++
+					}
 				}
 			}
 		}
+		fmt.Printf("\n\n%v played %v with Thomas\n\n", gamertag, gamesTogether)
 	}
-	fmt.Printf("\n\n%v played %v with Thomas", gamertag, gamesTogether)
+}
+
+func writeToFile(playerMap []map[string][]string, file string) {
+
+	if saveToFile == true {
+		out, err := json.Marshal(playerMap)
+		if err != nil {
+			panic(err)
+		}
+
+		err = ioutil.WriteFile(file, out, 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
+
+}
+
+func openFile(playerMap []map[string][]string, file string) []map[string][]string {
+	out, err := ioutil.ReadFile(file)
+	if err != nil {
+		panic(err)
+	}
+	err = json.Unmarshal(out, &playerMap)
+	if err != nil {
+		panic(err)
+	}
+	return playerMap
+}
+
+func main() {
+	h := halo.NewHalo(baseurl, title, getAPIKey(), 200)
+	gamertag := "smoke721"
+	gamertag2 := "motta13"
+	gameTypes := []string{"arena", "warzone", "custom", "campaign"}
+	playerMap := make([]map[string][]string, 4)
+
+	if importFromFile == false {
+		matchIDs := getAllMatchIDs(gamertag, gameTypes, h) // Get Match IDs
+
+		// Fill Match IDs and player lists into Playermap
+		for i := 0; i < len(playerMap); i++ { // Loop through game types
+			playerMap[i] = map[string][]string{}
+			for j := 0; j < len(matchIDs[i]); j++ { // Loop through MatchIDs in each game type
+				playerMap[i][matchIDs[i][j]] = getPlayersInMatch(matchIDs[i][j], gameTypes[i], h) // Add list of players to playerMap
+			}
+		}
+	} else {
+		playerMap = openFile(playerMap, "/tmp/smoke721")
+	}
+	printNicely(playerMap, gameTypes, gamertag, gamertag2) // Print Nicely
+	writeToFile(playerMap, "/tmp/smoke721")
 
 }
