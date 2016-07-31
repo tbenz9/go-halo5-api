@@ -9,8 +9,8 @@ import (
 	"time"
 )
 
-var callList = make([]int64, 200)
-
+//var mutex = &sync.Mutex{}
+var callList = make([]int64, 10)
 var callCount int = 0
 
 func (h *Halo) metadataRequest(datatype, id string) ([]byte, error) {
@@ -33,17 +33,22 @@ func (h *Halo) sendRequest(url string) ([]byte, error) {
 		return nil, err
 	}
 	request.Header.Set("Ocp-Apim-Subscription-Key", h.apikey)
-	currentTime := time.Now().Unix()
+	currentTime := time.Now().UnixNano()
+	//	mutex.Lock()
 	callList = append(callList[:0], callList[1:]...)
 	callList = append(callList, currentTime)
-	if callList[0]+10 > currentTime {
-		sleepTime := (callList[0] + 10) - currentTime
-		//		fmt.Println(sleepTime)
+	//	mutex.Unlock()
+	if (callList[0] + 1e10) < currentTime {
+		sleepTime := (callList[0] + (1e10)) - currentTime
 		time.Sleep(time.Duration(sleepTime) * time.Second)
 	}
+	//	mutex.Lock()
 	callCount++
-	//	fmt.Println(callCount)
+	fmt.Println(callCount)
+	//	fmt.Println(callList)
+	//	mutex.Unlock()
 	response, err := http.DefaultClient.Do(request)
+	fmt.Println("got response")
 	if err != nil {
 		return nil, err
 	}

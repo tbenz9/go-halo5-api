@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/tbenz9/go-halo5-api/halo"
 )
@@ -13,25 +14,24 @@ import (
 var baseurl string = "https://www.haloapi.com"
 var title string = "h5"
 
-// Sample values for testing
-var sampleGamertag string = "motta13"
-var sampleMode string = "warzone"
-var sampleArenaMatchID string = "f15986a8-1132-48d7-9194-e23388ec6084"
-var sampleCampaignMatchID string = "f9d5a884-68a5-4e01-a9cc-92239787559f"
-var sampleCustomMatchID string = "5e0985de-309c-4031-8133-fea03500fd1b"
-var sampleWarzoneMatchID string = "c35a35f8-f450-4836-a4c2-65100a7acb79"
-var sampleSeasonID string = "b46c2095-4ca6-4f4b-a565-4702d7cfe586"      //February 2016 Season
-var samplePlaylistID string = "2323b76a-db98-4e03-aa37-e171cfbdd1a4"    //SWAT gametype 2016 Season
-var sampleGameVariantID string = "963ca478-369a-4a37-97e3-432fa13035e1" //Slayer
-var badGameVariantID string = "9aaaaaaa-369a-4a37-97e3-432fa13035e1"    //Slayer
-var sampleMapVariantsID string = "a44373ee-9f63-4733-befd-5cd8fbb1b44a" //Truth
-var sampleRequisitionPacksID string = "d10141cb-68a5-4c6b-af38-4e4935f973f7"
-var sampleRequisitionID string = "e4f549b2-90af-4dab-b2bc-11a46ea44103"
-var samplePlayers string = "motta13,smoke721"
-
 var print bool = true
 var saveToFile bool = false
-var importFromFile bool = true
+var importFromFile bool = false
+
+type gameData struct {
+	ID           string
+	Type         string
+	Completed    string
+	Players      []string
+	Rank         int
+	Result       int
+	MapID        string
+	BaseMap      string
+	TeamID       int
+	TotalAssists int
+	TotalDeaths  int
+	TotalKills   int
+}
 
 func getAPIKey() string {
 	apikey := os.Getenv("HALO_API_KEY")
@@ -41,111 +41,136 @@ func getAPIKey() string {
 	return apikey
 }
 
-func structToString(s interface{}) (string, error) {
-	json, err := json.Marshal(s)
-	if err != nil {
-		return "", err
-	}
-	return string(json), nil
-}
-
+// I have to get my total games for each gameType so I know how many times
+// to loop in the getAllMatchIDs function.
 func totalGamesCompleted(gamertag string, gameTypes []string, h *halo.Halo) [4]int {
+	//var wg sync.WaitGroup
+	//wg.Add(4)
 	var gamesCompleted = [4]int{}
+	//go func() {
 	a, err := h.ServiceRecordArena(gamertag, "")
 	if err != nil {
 		fmt.Println("a")
 		log.Fatal(err)
 	}
+	gamesCompleted[0] = a.Results[0].Result.ArenaStats.TotalGamesCompleted
+	//	wg.Done()
+	//	}()
+	//	go func() {
 	w, err := h.ServiceRecordWarzone(gamertag)
 	if err != nil {
 		fmt.Println("w")
 		log.Fatal(err)
 	}
+	gamesCompleted[1] = w.Results[0].Result.WarzoneStat.TotalGamesCompleted
+	//		wg.Done()
+	//	}()
+	//	go func() {
 	c, err := h.ServiceRecordCustom(gamertag)
 	if err != nil {
 		fmt.Println("c")
 		log.Fatal(err)
 	}
+	gamesCompleted[2] = c.Results[0].Result.CustomStats.TotalGamesCompleted
+	//		wg.Done()
+	//	}()
+	//	go func() {
 	ca, err := h.ServiceRecordCampaign(gamertag)
 	if err != nil {
 		fmt.Println("ca")
 		log.Fatal(err)
 	}
-	gamesCompleted[0] = a.Results[0].Result.ArenaStats.TotalGamesCompleted
-	gamesCompleted[1] = w.Results[0].Result.WarzoneStat.TotalGamesCompleted
-	gamesCompleted[2] = c.Results[0].Result.CustomStats.TotalGamesCompleted
 	gamesCompleted[3] = ca.Results[0].Result.CampaignStat.TotalGamesCompleted
+	//		wg.Done()
+	//	}()
+	//	fmt.Println("waiting in TotalGamesCompleted")
+	//	wg.Wait()
 	return gamesCompleted
 }
 
-func getAllMatchIDs(gamertag string, gameTypes []string, h *halo.Halo) [4][]string {
-	matchIDs := [4][]string{}
-	var ID string
-
+func getAllMatchIDs(gamertag string, gameTypes []string, h *halo.Halo, allGames *[]*gameData) {
+	//var wg sync.WaitGroup
+	//var mutex = &sync.Mutex{}
 	gamesCompleted := totalGamesCompleted(gamertag, gameTypes, h)
-	//	fmt.Println("Games Completed: ", gamesCompleted)
-	for k := 0; k < len(gameTypes); k++ { // Loop through game types
-		for i := 0; i < gamesCompleted[k]; i = i + 25 { // Loop through game history 25 at a time
-			//		for i := 0; i < 25; i = i + 25 { // Loop through game history 25 at a time
+	fmt.Println("Games Completed: ", gamesCompleted)
+	for k := range gameTypes { // Loop through game types
+		//for i := 0; i < gamesCompleted[k]; i = i + 25 { // Loop through game history 25 at a time
+		for i := 0; i < 25; i = i + 25 { // For Testing: Only do the first 25 games of each type.
+			//		wg.Add(1)
+			//		go func() {
+			//			defer wg.Done()
 			a1, err := h.MatchesForPlayer(gamertag, gameTypes[k], i, i+25)
 			if err != nil {
 				fmt.Println("a")
 				log.Fatal(err)
 			}
 			for j := 0; j < len(a1.Results); j++ { // Loop through results
-				ID = a1.Results[j].ID.MatchID
-				matchIDs[k] = append(matchIDs[k], ID)
+				game := new(gameData)
+				game.ID = a1.Results[j].ID.MatchID
+				game.Type = gameTypes[k]
+				game.Completed = a1.Results[j].MatchCompletedDate.ISO8601Date
+				game.BaseMap = a1.Results[j].MapID
+				game.Rank = a1.Results[j].Players[0].Rank
+				game.Result = a1.Results[j].Players[0].Result
+				game.TeamID = a1.Results[j].Players[0].TeamID
+				game.TotalAssists = a1.Results[j].Players[0].TotalAssists
+				game.TotalDeaths = a1.Results[j].Players[0].TotalDeaths
+				game.TotalKills = a1.Results[j].Players[0].TotalKills
+				//			mutex.Lock()
+				*allGames = append(*allGames, game)
+				//			mutex.Unlock()
 			}
-			//			time.Sleep(1 * time.Second)
+
+			//		}()
+			fmt.Println("Waiting in getAllMatchIDs")
+			//		wg.Wait()
 		}
 	}
-	//fmt.Printf("%+v", matchIDs)
-	return matchIDs
 }
 
-func getPlayersInMatch(ID, gameType string, h *halo.Halo) []string {
+func getPlayersInMatch(h *halo.Halo, game *gameData) {
 	playerList := []string{}
-	if gameType == "arena" {
-		a, err := h.CarnageReportArena(ID)
+	if game.Type == "arena" {
+		a, err := h.CarnageReportArena(game.ID)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
 		}
 		for j := 0; j < len(a.PlayerStats); j++ { // Loop through results
-			ID = a.PlayerStats[j].Player.Gamertag
+			ID := a.PlayerStats[j].Player.Gamertag
 			playerList = append(playerList, ID)
 		}
 	}
-	if gameType == "warzone" {
-		a, err := h.CarnageReportWarzone(ID)
+	if game.Type == "warzone" {
+		a, err := h.CarnageReportWarzone(game.ID)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
 		}
 		for j := 0; j < len(a.PlayerStats); j++ { // Loop through results
-			ID = a.PlayerStats[j].Player.Gamertag
+			ID := a.PlayerStats[j].Player.Gamertag
 			playerList = append(playerList, ID)
 		}
 	}
-	if gameType == "custom" {
-		a, err := h.CarnageReportCustom(ID)
+	if game.Type == "custom" {
+		a, err := h.CarnageReportCustom(game.ID)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
 		}
 		for j := 0; j < len(a.PlayerStats); j++ { // Loop through results
-			ID = a.PlayerStats[j].Player.Gamertag
+			ID := a.PlayerStats[j].Player.Gamertag
 			playerList = append(playerList, ID)
 		}
 	}
-	if gameType == "campaign" {
-		a, err := h.CarnageReportCampaign(ID)
+	if game.Type == "campaign" {
+		a, err := h.CarnageReportCampaign(game.ID)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
 		}
 		for j := 0; j < len(a.PlayerStats); j++ { // Loop through results
-			ID = a.PlayerStats[j].Player.Gamertag
+			ID := a.PlayerStats[j].Player.Gamertag
 			playerList = append(playerList, ID)
 		}
 	}
-	return playerList
+	game.Players = playerList
 }
 
 func printNicely(playerMap []map[string][]string, gameTypes []string, gamertag, gamertag2 string) {
@@ -157,21 +182,21 @@ func printNicely(playerMap []map[string][]string, gameTypes []string, gamertag, 
 			for k, _ := range playerMap[x] {
 				fmt.Printf("\n\t%v", k) // Print Key (Match ID)
 				for _, v := range playerMap[x][k] {
-					fmt.Printf("\n\t\t%v", v) // Print Values (Gamertag)
-					if v == gamertag2 {       // count how many games gamertag2 has played with gamertag
+					fmt.Printf("\n\t\t%v", v)                             // Print Values (Gamertag)
+					if strings.ToLower(v) == strings.ToLower(gamertag2) { // count how many games gamertag2 has played with gamertag
 						gamesTogether++
 					}
 				}
 			}
 		}
-		fmt.Printf("\n\n%v played %v with Thomas\n\n", gamertag, gamesTogether)
+		fmt.Printf("\n\n%v played %v with %v\n\n", gamertag, gamesTogether, gamertag2)
 	}
 }
 
-func writeToFile(playerMap []map[string][]string, file string) {
+func writeToFile(allGames *[]*gameData, file string) {
 
 	if saveToFile == true {
-		out, err := json.Marshal(playerMap)
+		out, err := json.Marshal(allGames)
 		if err != nil {
 			panic(err)
 		}
@@ -181,42 +206,49 @@ func writeToFile(playerMap []map[string][]string, file string) {
 			panic(err)
 		}
 	}
-
 }
 
-func openFile(playerMap []map[string][]string, file string) []map[string][]string {
+func openFile(allGames *[]*gameData, file string) []*gameData {
+	tmp := []*gameData{}
 	out, err := ioutil.ReadFile(file)
 	if err != nil {
 		panic(err)
 	}
-	err = json.Unmarshal(out, &playerMap)
+	err = json.Unmarshal(out, &tmp)
 	if err != nil {
 		panic(err)
 	}
-	return playerMap
+	return tmp
 }
 
 func main() {
+	//	var wg sync.WaitGroup
 	h := halo.NewHalo(baseurl, title, getAPIKey(), 200)
-	gamertag := "smoke721"
-	gamertag2 := "motta13"
+	gamertag := "motta13"
+	//gamertag2 := "casket velocity"
 	gameTypes := []string{"arena", "warzone", "custom", "campaign"}
-	playerMap := make([]map[string][]string, 4)
+	allGames := []*gameData{}
 
-	if importFromFile == false {
-		matchIDs := getAllMatchIDs(gamertag, gameTypes, h) // Get Match IDs
-
-		// Fill Match IDs and player lists into Playermap
-		for i := 0; i < len(playerMap); i++ { // Loop through game types
-			playerMap[i] = map[string][]string{}
-			for j := 0; j < len(matchIDs[i]); j++ { // Loop through MatchIDs in each game type
-				playerMap[i][matchIDs[i][j]] = getPlayersInMatch(matchIDs[i][j], gameTypes[i], h) // Add list of players to playerMap
-			}
+	if importFromFile == true {
+		allGames = openFile(&allGames, "/tmp/mt")
+		for i := range allGames {
+			fmt.Printf("\n%+v", allGames[i])
 		}
+		fmt.Printf("%+v", allGames)
 	} else {
-		playerMap = openFile(playerMap, "/tmp/smoke721")
+		getAllMatchIDs(gamertag, gameTypes, h, &allGames) // Get Match IDs
+		for i := range allGames {
+			//			wg.Add(1)
+			//			go func() {
+			//			defer wg.Done()
+			getPlayersInMatch(h, allGames[i])
+			fmt.Printf("\nGame: %+v", allGames[i])
+			//			}()
+		}
+		//		wg.Wait()
 	}
-	printNicely(playerMap, gameTypes, gamertag, gamertag2) // Print Nicely
-	writeToFile(playerMap, "/tmp/smoke721")
 
+	if saveToFile == true {
+		writeToFile(&allGames, "/tmp/mt")
+	}
 }
